@@ -1,7 +1,7 @@
-# Личный проект «{{projectTitle}}»
+# Личный проект «Six Сities»
 
-* Студент: [{{userName}}]({{userProfile}}).
-* Наставник: `Неизвестно`.
+* Студент: [`Александр`]({{https://github.com/M1sterRob0t}}).
+* Наставник: [`Оля Иванюшина`]({{https://github.com/IOlga1}})..
 
 ---
 
