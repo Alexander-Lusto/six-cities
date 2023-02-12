@@ -1,7 +1,7 @@
 # Личный проект «Six Сities»
 
-* Студент: [`Александр`]({{https://github.com/M1sterRob0t}}).
-* Наставник: [`Оля Иванюшина`]({{https://github.com/IOlga1}})..
+* Студент: [`Александр`]({https://github.com/M1sterRob0t}).
+* Наставник: [`Оля Иванюшина`]({https://github.com/IOlga1}).
 
 ---
 
