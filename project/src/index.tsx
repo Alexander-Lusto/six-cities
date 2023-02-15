@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { BrowserRouter } from 'react-router-dom';
 
 const CARDS_NUMBER = 5;
 
@@ -9,7 +10,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <App cardsNumber={CARDS_NUMBER} />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <React.StrictMode>
+      <App cardsNumber={CARDS_NUMBER} />
+    </React.StrictMode>
+  </BrowserRouter>
 );
