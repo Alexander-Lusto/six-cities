@@ -2,10 +2,14 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Favorites from '../../components/favorites/favorites';
 
-function PageFavorites(): JSX.Element {
+type Props = {
+  isAuthorized: boolean;
+}
+
+function PageFavorites(props: Props): JSX.Element {
   return (
     <div className='page'>
-      <Header></Header>
+      <Header isAuthorized={props.isAuthorized}></Header>
       <Favorites />
       <Footer></Footer>
     </div>
