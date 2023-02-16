@@ -20,11 +20,3 @@ function NotFound404(): JSX.Element {
 }
 
 export default NotFound404;
-/*
-    <main className="page__main page__main--login">
-      <div className="page__login-container container">
-        <h1> 404 Not Found</h1>
-
-      </div>
-    </main>
-*/
