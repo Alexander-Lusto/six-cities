@@ -17,7 +17,7 @@ export const offers = [
       isPro: true,
       name: 'Angelina'
     },
-    id: 1,
+    id: 0,
     images: ['img/1.png', 'img/2.png'],
     isFavorite: true,
     isPremium: false,
@@ -51,7 +51,7 @@ export const offers = [
       isPro: false,
       name: 'Alexandra'
     },
-    id: 2,
+    id: 1,
     images: ['img/1.png', 'img/2.png'],
     isFavorite: false,
     isPremium: true,
@@ -85,7 +85,7 @@ export const offers = [
       isPro: true,
       name: 'Krista'
     },
-    id: 3,
+    id: 2,
     images: ['img/1.png', 'img/2.png'],
     isFavorite: false,
     isPremium: true,
@@ -119,7 +119,7 @@ export const offers = [
       isPro: false,
       name: 'Dominiq'
     },
-    id: 4,
+    id: 3,
     images: ['img/1.png', 'img/2.png'],
     isFavorite: true,
     isPremium: false,

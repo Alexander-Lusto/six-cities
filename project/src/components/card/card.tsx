@@ -2,17 +2,19 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 
-interface CardProps {
-  offer: Offer;
-}
-
 const capitalizeFirstLetter = (string: string) => string[0].toUpperCase() + string.slice(1);
 
-function Card({ offer }: CardProps): JSX.Element {
+interface CardProps {
+  offer: Offer;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}
+
+function Card({ offer, onMouseEnter, onMouseLeave }: CardProps): JSX.Element {
   const ratingPercent = `${Math.round(offer.rating) * 20}%`;
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       {offer.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
