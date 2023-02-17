@@ -1,16 +1,17 @@
 import Header from '../../components/header/header';
 import Main from '../../components/main/main';
+import { Offer } from '../../types/offer';
 
 type Props = {
-  cardsNumber: number;
   isAuthorized: boolean;
+  offers: Offer[];
 }
 
 function PageMain(props: Props): JSX.Element {
   return (
     <div className='page'>
       <Header isAuthorized={props.isAuthorized}></Header>
-      <Main cardsNumber={props.cardsNumber} />
+      <Main offers={props.offers}/>
     </div>
   );
 }

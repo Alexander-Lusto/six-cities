@@ -31,8 +31,8 @@
     ],
     "parserOptions": {
       "project": [
-        "project/tsconfig.json",
-        "tsconfig.json"
+        "tsconfig.json",
+        "project/tsconfig.json"
       ]
     },
     "overrides": [

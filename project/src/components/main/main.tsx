@@ -1,11 +1,11 @@
-import Card from '../card/card';
+import { Offer } from '../../types/offer';
+import PlacesList from '../offers-list/offer-list';
 
 type MainProps = {
-  cardsNumber: number;
+  offers: Offer[];
 };
 
 function Main(props: MainProps): JSX.Element {
-  const { cardsNumber } = props;
 
   return (
     <main className="page__main page__main--index">
@@ -59,16 +59,14 @@ function Main(props: MainProps): JSX.Element {
                   <use xlinkHref="#icon-arrow-select"></use>
                 </svg>
               </span>
-              <ul className="places__options places__options--custom places__options--opened">
+              <ul className="places__options places__options--custom places__options">
                 <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                 <li className="places__option" tabIndex={0}>Price: low to high</li>
                 <li className="places__option" tabIndex={0}>Price: high to low</li>
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {getCardsArray(cardsNumber)}
-            </div>
+            <PlacesList offers={props.offers}></PlacesList>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
@@ -77,16 +75,6 @@ function Main(props: MainProps): JSX.Element {
       </div>
     </main>
   );
-}
-
-function getCardsArray(cardsNumber: number): JSX.Element[] {
-  const cards = [];
-
-  for (let i = 0; i < cardsNumber; i++) {
-    cards.push(<Card key={i} />);
-  }
-
-  return cards;
 }
 
 export default Main;

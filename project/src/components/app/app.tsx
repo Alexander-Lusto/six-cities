@@ -6,15 +6,15 @@ import PageMain from '../../pages/main/page-main';
 import PageRoom from '../../pages/room/page-room';
 import PrivateRoute from '../privateOutlet/privateOutlet';
 import PageNotFound from '../../pages/not-found/page-not-found';
+import { Offer } from '../../types/offer';
 
 
 type Props = {
-  cardsNumber: number;
   authorizationToken: boolean;
+  offers: Offer[];
 };
 
 function App(props: Props): JSX.Element {
-  const cardsNumber = props.cardsNumber;
   const isAuthorized = props.authorizationToken;
 
   return (
@@ -26,7 +26,7 @@ function App(props: Props): JSX.Element {
       </Route>
 
       <Route path={AppRoute.Room} element={<PageRoom isAuthorized={isAuthorized}></PageRoom>} />
-      <Route path={AppRoute.Main} element={<PageMain cardsNumber={cardsNumber} isAuthorized={isAuthorized} />} />
+      <Route path={AppRoute.Main} element={<PageMain isAuthorized={isAuthorized} offers={props.offers}/>} />
 
       <Route path="*" element={<PageNotFound isAuthorized={isAuthorized}/>}/>
     </Routes>
