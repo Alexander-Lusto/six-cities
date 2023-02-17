@@ -1,48 +1,20 @@
 import { Offer } from '../../types/offer';
-import PlacesList from '../offers-list/offer-list';
+import PlacesList from '../places-list/places-list';
+import { locations } from '../../const';
 
 type MainProps = {
   offers: Offer[];
 };
 
 function Main(props: MainProps): JSX.Element {
-
+  const currentLocation = locations[3];
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
+            {locations.map((location) => <LocationsItem key={location} location={location} isActive={location === currentLocation} />)}
           </ul>
         </section>
       </div>
@@ -74,6 +46,21 @@ function Main(props: MainProps): JSX.Element {
         </div>
       </div>
     </main>
+  );
+}
+
+function LocationsItem(props: { location: string; isActive: boolean }): JSX.Element {
+  return (
+    <li className="locations__item">
+      <a className={
+        props.isActive ?
+          'locations__item-link tabs__item tabs__item--active' :
+          'locations__item-link tabs__item'
+      } href="#"
+      >
+        <span>{props.location}</span>
+      </a>
+    </li>
   );
 }
 
