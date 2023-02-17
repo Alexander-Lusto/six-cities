@@ -4,10 +4,13 @@ import { locations } from '../../const';
 
 type MainProps = {
   offers: Offer[];
+  currentLocation: string;
 };
 
 function Main(props: MainProps): JSX.Element {
-  const currentLocation = locations[3];
+  const currentLocation = props.currentLocation;
+  const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation);
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -38,7 +41,7 @@ function Main(props: MainProps): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <PlacesList offers={props.offers}></PlacesList>
+            <PlacesList offers={localOffers}></PlacesList>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>

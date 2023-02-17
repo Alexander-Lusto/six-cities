@@ -14,6 +14,8 @@ type Props = {
   offers: Offer[];
 };
 
+const currentLocation = 'Amsterdam';
+
 function App(props: Props): JSX.Element {
   const isAuthorized = props.authorizationToken;
 
@@ -22,13 +24,15 @@ function App(props: Props): JSX.Element {
       <Route path={AppRoute.SignIn} element={<PageLogin isAuthorized={isAuthorized} />} />
 
       <Route path={AppRoute.Favorites} element={<PrivateRoute />}>
-        <Route path={AppRoute.Favorites} element={<PageFavorites isAuthorized={isAuthorized}/>} />
+        <Route path={AppRoute.Favorites}
+          element={<PageFavorites isAuthorized={isAuthorized} offers={props.offers} />}
+        />
       </Route>
 
       <Route path={AppRoute.Room} element={<PageRoom isAuthorized={isAuthorized}></PageRoom>} />
-      <Route path={AppRoute.Main} element={<PageMain isAuthorized={isAuthorized} offers={props.offers}/>} />
+      <Route path={AppRoute.Main} element={<PageMain isAuthorized={isAuthorized} offers={props.offers} currentLocation={currentLocation}/>} />
 
-      <Route path="*" element={<PageNotFound isAuthorized={isAuthorized}/>}/>
+      <Route path="*" element={<PageNotFound isAuthorized={isAuthorized} />} />
     </Routes>
   );
 }

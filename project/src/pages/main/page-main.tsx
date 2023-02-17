@@ -5,13 +5,14 @@ import { Offer } from '../../types/offer';
 type Props = {
   isAuthorized: boolean;
   offers: Offer[];
+  currentLocation: string;
 }
 
 function PageMain(props: Props): JSX.Element {
   return (
     <div className='page'>
       <Header isAuthorized={props.isAuthorized}></Header>
-      <Main offers={props.offers}/>
+      <Main offers={props.offers} currentLocation={props.currentLocation}/>
     </div>
   );
 }

@@ -134,5 +134,39 @@ export const offers = [
     rating: 5,
     title: 'Nice, cozy, warm big bed apartment',
     type: 'private room'
+  },
+  {
+    bedrooms: 1,
+    city: {
+      location: {
+        latitude: 52.370217,
+        longitude: 4.895163,
+        zoom: 10
+      },
+      name: 'Cologne'
+    },
+    description: 'The building is green and from 18th century. An independent House, strategically located between Rembrand Square and National Opera.',
+    goods: ['Heating', 'Cable TV', 'Kitchen', 'Coffee machine', 'Dishwasher', 'Towels'],
+    host: {
+      avatarURL: 'img/4.png',
+      id: 4,
+      isPro: false,
+      name: 'Dominiq'
+    },
+    id: 5,
+    images: ['img/1.png', 'img/2.png'],
+    isFavorite: true,
+    isPremium: false,
+    location: {
+      latitude: 52.35514938496355,
+      longitude: 4.673877537499934,
+      zoom: 8
+    },
+    maxAdults: 2,
+    previewImage: 'img/room.jpg',
+    price: 75,
+    rating: 5,
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'private room'
   }
 ];
