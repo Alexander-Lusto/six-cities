@@ -4,7 +4,7 @@ import PageFavorites from '../../pages/favorites/page-favorites';
 import PageLogin from '../../pages/login/page-login';
 import PageMain from '../../pages/main/page-main';
 import PageRoom from '../../pages/room/page-room';
-import PrivateRoute from '../privateOutlet/privateOutlet';
+import PrivateRoute from '../private-outlet/private-outlet';
 import PageNotFound from '../../pages/not-found/page-not-found';
 import { Offer } from '../../types/offer';
 

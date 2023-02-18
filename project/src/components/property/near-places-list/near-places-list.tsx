@@ -1,10 +1,10 @@
-import { Offer } from "../../../types/offer";
-import Card from "../../card/card";
+import { Offer } from '../../../types/offer';
+import Card from '../../card/card';
 
 const CARDS_AMOUNT = 3;
 
 interface Props {
-  offers: Offer[]
+  offers: Offer[];
   city: string;
 }
 
