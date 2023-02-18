@@ -6,8 +6,8 @@ const capitalizeFirstLetter = (string: string) => string[0].toUpperCase() + stri
 
 interface CardProps {
   offer: Offer;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 function Card({ offer, onMouseEnter, onMouseLeave }: CardProps): JSX.Element {

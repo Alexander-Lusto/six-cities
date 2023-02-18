@@ -1,3 +1,4 @@
+import { Comment } from './comment';
 export type Offer = {
   bedrooms: number;
     city: {
@@ -31,4 +32,5 @@ export type Offer = {
     rating: number;
     title: string;
     type: string;
+    comments: Comment[];
 }

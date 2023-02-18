@@ -29,7 +29,7 @@ function App(props: Props): JSX.Element {
         />
       </Route>
 
-      <Route path={AppRoute.Room} element={<PageRoom isAuthorized={isAuthorized}></PageRoom>} />
+      <Route path={AppRoute.Room} element={<PageRoom isAuthorized={isAuthorized} offer={props.offers[0]} offers={props.offers}></PageRoom>} />
       <Route path={AppRoute.Main} element={<PageMain isAuthorized={isAuthorized} offers={props.offers} currentLocation={currentLocation}/>} />
 
       <Route path="*" element={<PageNotFound isAuthorized={isAuthorized} />} />
