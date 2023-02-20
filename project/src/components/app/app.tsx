@@ -1,4 +1,3 @@
-import { AppRoute } from '../../const';
 import { Route, Routes } from 'react-router-dom';
 import PageFavorites from '../../pages/favorites/page-favorites';
 import PageLogin from '../../pages/login/page-login';
@@ -6,7 +5,7 @@ import PageMain from '../../pages/main/page-main';
 import PageRoom from '../../pages/room/page-room';
 import PrivateRoute from '../privateOutlet/privateOutlet';
 import PageNotFound from '../../pages/not-found/page-not-found';
-
+import Layout from '../layout/layout';
 
 type Props = {
   cardsNumber: number;
@@ -19,16 +18,15 @@ function App(props: Props): JSX.Element {
 
   return (
     <Routes>
-      <Route path={AppRoute.SignIn} element={<PageLogin isAuthorized={isAuthorized} />} />
-
-      <Route path={AppRoute.Favorites} element={<PrivateRoute />}>
-        <Route path={AppRoute.Favorites} element={<PageFavorites isAuthorized={isAuthorized}/>} />
+      <Route path="/" element={<Layout isAuthorized={isAuthorized}/>} >
+        <Route index element={<PageMain cardsNumber={cardsNumber} />} />
+        <Route path="login" element={<PageLogin/>} />
+        <Route path="favorites" element={<PrivateRoute />}>
+          <Route index element={<PageFavorites/>} />
+        </Route>
+        <Route path="offer/:id" element={<PageRoom></PageRoom>} />
+        <Route path="*" element={<PageNotFound/>} />
       </Route>
-
-      <Route path={AppRoute.Room} element={<PageRoom isAuthorized={isAuthorized}></PageRoom>} />
-      <Route path={AppRoute.Main} element={<PageMain cardsNumber={cardsNumber} isAuthorized={isAuthorized} />} />
-
-      <Route path="*" element={<PageNotFound isAuthorized={isAuthorized}/>}/>
     </Routes>
   );
 }
