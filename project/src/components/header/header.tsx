@@ -8,7 +8,7 @@ type Props = {
 
 function Header({isAuthorized, isLoginPage = false}: Props): JSX.Element {
 
-  if (isAuthorized) {
+  if (isAuthorized && !isLoginPage) {
     return (
       <header className="header">
         <div className="container">

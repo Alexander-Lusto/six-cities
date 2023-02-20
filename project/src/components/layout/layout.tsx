@@ -22,12 +22,13 @@ type Props = {
 
 function Layout(props: Props): JSX.Element {
   const location = useLocation();
-  const page = location.pathname;
-  const pageClass = pageClassMap[page] ? pageClassMap[page] : pageClassMap[AppRoute.NotFound];
+  const path = location.pathname;
+  const pageClass = pageClassMap[path] ? pageClassMap[path] : pageClassMap[AppRoute.NotFound];
+  const isLoginPage = (path === AppRoute.SignIn);
 
   return (
     <div className={pageClass}>
-      <Header isAuthorized={props.isAuthorized}></Header>
+      <Header isAuthorized={props.isAuthorized} isLoginPage={isLoginPage}></Header>
       <Outlet></Outlet>
     </div>
   );
