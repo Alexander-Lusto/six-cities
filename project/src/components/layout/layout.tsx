@@ -16,11 +16,11 @@ const pageClassMap: PageClassMap = {
 };
 
 
-type Props = {
+interface ILayoutProps {
   isAuthorized: boolean;
 }
 
-function Layout(props: Props): JSX.Element {
+function Layout(props: ILayoutProps ): JSX.Element {
   const location = useLocation();
   const path = location.pathname;
   const pageClass = pageClassMap[path] ? pageClassMap[path] : pageClassMap[AppRoute.NotFound];

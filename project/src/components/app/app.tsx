@@ -7,12 +7,12 @@ import PageNotFound from '../../pages/not-found/page-not-found';
 import Layout from '../layout/layout';
 import RequireAuth from '../requireAuth/requireAuth';
 
-type Props = {
+interface IAppProps {
   cardsNumber: number;
   authorizationToken: boolean;
-};
+}
 
-function App(props: Props): JSX.Element {
+function App(props: IAppProps): JSX.Element {
   const cardsNumber = props.cardsNumber;
   const isAuthorized = props.authorizationToken;
 

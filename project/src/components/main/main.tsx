@@ -1,10 +1,10 @@
 import Card from '../card/card';
 
-type MainProps = {
+interface IMainProps {
   cardsNumber: number;
-};
+}
 
-function Main(props: MainProps): JSX.Element {
+function Main(props: IMainProps): JSX.Element {
   const { cardsNumber } = props;
 
   return (
