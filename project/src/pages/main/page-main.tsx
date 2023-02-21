@@ -1,12 +1,12 @@
 import Main from '../../components/main/main';
 
-type Props = {
+interface IPageMainProps {
   cardsNumber: number;
 }
 
-function PageMain(props: Props): JSX.Element {
+function PageMain({cardsNumber}: IPageMainProps): JSX.Element {
   return (
-    <Main cardsNumber={props.cardsNumber} />
+    <Main cardsNumber={cardsNumber} />
   );
 }
 
