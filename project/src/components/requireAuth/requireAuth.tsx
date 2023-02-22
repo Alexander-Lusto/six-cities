@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Path } from '../../const';
 
 interface IRequireAuthProps {
   children: JSX.Element;
@@ -9,7 +9,7 @@ interface IRequireAuthProps {
 function RequireAuth({children, isAuthorized}: IRequireAuthProps): JSX.Element {
   if (!isAuthorized) {
     return (
-      <Navigate to={AppRoute.SignIn}></Navigate>
+      <Navigate to={Path.SignIn}></Navigate>
     );
   }
 

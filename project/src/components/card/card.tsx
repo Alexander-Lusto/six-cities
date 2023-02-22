@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Path } from '../../const';
 
 function Card(): JSX.Element {
   return (
@@ -32,7 +32,7 @@ function Card(): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Room}>Beautiful &amp; luxurious apartment at great location</Link>
+          <Link to={Path.Room}>Beautiful &amp; luxurious apartment at great location</Link>
         </h2>
         <p className="place-card__type">Apartment</p>
       </div>

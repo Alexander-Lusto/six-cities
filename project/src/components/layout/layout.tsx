@@ -1,6 +1,6 @@
 import Header from '../header/header';
 import { Outlet, useLocation } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Path } from '../../const';
 
 
 type PageClassMap = {
@@ -8,11 +8,11 @@ type PageClassMap = {
 }
 
 const pageClassMap: PageClassMap = {
-  [AppRoute.Main]: 'page page--gray page--main',
-  [AppRoute.SignIn]: 'page page--gray page--login',
-  [AppRoute.Favorites]: 'page',
-  [AppRoute.Room]: 'page',
-  [AppRoute.NotFound]: 'page page--gray page--login',
+  [Path.Main]: 'page page--gray page--main',
+  [Path.SignIn]: 'page page--gray page--login',
+  [Path.Favorites]: 'page',
+  [Path.Room]: 'page',
+  [Path.NotFound]: 'page page--gray page--login',
 };
 
 
@@ -23,8 +23,8 @@ interface ILayoutProps {
 function Layout(props: ILayoutProps ): JSX.Element {
   const location = useLocation();
   const path = location.pathname;
-  const pageClass = pageClassMap[path] ? pageClassMap[path] : pageClassMap[AppRoute.NotFound];
-  const isLoginPage = (path === AppRoute.SignIn);
+  const pageClass = pageClassMap[path] ? pageClassMap[path] : pageClassMap[Path.NotFound];
+  const isLoginPage = (path === Path.SignIn);
 
   return (
     <div className={pageClass}>

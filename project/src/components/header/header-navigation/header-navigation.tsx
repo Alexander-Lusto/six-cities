@@ -1,4 +1,4 @@
-import { AppRoute } from '../../../const';
+import { Path } from '../../../const';
 import { Link } from 'react-router-dom';
 
 interface IHeaderProps {
@@ -11,14 +11,14 @@ function HeaderNavigation({ isAuthorized }: IHeaderProps) {
       <nav className="header__nav">
         <ul className="header__nav-list">
           <li className="header__nav-item user">
-            <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
+            <Link className="header__nav-link header__nav-link--profile" to={Path.Favorites}>
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
               <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
             </Link>
           </li>
           <li className="header__nav-item">
-            <Link className="header__nav-link" to={AppRoute.Main}>
+            <Link className="header__nav-link" to={Path.Main}>
               <span className="header__signout">Sign out</span>
             </Link>
           </li>
@@ -30,7 +30,7 @@ function HeaderNavigation({ isAuthorized }: IHeaderProps) {
       <nav className="header__nav">
         <ul className="header__nav-list">
           <li className="header__nav-item user">
-            <Link className="header__nav-link header__nav-link--profile" to={AppRoute.SignIn}>
+            <Link className="header__nav-link header__nav-link--profile" to={Path.SignIn}>
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
               <span className="header__login">Sign in</span>
