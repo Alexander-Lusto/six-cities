@@ -3,13 +3,24 @@ import PropertyGallery from './property-gallery/property-gallery';
 import Reviews from './reviews/reviews';
 import NearPlacesList from './near-places-list/near-places-list';
 import SubmitReviewForm from './submit-review-form/submit-review-form';
+import { useParams } from 'react-router';
+import { Path } from '../../const';
+import { Navigate } from 'react-router';
 
 interface Props {
-  offer: Offer;
   offers: Offer[];
 }
 
-function Property({ offer, offers }: Props): JSX.Element {
+function Property({offers}: Props): JSX.Element {
+  const id = Number(useParams().id);
+  const offer = offers.find((el) => el.id === id);
+
+  if (!offer) {
+    return (
+      <Navigate to={Path.NotFound}></Navigate>
+    );
+  }
+
   const comments = offer.comments;
 
   return (

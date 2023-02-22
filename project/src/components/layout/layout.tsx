@@ -15,14 +15,13 @@ const pageClassMap: PageClassMap = {
   [Path.NotFound]: 'page page--gray page--login',
 };
 
-
 interface ILayoutProps {
   isAuthorized: boolean;
 }
 
 function Layout(props: ILayoutProps ): JSX.Element {
   const location = useLocation();
-  const path = location.pathname;
+  const path = (location.pathname.startsWith(Path.Room)) ? location.pathname.slice(0, location.pathname.indexOf('/', 1)) : location.pathname;
   const pageClass = pageClassMap[path] ? pageClassMap[path] : pageClassMap[Path.NotFound];
   const isLoginPage = (path === Path.SignIn);
 

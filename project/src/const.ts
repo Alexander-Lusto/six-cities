@@ -2,7 +2,7 @@ export enum Path {
   Main = '/',
   SignIn = '/login',
   Favorites = '/favorites',
-  Room = '/offer/:id',
+  Room = '/offer',
   NotFound = '*',
 }
 
@@ -21,5 +21,4 @@ const Month = {
 };
 
 export const months: string[] = Object.values(Month);
-
 export const locations: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];

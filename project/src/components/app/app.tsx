@@ -30,7 +30,7 @@ function App(props: IAppProps): JSX.Element {
           </RequireAuth>
         }
         />
-        <Route path="offer/:id" element={<PageRoom offer={props.offers[0]} offers={props.offers}></PageRoom>} />
+        <Route path="offer/:id" element={<PageRoom offers={props.offers}></PageRoom>} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
