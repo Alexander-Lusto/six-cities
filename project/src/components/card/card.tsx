@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { Path } from '../../const';
+
 function Card(): JSX.Element {
   return (
     <article className="cities__place-card place-card">
@@ -29,7 +32,7 @@ function Card(): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Beautiful &amp; luxurious apartment at great location</a>
+          <Link to={Path.Room}>Beautiful &amp; luxurious apartment at great location</Link>
         </h2>
         <p className="place-card__type">Apartment</p>
       </div>

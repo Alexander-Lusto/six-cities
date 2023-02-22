@@ -1,8 +1,8 @@
-type PageProps = {
+interface IPageProps {
   children: JSX.Element;
 }
 
-function Page({children}: PageProps): JSX.Element {
+function Page({children}: IPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       {children}
