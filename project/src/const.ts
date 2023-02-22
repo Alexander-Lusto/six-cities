@@ -1,8 +1,9 @@
-export enum AppRoute {
+export enum Path {
   Main = '/',
   SignIn = '/login',
   Favorites = '/favorites',
   Room = '/offer/:id',
+  NotFound = '*',
 }
 
 const Month = {

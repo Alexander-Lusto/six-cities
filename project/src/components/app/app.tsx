@@ -1,38 +1,38 @@
-import { AppRoute } from '../../const';
 import { Route, Routes } from 'react-router-dom';
 import PageFavorites from '../../pages/favorites/page-favorites';
 import PageLogin from '../../pages/login/page-login';
 import PageMain from '../../pages/main/page-main';
 import PageRoom from '../../pages/room/page-room';
-import PrivateRoute from '../private-outlet/private-outlet';
 import PageNotFound from '../../pages/not-found/page-not-found';
+import Layout from '../layout/layout';
+import RequireAuth from '../requireAuth/requireAuth';
 import { Offer } from '../../types/offer';
 
 
-type Props = {
+interface IAppProps {
   authorizationToken: boolean;
   offers: Offer[];
-};
+}
 
 const currentLocation = 'Amsterdam';
 
-function App(props: Props): JSX.Element {
+function App(props: IAppProps): JSX.Element {
   const isAuthorized = props.authorizationToken;
 
   return (
     <Routes>
-      <Route path={AppRoute.SignIn} element={<PageLogin isAuthorized={isAuthorized} />} />
-
-      <Route path={AppRoute.Favorites} element={<PrivateRoute />}>
-        <Route path={AppRoute.Favorites}
-          element={<PageFavorites isAuthorized={isAuthorized} offers={props.offers} />}
+      <Route path="/" element={<Layout isAuthorized={isAuthorized} />} >
+        <Route index element={<PageMain offers={props.offers} currentLocation={currentLocation} />} />
+        <Route path="login" element={<PageLogin />} />
+        <Route path="favorites" element={
+          <RequireAuth isAuthorized={isAuthorized}>
+            <PageFavorites offers={props.offers}></PageFavorites>
+          </RequireAuth>
+        }
         />
+        <Route path="offer/:id" element={<PageRoom offer={props.offers[0]} offers={props.offers}></PageRoom>} />
+        <Route path="*" element={<PageNotFound />} />
       </Route>
-
-      <Route path={AppRoute.Room} element={<PageRoom isAuthorized={isAuthorized} offer={props.offers[0]} offers={props.offers}></PageRoom>} />
-      <Route path={AppRoute.Main} element={<PageMain isAuthorized={isAuthorized} offers={props.offers} currentLocation={currentLocation}/>} />
-
-      <Route path="*" element={<PageNotFound isAuthorized={isAuthorized} />} />
     </Routes>
   );
 }

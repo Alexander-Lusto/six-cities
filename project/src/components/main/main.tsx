@@ -2,12 +2,12 @@ import { Offer } from '../../types/offer';
 import PlacesList from '../places-list/places-list';
 import { locations } from '../../const';
 
-type MainProps = {
+interface IMainProps {
   offers: Offer[];
   currentLocation: string;
-};
+}
 
-function Main(props: MainProps): JSX.Element {
+function Main(props: IMainProps): JSX.Element {
   const currentLocation = props.currentLocation;
   const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation);
 

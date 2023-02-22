@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Path } from '../../const';
 import { Offer } from '../../types/offer';
 
 const capitalizeFirstLetter = (string: string) => string[0].toUpperCase() + string.slice(1);
@@ -48,7 +48,7 @@ function Card({ offer, onMouseEnter, onMouseLeave }: CardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Room}>{offer.title}</Link>
+          <Link to={Path.Room}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{capitalizeFirstLetter(offer.type)}</p>
       </div>
