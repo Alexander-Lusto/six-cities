@@ -2,11 +2,11 @@ import Card from '../card/card';
 import { Offer } from '../../types/offer';
 import { useState } from 'react';
 
-type Props = {
+interface IPlacesListProps {
   offers: Offer[];
 };
 
-function PlacesList(props: Props): JSX.Element {
+function PlacesList(props: IPlacesListProps): JSX.Element {
   const [, setActivePlace] = useState(-1);
 
   return (
