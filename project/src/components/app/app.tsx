@@ -7,6 +7,7 @@ import PageNotFound from '../../pages/not-found/page-not-found';
 import Layout from '../layout/layout';
 import RequireAuth from '../requireAuth/requireAuth';
 import { Offer } from '../../types/offer';
+import { cities } from '../../const';
 
 
 interface IAppProps {
@@ -14,7 +15,7 @@ interface IAppProps {
   offers: Offer[];
 }
 
-const currentLocation = 'Amsterdam';
+const currentLocation = cities[0];
 
 function App(props: IAppProps): JSX.Element {
   const isAuthorized = props.authorizationToken;

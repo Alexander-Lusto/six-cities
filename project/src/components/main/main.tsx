@@ -1,15 +1,20 @@
 import { Offer } from '../../types/offer';
 import PlacesList from '../places-list/places-list';
-import { locations } from '../../const';
+import { locations} from '../../const';
+import Map from '../map/map';
+import { City, Point } from '../../types/types';
+
 
 interface IMainProps {
   offers: Offer[];
-  currentLocation: string;
+  currentLocation: City;
 }
 
 function Main(props: IMainProps): JSX.Element {
-  const currentLocation = props.currentLocation;
+  const currentLocation = props.currentLocation.name;
   const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation);
+  const points: Point[] = localOffers.map((offer) => Object.assign(offer.city.location, {id: offer.id}));
+  const currentPoint = points[0];
 
   return (
     <main className="page__main page__main--index">
@@ -44,7 +49,9 @@ function Main(props: IMainProps): JSX.Element {
             <PlacesList offers={localOffers}></PlacesList>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <section className="cities__map map">
+              <Map points={points} selectedPoint={currentPoint} city={props.currentLocation} />
+            </section>
           </div>
         </div>
       </div>
