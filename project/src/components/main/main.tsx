@@ -3,6 +3,7 @@ import PlacesList from '../places-list/places-list';
 import { locations} from '../../const';
 import Map from '../map/map';
 import { City, Point } from '../../types/types';
+import { useState } from 'react';
 
 
 interface IMainProps {
@@ -14,7 +15,12 @@ function Main(props: IMainProps): JSX.Element {
   const currentLocation = props.currentLocation.name;
   const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation);
   const points: Point[] = localOffers.map((offer) => Object.assign(offer.city.location, {id: offer.id}));
-  const currentPoint = points[0];
+
+  const [activePlaceID, setActivePlaceID] = useState(-1);
+  const currentPoint = points.find((point) => point.id === activePlaceID);
+  function activeOfferChangeHandler(id: number): void {
+    setActivePlaceID(id);
+  }
 
   return (
     <main className="page__main page__main--index">
@@ -30,7 +36,7 @@ function Main(props: IMainProps): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">312 places to stay in Amsterdam</b>
+            <b className="places__found">{localOffers.length} places to stay in Amsterdam</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -46,7 +52,7 @@ function Main(props: IMainProps): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <PlacesList offers={localOffers}></PlacesList>
+            <PlacesList offers={localOffers} activeOfferChangeHandler={activeOfferChangeHandler}></PlacesList>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
