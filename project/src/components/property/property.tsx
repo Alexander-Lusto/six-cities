@@ -1,19 +1,35 @@
 import { Offer } from '../../types/offer';
+import { City } from '../../types/types';
 import PropertyGallery from './property-gallery/property-gallery';
 import Reviews from './reviews/reviews';
-import NearPlacesList from './near-places-list/near-places-list';
+import PlacesList from '../places-list/places-list';
 import SubmitReviewForm from './submit-review-form/submit-review-form';
-import { useParams } from 'react-router';
+import { useParams, Navigate } from 'react-router';
 import { Path } from '../../const';
-import { Navigate } from 'react-router';
+import Map from '../map/map';
+import { useState } from 'react';
 
-interface Props {
+
+const PLACES_NEARBY_COUNT = 3;
+
+interface IPropertyProps {
   offers: Offer[];
+  currentLocation: City;
 }
 
-function Property({offers}: Props): JSX.Element {
+function Property({offers, currentLocation}: IPropertyProps): JSX.Element {
   const id = Number(useParams().id);
   const offer = offers.find((el) => el.id === id);
+
+  const localOffers = offers.filter((el) => el.city.name === currentLocation.name);
+  const offersNearby = localOffers.slice(0, PLACES_NEARBY_COUNT);
+  const points = offersNearby.map((el) => Object.assign(el.city.location, {id: el.id}));
+
+  const [activePlaceID, setActivePlaceID] = useState(-1);
+  const currentPoint = points.find((point) => point.id === activePlaceID);
+  function activeOfferChangeHandler(offerID: number): void {
+    setActivePlaceID(offerID);
+  }
 
   if (!offer) {
     return (
@@ -109,12 +125,16 @@ function Property({offers}: Props): JSX.Element {
             </section>
           </div>
         </div>
-        <section className="property__map map"></section>
+        <section className="property__map map">
+          <Map points={points} city={currentLocation} selectedPoint={currentPoint}></Map>
+        </section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <NearPlacesList offers={offers} city={offer.city.name}></NearPlacesList>
+          <PlacesList className="near-places__list places__list" childClassName="near-places__card"
+            offers={offersNearby} activeOfferChangeHandler={activeOfferChangeHandler}
+          />
         </section>
       </div>
     </main>

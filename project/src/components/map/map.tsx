@@ -23,7 +23,7 @@ interface IMapInterface {
   selectedPoint: Point | undefined;
 }
 
-function Map({points, city, selectedPoint}: IMapInterface) {
+function Map({points, city, selectedPoint}: IMapInterface):JSX.Element {
 
   return (
     <MapContainer className="cities__map" style={{ height: '100%' }} center={[city.lat, city.lng]} zoom={city.zoom} scrollWheelZoom>

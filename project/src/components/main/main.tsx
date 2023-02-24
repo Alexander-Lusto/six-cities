@@ -1,8 +1,8 @@
 import { Offer } from '../../types/offer';
-import PlacesList from './places-list/places-list';
+import PlacesList from '../places-list/places-list';
 import { locations} from '../../const';
 import Map from '../map/map';
-import { City, Point } from '../../types/types';
+import { City } from '../../types/types';
 import { useState } from 'react';
 
 
@@ -14,7 +14,7 @@ interface IMainProps {
 function Main(props: IMainProps): JSX.Element {
   const currentLocation = props.currentLocation.name;
   const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation);
-  const points: Point[] = localOffers.map((offer) => Object.assign(offer.city.location, {id: offer.id}));
+  const points = localOffers.map((offer) => Object.assign(offer.city.location, {id: offer.id}));
 
   const [activePlaceID, setActivePlaceID] = useState(-1);
   const currentPoint = points.find((point) => point.id === activePlaceID);
@@ -52,7 +52,10 @@ function Main(props: IMainProps): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <PlacesList offers={localOffers} activeOfferChangeHandler={activeOfferChangeHandler}></PlacesList>
+            <PlacesList
+              className="cities__places-list places__list tabs__content" childClassName="cities__place-card"
+              offers={localOffers} activeOfferChangeHandler={activeOfferChangeHandler}
+            />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
