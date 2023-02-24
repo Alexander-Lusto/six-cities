@@ -1,5 +1,5 @@
-import Card from '../card/card';
-import { Offer } from '../../types/offer';
+import Card from '../../card/card';
+import { Offer } from '../../../types/offer';
 
 interface IPlacesListProps {
   offers: Offer[];

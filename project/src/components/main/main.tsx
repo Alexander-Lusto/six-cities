@@ -1,5 +1,5 @@
 import { Offer } from '../../types/offer';
-import PlacesList from '../places-list/places-list';
+import PlacesList from './places-list/places-list';
 import { locations} from '../../const';
 import Map from '../map/map';
 import { City, Point } from '../../types/types';
