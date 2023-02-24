@@ -1,5 +1,5 @@
 import { Offer } from '../../types/offer';
-import { City } from '../../types/types';
+import { City } from '../../types/city';
 import PropertyGallery from './property-gallery/property-gallery';
 import Reviews from './reviews/reviews';
 import PlacesList from '../places-list/places-list';

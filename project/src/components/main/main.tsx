@@ -2,7 +2,7 @@ import { Offer } from '../../types/offer';
 import PlacesList from '../places-list/places-list';
 import { locations} from '../../const';
 import Map from '../map/map';
-import { City } from '../../types/types';
+import { City } from '../../types/city';
 import { useState } from 'react';
 
 

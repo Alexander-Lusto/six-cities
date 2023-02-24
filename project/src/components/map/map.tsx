@@ -1,7 +1,8 @@
 import { MapContainer, TileLayer, Marker} from 'react-leaflet'; // useMap
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { City, Point } from '../../types/types';
+import { City } from '../../types/city';
+import { Point } from '../../types/point';
 
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 

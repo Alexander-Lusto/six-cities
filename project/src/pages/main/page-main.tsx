@@ -1,6 +1,6 @@
 import Main from '../../components/main/main';
 import { Offer } from '../../types/offer';
-import { City } from '../../types/types';
+import { City } from '../../types/city';
 
 interface IPageMainProps {
   offers: Offer[];
