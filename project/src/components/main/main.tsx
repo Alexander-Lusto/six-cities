@@ -12,8 +12,8 @@ interface IMainProps {
 }
 
 function Main(props: IMainProps): JSX.Element {
-  const currentLocation = props.currentLocation.name;
-  const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation);
+  const currentLocation = props.currentLocation;
+  const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation.name);
   const points = localOffers.map((offer) => Object.assign(offer.city.location, {id: offer.id}));
 
   const [activePlaceID, setActivePlaceID] = useState(-1);
@@ -28,7 +28,7 @@ function Main(props: IMainProps): JSX.Element {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {cities.map((city) => <LocationsItem key={city.id} location={city.name} isActive={city.name === currentLocation} />)}
+            {cities.map((city) => <LocationsItem key={city.id} location={city.name} isActive={city.name === currentLocation.name} />)}
           </ul>
         </section>
       </div>
@@ -36,7 +36,7 @@ function Main(props: IMainProps): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{localOffers.length} places to stay in {currentLocation}</b>
+            <b className="places__found">{localOffers.length} places to stay in {currentLocation.name}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -59,7 +59,7 @@ function Main(props: IMainProps): JSX.Element {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map points={points} selectedPoint={currentPoint} city={props.currentLocation} />
+              <Map points={points} selectedPoint={currentPoint} city={currentLocation} />
             </section>
           </div>
         </div>
