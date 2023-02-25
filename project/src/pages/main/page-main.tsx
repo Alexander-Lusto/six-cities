@@ -1,12 +1,14 @@
 import Main from '../../components/main/main';
+import { Offer } from '../../types/offer';
 
 interface IPageMainProps {
-  cardsNumber: number;
+  offers: Offer[];
+  currentLocation: string;
 }
 
-function PageMain({cardsNumber}: IPageMainProps): JSX.Element {
+function PageMain(props: IPageMainProps): JSX.Element {
   return (
-    <Main cardsNumber={cardsNumber} />
+    <Main offers={props.offers} currentLocation={props.currentLocation}/>
   );
 }
 

@@ -1,11 +1,15 @@
-import Card from '../card/card';
+import { Offer } from '../../types/offer';
+import PlacesList from '../places-list/places-list';
+import { cities } from '../../const';
 
 interface IMainProps {
-  cardsNumber: number;
+  offers: Offer[];
+  currentLocation: string;
 }
 
 function Main(props: IMainProps): JSX.Element {
-  const { cardsNumber } = props;
+  const currentLocation = props.currentLocation;
+  const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation);
 
   return (
     <main className="page__main page__main--index">
@@ -13,36 +17,7 @@ function Main(props: IMainProps): JSX.Element {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
+            {cities.map((city) => <LocationsItem key={city.id} location={city.name} isActive={city.name === currentLocation} />)}
           </ul>
         </section>
       </div>
@@ -66,9 +41,7 @@ function Main(props: IMainProps): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {getCardsArray(cardsNumber)}
-            </div>
+            <PlacesList offers={localOffers}></PlacesList>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
@@ -79,14 +52,19 @@ function Main(props: IMainProps): JSX.Element {
   );
 }
 
-function getCardsArray(cardsNumber: number): JSX.Element[] {
-  const cards = [];
-
-  for (let i = 0; i < cardsNumber; i++) {
-    cards.push(<Card key={i} />);
-  }
-
-  return cards;
+function LocationsItem(props: { location: string; isActive: boolean }): JSX.Element {
+  return (
+    <li className="locations__item">
+      <a className={
+        props.isActive ?
+          'locations__item-link tabs__item tabs__item--active' :
+          'locations__item-link tabs__item'
+      } href="#"
+      >
+        <span>{props.location}</span>
+      </a>
+    </li>
+  );
 }
 
 export default Main;

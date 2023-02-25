@@ -1,8 +1,13 @@
 import Favorites from '../../components/favorites/favorites';
+import { Offer } from '../../types/offer';
 
-function PageFavorites(): JSX.Element {
+interface IPageFavoritesProps {
+  offers: Offer[];
+}
+
+function PageFavorites(props: IPageFavoritesProps): JSX.Element {
   return (
-    <Favorites />
+    <Favorites offers={props.offers} />
   );
 }
 

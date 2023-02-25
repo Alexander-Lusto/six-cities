@@ -6,28 +6,31 @@ import PageRoom from '../../pages/room/page-room';
 import PageNotFound from '../../pages/not-found/page-not-found';
 import Layout from '../layout/layout';
 import RequireAuth from '../requireAuth/requireAuth';
+import { Offer } from '../../types/offer';
+
 
 interface IAppProps {
-  cardsNumber: number;
   authorizationToken: boolean;
+  offers: Offer[];
 }
 
+const currentLocation = 'Amsterdam';
+
 function App(props: IAppProps): JSX.Element {
-  const cardsNumber = props.cardsNumber;
-  const isAuthorized = props.authorizationToken;
+  const isAuthorized = Boolean(props.authorizationToken);
 
   return (
     <Routes>
       <Route path="/" element={<Layout isAuthorized={isAuthorized} />} >
-        <Route index element={<PageMain cardsNumber={cardsNumber} />} />
+        <Route index element={<PageMain offers={props.offers} currentLocation={currentLocation} />} />
         <Route path="login" element={<PageLogin />} />
         <Route path="favorites" element={
           <RequireAuth isAuthorized={isAuthorized}>
-            <PageFavorites></PageFavorites>
+            <PageFavorites offers={props.offers}></PageFavorites>
           </RequireAuth>
         }
         />
-        <Route path="offer/:id" element={<PageRoom></PageRoom>} />
+        <Route path="offer/:id" element={<PageRoom offers={props.offers} />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

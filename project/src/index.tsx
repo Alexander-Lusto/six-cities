@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { BrowserRouter } from 'react-router-dom';
+import { offers } from './mock/offers';
 
-const CARDS_NUMBER = 5;
-const AUTHORIZATION_TOKEN = false;
+const AUTHORIZATION_TOKEN = true;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App cardsNumber={CARDS_NUMBER} authorizationToken={AUTHORIZATION_TOKEN} />
+      <App authorizationToken={AUTHORIZATION_TOKEN} offers={offers} />
     </BrowserRouter>
   </React.StrictMode>
 );

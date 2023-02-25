@@ -1,24 +1,40 @@
 import { Link } from 'react-router-dom';
 import { Path } from '../../const';
+import { Offer } from '../../types/offer';
 
-function Card(): JSX.Element {
+const capitalizeFirstLetter = (string: string) => string[0].toUpperCase() + string.slice(1);
+
+interface CardProps {
+  offer: Offer;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}
+
+function Card({ offer, onMouseEnter, onMouseLeave }: CardProps): JSX.Element {
+  const ratingPercent = `${Math.round(offer.rating) * 20}%`;
+
   return (
-    <article className="cities__place-card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+    <article className="cities__place-card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      {offer.isPremium ?
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div> :
+        ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place preview" />
         </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;120</b>
+            <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={offer.isFavorite ?
+            'place-card__bookmark-button button place-card__bookmark-button--active' :
+            'place-card__bookmark-button button'} type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -27,14 +43,14 @@ function Card(): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: ratingPercent}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={Path.Room}>Beautiful &amp; luxurious apartment at great location</Link>
+          <Link to={`${Path.Room}/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{capitalizeFirstLetter(offer.type)}</p>
       </div>
     </article>
   );
