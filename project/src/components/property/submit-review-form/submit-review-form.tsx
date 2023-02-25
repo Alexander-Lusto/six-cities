@@ -1,13 +1,6 @@
 import { Offer } from '../../../types/offer';
 import { FormEvent, useState } from 'react';
-
-
-// In a utility library:
-function assertIsHTMLFormElement(el: EventTarget): asserts el is HTMLFormElement {
-  if (el instanceof HTMLFormElement === false) {
-    throw new Error('HTMLFormElement expected');
-  }
-}
+import React from 'react';
 
 type NewComment = {
   comment: string;
@@ -20,15 +13,19 @@ interface SubmitReviewFormProps {
 }
 
 function SubmitReviewForm({ offer, offers }: SubmitReviewFormProps): JSX.Element {
+  const formRef = React.createRef<HTMLFormElement>();
   const emptyNewComments: NewComment[] = [];
   const [newComments, setComments] = useState(emptyNewComments);
 
+
   const formSubmitHanler = (evt: FormEvent): void => {
     evt.preventDefault();
-    assertIsHTMLFormElement(evt.target);
-    const form = evt.target;
-    const formData = new FormData(form);
+    const form = formRef.current;
+    if (!form) {
+      return;
+    }
 
+    const formData = new FormData(form);
     const comment: NewComment = {
       comment: String(formData.get('review')),
       rating: Number(formData.get('rating')),
@@ -40,7 +37,7 @@ function SubmitReviewForm({ offer, offers }: SubmitReviewFormProps): JSX.Element
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={formSubmitHanler}>
+    <form ref={formRef} className="reviews__form form" action="#" method="post" onSubmit={formSubmitHanler}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" />
