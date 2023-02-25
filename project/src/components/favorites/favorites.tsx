@@ -1,5 +1,6 @@
 import { Offer } from '../../types/offer';
 import LocationsItem from './locations-item/locations-item';
+import { cities } from '../../const';
 
 interface Props {
   offers: Offer[];
@@ -7,7 +8,7 @@ interface Props {
 
 function Favorites({ offers}: Props): JSX.Element {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-  const cities: string[] = Array.from(new Set(favoriteOffers.map((offer) => offer.city.name)));
+  const locations = cities.filter((city) => favoriteOffers.find((offer) => offer.city.name === city.name));
 
   return (
     <main className="page__main page__main--favorites">
@@ -15,7 +16,7 @@ function Favorites({ offers}: Props): JSX.Element {
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
-            {cities.map((city) => <LocationsItem key={city} location={city} offers={favoriteOffers} />)}
+            {locations.map((city) => <LocationsItem key={city.id} location={city.name} offers={favoriteOffers} />)}
           </ul>
         </section>
       </div>

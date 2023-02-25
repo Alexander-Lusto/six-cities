@@ -17,7 +17,7 @@ interface IAppProps {
 const currentLocation = 'Amsterdam';
 
 function App(props: IAppProps): JSX.Element {
-  const isAuthorized = props.authorizationToken;
+  const isAuthorized = Boolean(props.authorizationToken);
 
   return (
     <Routes>
@@ -30,7 +30,7 @@ function App(props: IAppProps): JSX.Element {
           </RequireAuth>
         }
         />
-        <Route path="offer/:id" element={<PageRoom offers={props.offers}></PageRoom>} />
+        <Route path="offer/:id" element={<PageRoom offers={props.offers} />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

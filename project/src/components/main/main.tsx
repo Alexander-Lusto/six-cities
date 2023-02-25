@@ -1,6 +1,6 @@
 import { Offer } from '../../types/offer';
 import PlacesList from '../places-list/places-list';
-import { locations } from '../../const';
+import { cities } from '../../const';
 
 interface IMainProps {
   offers: Offer[];
@@ -17,7 +17,7 @@ function Main(props: IMainProps): JSX.Element {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {locations.map((location) => <LocationsItem key={location} location={location} isActive={location === currentLocation} />)}
+            {cities.map((city) => <LocationsItem key={city.id} location={city.name} isActive={city.name === currentLocation} />)}
           </ul>
         </section>
       </div>

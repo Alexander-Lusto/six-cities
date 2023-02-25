@@ -14,7 +14,7 @@ function LocationsItem(props: { location: string; offers: Offer[] }): JSX.Elemen
         </div>
       </div>
       <div className="favorites__places">
-        {localOffers.map((localOffer) => <FavoritesCard key={`${localOffer.city.name}-${localOffer.id}`} offer={localOffer} />)}
+        {localOffers.map((localOffer) => <FavoritesCard key={localOffer.id} offer={localOffer} />)}
       </div>
     </li>
   );

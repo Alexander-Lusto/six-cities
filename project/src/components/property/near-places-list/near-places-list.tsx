@@ -15,7 +15,7 @@ function NearPlacesList({ offers, city }: Props) {
 
   return (
     <div className="near-places__list places__list">
-      {nearOffers.map((offer) => <Card offer={offer} key={offer.id}></Card>)}
+      {nearOffers.map((offer) => <Card offer={offer} key={offer.id} />)}
     </div>
   );
 }

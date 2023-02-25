@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 interface IPlacesListProps {
   offers: Offer[];
-};
+}
 
 function PlacesList(props: IPlacesListProps): JSX.Element {
   const [, setActivePlace] = useState(-1);
