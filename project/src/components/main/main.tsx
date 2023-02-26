@@ -4,6 +4,7 @@ import { cities} from '../../const';
 import Map from '../map/map';
 import { City } from '../../types/city';
 import { useState } from 'react';
+import LocationsItem from './locations-item/locations-item';
 
 
 interface IMainProps {
@@ -12,14 +13,23 @@ interface IMainProps {
 }
 
 function Main(props: IMainProps): JSX.Element {
-  const currentLocation = props.currentLocation;
+  const [currentLocation, setLocation] = useState(props.currentLocation);
   const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation.name);
   const points = localOffers.map((offer) => Object.assign(offer.city.location, {id: offer.id}));
 
   const [activePlaceID, setActivePlaceID] = useState(-1);
   const currentPoint = points.find((point) => point.id === activePlaceID);
+
   function activeOfferChangeHandler(id: number): void {
     setActivePlaceID(id);
+  }
+
+  function locationsItemClickHandler(locationName: string): void {
+    const location = cities.find((city) => city.name === locationName);
+    if (!location) {
+      return;
+    }
+    setLocation(location);
   }
 
   return (
@@ -28,7 +38,7 @@ function Main(props: IMainProps): JSX.Element {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {cities.map((city) => <LocationsItem key={city.id} location={city.name} isActive={city.name === currentLocation.name} />)}
+            {cities.map((city) => <LocationsItem key={city.id} location={city.name} isActive={city.name === currentLocation.name} clickHandler={locationsItemClickHandler}/>)}
           </ul>
         </section>
       </div>
@@ -65,21 +75,6 @@ function Main(props: IMainProps): JSX.Element {
         </div>
       </div>
     </main>
-  );
-}
-
-function LocationsItem(props: { location: string; isActive: boolean }): JSX.Element {
-  return (
-    <li className="locations__item">
-      <a className={
-        props.isActive ?
-          'locations__item-link tabs__item tabs__item--active' :
-          'locations__item-link tabs__item'
-      } href="#"
-      >
-        <span>{props.location}</span>
-      </a>
-    </li>
   );
 }
 

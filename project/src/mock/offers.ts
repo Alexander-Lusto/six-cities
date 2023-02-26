@@ -279,9 +279,9 @@ export const offers = [
     bedrooms: 1,
     city: {
       location: {
-        latitude: 52.370217,
-        longitude: 4.895163,
-        zoom: 10
+        latitude: 50.935173,
+        longitude: 6.953101,
+        zoom: 13
       },
       name: 'Cologne'
     },
@@ -298,9 +298,9 @@ export const offers = [
     isFavorite: true,
     isPremium: false,
     location: {
-      latitude: 52.35514938496355,
-      longitude: 4.673877537499934,
-      zoom: 8
+      latitude: 50.935170,
+      longitude: 6.953100,
+      zoom: 13
     },
     maxAdults: 2,
     previewImage: 'img/room.jpg',
