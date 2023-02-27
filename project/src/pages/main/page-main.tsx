@@ -1,15 +1,13 @@
 import Main from '../../components/main/main';
 import { Offer } from '../../types/offer';
-import { City } from '../../types/city';
 
 interface IPageMainProps {
   offers: Offer[];
-  currentLocation: City;
 }
 
 function PageMain(props: IPageMainProps): JSX.Element {
   return (
-    <Main offers={props.offers} currentLocation={props.currentLocation}/>
+    <Main offers={props.offers} />
   );
 }
 

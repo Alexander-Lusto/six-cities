@@ -1,5 +1,4 @@
 import { Offer } from './offer';
-import { City } from './city';
 
 export enum ActionType {
   setOffers = 'offers/setOffers',
@@ -13,7 +12,7 @@ export type setOffersAction = {
 
 export type changeCityAction = {
   type: ActionType.changeCity;
-  payload: City;
+  payload: number;
 }
 
 export type Actions = setOffersAction | changeCityAction;

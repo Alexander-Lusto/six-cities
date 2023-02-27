@@ -8,7 +8,7 @@ import { reducer } from './store/reducer';
 import { Provider } from 'react-redux';
 
 const AUTHORIZATION_TOKEN = true;
-const store = configureStore({reducer});
+const store = configureStore({reducer, devTools: true});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

@@ -2,18 +2,31 @@ import { Offer } from '../../types/offer';
 import PlacesList from '../places-list/places-list';
 import { cities} from '../../const';
 import Map from '../map/map';
-import { City } from '../../types/city';
+// import { City } from '../../types/city';
 import { useState } from 'react';
 import LocationsItem from './locations-item/locations-item';
+import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
+import { connect, ConnectedProps } from 'react-redux';
+import { Actions } from '../../types/action';
+// import { changeCity, setOffers } from '../../store/action';
+import { State } from '../../types/state';
 
 
 interface IMainProps {
   offers: Offer[];
-  currentLocation: City;
 }
 
-function Main(props: IMainProps): JSX.Element {
-  const [currentLocation, setLocation] = useState(props.currentLocation);
+const mapStateToProps = ({currentCity}: State) => ({
+  currentLocation: currentCity,
+});
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({}, dispatch);
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & IMainProps;
+
+function Main(props: ConnectedComponentProps): JSX.Element {
+  const currentLocation = props.currentLocation;
   const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation.name);
   const points = localOffers.map((offer) => Object.assign(offer.city.location, {id: offer.id}));
 
@@ -24,14 +37,6 @@ function Main(props: IMainProps): JSX.Element {
     setActivePlaceID(id);
   }
 
-  function locationsItemClickHandler(locationID: number): void {
-    const location = cities.find((city) => city.id === locationID);
-    if (!location) {
-      return;
-    }
-    setLocation(location);
-  }
-
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -40,7 +45,7 @@ function Main(props: IMainProps): JSX.Element {
           <ul className="locations__list tabs__list">
             {cities.map((city) => (
               <LocationsItem key={city.id} locationName={city.name} locationID={city.id}
-                isActive={city.name === currentLocation.name} clickHandler={locationsItemClickHandler}
+                isActive={city.name === currentLocation.name}
               />
             ))}
           </ul>
@@ -82,4 +87,4 @@ function Main(props: IMainProps): JSX.Element {
   );
 }
 
-export default Main;
+export default connector(Main);

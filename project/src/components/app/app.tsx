@@ -22,7 +22,7 @@ function App(props: IAppProps): JSX.Element {
   return (
     <Routes>
       <Route path="/" element={<Layout isAuthorized={isAuthorized} />} >
-        <Route index element={<PageMain offers={props.offers} currentLocation={DEFAULT_LOCATION}/>} />
+        <Route index element={<PageMain offers={props.offers} />} />
         <Route path="login" element={<PageLogin />} />
         <Route path="favorites" element={
           <RequireAuth isAuthorized={isAuthorized}>
