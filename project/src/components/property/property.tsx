@@ -1,5 +1,4 @@
 import { Offer } from '../../types/offer';
-import { City } from '../../types/city';
 import PropertyGallery from './property-gallery/property-gallery';
 import Reviews from './reviews/reviews';
 import PlacesList from '../places-list/places-list';
@@ -8,16 +7,27 @@ import { useParams, Navigate } from 'react-router';
 import { Path } from '../../const';
 import Map from '../map/map';
 import { useState } from 'react';
-
+import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
+import { connect, ConnectedProps } from 'react-redux';
+import { Actions } from '../../types/action';
+import { State } from '../../types/state';
 
 const PLACES_NEARBY_COUNT = 3;
 
 interface IPropertyProps {
   offers: Offer[];
-  currentLocation: City;
 }
 
-function Property({offers, currentLocation}: IPropertyProps): JSX.Element {
+const mapStateToProps = ({currentCity}: State) => ({
+  currentLocation: currentCity,
+});
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({}, dispatch);
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & IPropertyProps;
+
+function Property({offers, currentLocation}: ConnectedComponentProps): JSX.Element {
   const id = Number(useParams().id);
   const offer = offers.find((el) => el.id === id);
 
@@ -141,4 +151,4 @@ function Property({offers, currentLocation}: IPropertyProps): JSX.Element {
   );
 }
 
-export default Property;
+export default connector(Property);

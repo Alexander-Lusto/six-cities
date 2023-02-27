@@ -2,13 +2,11 @@ import { Offer } from '../../types/offer';
 import PlacesList from '../places-list/places-list';
 import { cities} from '../../const';
 import Map from '../map/map';
-// import { City } from '../../types/city';
 import { useState } from 'react';
 import LocationsItem from './locations-item/locations-item';
 import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
 import { Actions } from '../../types/action';
-// import { changeCity, setOffers } from '../../store/action';
 import { State } from '../../types/state';
 
 
@@ -28,7 +26,7 @@ type ConnectedComponentProps = PropsFromRedux & IMainProps;
 function Main(props: ConnectedComponentProps): JSX.Element {
   const currentLocation = props.currentLocation;
   const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation.name);
-  const points = localOffers.map((offer) => Object.assign(offer.city.location, {id: offer.id}));
+  const points = localOffers.map((offer) => Object.assign({}, offer.city.location, {id: offer.id}));
 
   const [activePlaceID, setActivePlaceID] = useState(-1);
   const currentPoint = points.find((point) => point.id === activePlaceID);

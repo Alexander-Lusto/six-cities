@@ -1,4 +1,4 @@
-export const offers = [
+export const mockOffers = [
   {
     bedrooms: 3,
     city: {
