@@ -1,13 +1,14 @@
 import { createRef } from 'react';
 
 interface ILocationsItemProps {
-  location: string;
+  locationID: number;
+  locationName: string;
   isActive: boolean;
-  clickHandler: (locationID: string) => void;
+  clickHandler: (locationID: number) => void;
 }
 
 function LocationsItem(props: ILocationsItemProps): JSX.Element {
-  const { location, isActive, clickHandler } = props;
+  const { locationID, locationName, isActive, clickHandler } = props;
   const linkRef = createRef<HTMLAnchorElement>();
 
   return (
@@ -17,13 +18,14 @@ function LocationsItem(props: ILocationsItemProps): JSX.Element {
         'locations__item-link tabs__item'} href="#" ref={linkRef}
       onClick={() => {
         const link = linkRef.current;
-        if(link && link.dataset.locationName) {
-          clickHandler(link.dataset.locationName);
+        if(link && link.dataset.locationId) {
+          clickHandler(Number(link.dataset.locationId));
         }
       }}
-      data-location-name={location}
+      data-location-name={locationName}
+      data-location-id={locationID}
       >
-        <span>{location}</span>
+        <span>{locationName}</span>
       </a>
     </li>
   );

@@ -24,8 +24,8 @@ function Main(props: IMainProps): JSX.Element {
     setActivePlaceID(id);
   }
 
-  function locationsItemClickHandler(locationName: string): void {
-    const location = cities.find((city) => city.name === locationName);
+  function locationsItemClickHandler(locationID: number): void {
+    const location = cities.find((city) => city.id === locationID);
     if (!location) {
       return;
     }
@@ -38,7 +38,11 @@ function Main(props: IMainProps): JSX.Element {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {cities.map((city) => <LocationsItem key={city.id} location={city.name} isActive={city.name === currentLocation.name} clickHandler={locationsItemClickHandler}/>)}
+            {cities.map((city) => (
+              <LocationsItem key={city.id} locationName={city.name} locationID={city.id}
+                isActive={city.name === currentLocation.name} clickHandler={locationsItemClickHandler}
+              />
+            ))}
           </ul>
         </section>
       </div>
