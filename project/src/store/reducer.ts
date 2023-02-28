@@ -3,7 +3,7 @@ import { Actions, ActionType } from '../types/action';
 import { State } from '../types/state';
 import { City } from '../types/city';
 
-const DEFAULT_CITY = cities[3];
+const DEFAULT_CITY = cities[0];
 
 const initialState = {
   offers: [],
