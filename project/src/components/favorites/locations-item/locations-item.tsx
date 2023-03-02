@@ -1,7 +1,7 @@
-import { Offer } from '../../../types/offer';
+import { TOffer } from '../../../types/offer';
 import FavoritesCard from './favorites-card/favorites-card';
 
-function LocationsItem(props: { location: string; offers: Offer[] }): JSX.Element {
+function LocationsItem(props: { location: string; offers: TOffer[] }): JSX.Element {
   const localOffers = props.offers.filter((offer) => offer.city.name === props.location);
 
   return (

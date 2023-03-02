@@ -6,15 +6,15 @@ import PageRoom from '../../pages/room/page-room';
 import PageNotFound from '../../pages/not-found/page-not-found';
 import Layout from '../layout/layout';
 import RequireAuth from '../requireAuth/requireAuth';
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
+import { cities } from '../../const';
 
+const DEFAULT_LOCATION = cities[3];
 
 interface IAppProps {
-  authorizationToken: boolean;
-  offers: Offer[];
+  authorizationToken: string;
+  offers: TOffer[];
 }
-
-const currentLocation = 'Amsterdam';
 
 function App(props: IAppProps): JSX.Element {
   const isAuthorized = Boolean(props.authorizationToken);
@@ -22,7 +22,7 @@ function App(props: IAppProps): JSX.Element {
   return (
     <Routes>
       <Route path="/" element={<Layout isAuthorized={isAuthorized} />} >
-        <Route index element={<PageMain offers={props.offers} currentLocation={currentLocation} />} />
+        <Route index element={<PageMain offers={props.offers} currentLocation={DEFAULT_LOCATION}/>} />
         <Route path="login" element={<PageLogin />} />
         <Route path="favorites" element={
           <RequireAuth isAuthorized={isAuthorized}>
@@ -30,7 +30,7 @@ function App(props: IAppProps): JSX.Element {
           </RequireAuth>
         }
         />
-        <Route path="offer/:id" element={<PageRoom offers={props.offers} />} />
+        <Route path="offer/:id" element={<PageRoom offers={props.offers} currentLocation={DEFAULT_LOCATION} />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

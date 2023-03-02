@@ -1,9 +1,10 @@
 import Main from '../../components/main/main';
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
+import { TCity } from '../../types/city';
 
 interface IPageMainProps {
-  offers: Offer[];
-  currentLocation: string;
+  offers: TOffer[];
+  currentLocation: TCity;
 }
 
 function PageMain(props: IPageMainProps): JSX.Element {

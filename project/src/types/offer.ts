@@ -1,5 +1,5 @@
-import { Comment } from './comment';
-export type Offer = {
+import { TComment } from './comment';
+export type TOffer = {
   bedrooms: number;
     city: {
       location: {
@@ -32,5 +32,5 @@ export type Offer = {
     rating: number;
     title: string;
     type: string;
-    comments: Comment[];
+    comments: TComment[];
 }

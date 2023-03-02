@@ -1,12 +1,12 @@
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
 import LocationsItem from './locations-item/locations-item';
 import { cities } from '../../const';
 
-interface Props {
-  offers: Offer[];
+interface IFavoritesProps {
+  offers: TOffer[];
 }
 
-function Favorites({ offers}: Props): JSX.Element {
+function Favorites({ offers}: IFavoritesProps): JSX.Element {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const locations = cities.filter((city) => favoriteOffers.find((offer) => offer.city.name === city.name));
 

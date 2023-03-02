@@ -1,8 +1,8 @@
-import { Comment } from '../../../../types/comment';
+import { TComment } from '../../../../types/comment';
 import { months } from '../../../../const';
 
 interface ReviewsItemProps {
-  comment: Comment;
+  comment: TComment;
 }
 
 function ReviewsItem({ comment }: ReviewsItemProps): JSX.Element {
