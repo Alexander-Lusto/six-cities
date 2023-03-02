@@ -1,4 +1,4 @@
-import { Offer } from '../../../types/offer';
+import { TOffer } from '../../../types/offer';
 import { FormEvent, useState } from 'react';
 import React from 'react';
 
@@ -8,8 +8,8 @@ type NewComment = {
 }
 
 interface SubmitReviewFormProps {
-  offer: Offer;
-  offers: Offer[];
+  offer: TOffer;
+  offers: TOffer[];
 }
 
 function SubmitReviewForm({ offer, offers }: SubmitReviewFormProps): JSX.Element {

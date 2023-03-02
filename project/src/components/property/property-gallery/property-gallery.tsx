@@ -1,8 +1,8 @@
 import ImageWrapper from './image-wrapper/image-wrapper';
-import { Offer } from '../../../types/offer';
+import { TOffer } from '../../../types/offer';
 
 interface PropertyGalleryProps {
-  offer: Offer;
+  offer: TOffer;
 }
 
 function PropertyGallery({ offer }: PropertyGalleryProps): JSX.Element {

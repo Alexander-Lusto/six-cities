@@ -1,8 +1,8 @@
 import { MapContainer, TileLayer, Marker, useMap} from 'react-leaflet'; // useMap
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { City } from '../../types/city';
-import { Point } from '../../types/point';
+import { TCity } from '../../types/city';
+import { TPoint } from '../../types/point';
 
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 
@@ -31,9 +31,9 @@ function ChangeView(props: IChangeViewProps) {
 }
 
 interface IMapInterface {
-  points: Point[];
-  city: City;
-  selectedPoint: Point | undefined;
+  points: TPoint[];
+  city: TCity;
+  selectedPoint: TPoint | undefined;
 }
 
 function Map({points, city, selectedPoint}: IMapInterface):JSX.Element {
@@ -45,7 +45,7 @@ function Map({points, city, selectedPoint}: IMapInterface):JSX.Element {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {points.map((point: Point): JSX.Element => (
+      {points.map((point: TPoint): JSX.Element => (
         <Marker position={[point.latitude, point.longitude]} icon={selectedPoint === point ? currentIcon : defaultIcon} key={point.id} />
       ))}
     </MapContainer>

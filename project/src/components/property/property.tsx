@@ -1,5 +1,5 @@
-import { Offer } from '../../types/offer';
-import { City } from '../../types/city';
+import { TOffer } from '../../types/offer';
+import { TCity } from '../../types/city';
 import PropertyGallery from './property-gallery/property-gallery';
 import Reviews from './reviews/reviews';
 import PlacesList from '../places-list/places-list';
@@ -13,8 +13,8 @@ import { useState } from 'react';
 const PLACES_NEARBY_COUNT = 3;
 
 interface IPropertyProps {
-  offers: Offer[];
-  currentLocation: City;
+  offers: TOffer[];
+  currentLocation: TCity;
 }
 
 function Property({offers, currentLocation}: IPropertyProps): JSX.Element {

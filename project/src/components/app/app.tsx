@@ -6,14 +6,14 @@ import PageRoom from '../../pages/room/page-room';
 import PageNotFound from '../../pages/not-found/page-not-found';
 import Layout from '../layout/layout';
 import RequireAuth from '../requireAuth/requireAuth';
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
 import { cities } from '../../const';
 
 const DEFAULT_LOCATION = cities[3];
 
 interface IAppProps {
-  authorizationToken: boolean;
-  offers: Offer[];
+  authorizationToken: string;
+  offers: TOffer[];
 }
 
 function App(props: IAppProps): JSX.Element {

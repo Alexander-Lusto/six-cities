@@ -4,7 +4,7 @@ import App from './components/app/app';
 import { BrowserRouter } from 'react-router-dom';
 import { offers } from './mock/offers';
 
-const AUTHORIZATION_TOKEN = true;
+const AUTHORIZATION_TOKEN = 'tWPTWn2$OdVAogNh2kzr$uBgPP*w3&5W^uZ7VrxcfW!pdMhD7JiMwSs#2WXJi7mTgYDOa&';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
