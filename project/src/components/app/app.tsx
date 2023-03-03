@@ -40,7 +40,7 @@ function App(props: ConnectedComponentProps): JSX.Element {
           </RequireAuth>
         }
         />
-        <Route path="offer/:id" element={<PageRoom offers={offers} />} />
+        <Route path="offer/:id" element={<PageRoom />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

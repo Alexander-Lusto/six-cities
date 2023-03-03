@@ -77,7 +77,7 @@ export const mockOffers = [
       isPro: true,
       name: 'Angelina'
     },
-    id: 0,
+    id: 2,
     images: ['img/apartment-01.jpg', 'img/apartment-02.jpg'],
     isFavorite: true,
     isPremium: false,
@@ -137,7 +137,7 @@ export const mockOffers = [
       isPro: true,
       name: 'Krista'
     },
-    id: 2,
+    id: 3,
     images: ['img/apartment-03.jpg', 'img/apartment-02.jpg'],
     isFavorite: false,
     isPremium: true,
@@ -221,7 +221,7 @@ export const mockOffers = [
       isPro: false,
       name: 'Dominiq'
     },
-    id: 3,
+    id: 4,
     images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
     isFavorite: true,
     isPremium: false,
