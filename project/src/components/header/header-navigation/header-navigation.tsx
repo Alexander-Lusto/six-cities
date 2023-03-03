@@ -2,11 +2,11 @@ import { Path } from '../../../const';
 import { Link } from 'react-router-dom';
 
 interface IHeaderProps {
-  isAuthorized: boolean;
+  authorizationToken: string;
 }
 
-function HeaderNavigation({ isAuthorized }: IHeaderProps) {
-  if (isAuthorized) {
+function HeaderNavigation({ authorizationToken }: IHeaderProps) {
+  if (authorizationToken) {
     return (
       <nav className="header__nav">
         <ul className="header__nav-list">

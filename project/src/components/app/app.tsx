@@ -25,17 +25,16 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux & IAppProps;
 
 function App(props: ConnectedComponentProps): JSX.Element {
-  const isAuthorized = Boolean(props.authorizationToken);
   const offers = props.offers;
   props.setOffers(mockOffers);
 
   return (
     <Routes>
-      <Route path="/" element={<Layout isAuthorized={isAuthorized} />} >
+      <Route path="/" element={<Layout authorizationToken={props.authorizationToken} />} >
         <Route index element={<PageMain offers={offers} />} />
         <Route path="login" element={<PageLogin />} />
         <Route path="favorites" element={
-          <RequireAuth isAuthorized={isAuthorized}>
+          <RequireAuth authorizationToken={props.authorizationToken}>
             <PageFavorites offers={offers}></PageFavorites>
           </RequireAuth>
         }

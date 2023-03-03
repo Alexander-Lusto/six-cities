@@ -3,11 +3,11 @@ import { Path } from '../../const';
 
 interface IRequireAuthProps {
   children: JSX.Element;
-  isAuthorized: boolean;
+  authorizationToken: string;
 }
 
-function RequireAuth({children, isAuthorized}: IRequireAuthProps): JSX.Element {
-  if (!isAuthorized) {
+function RequireAuth({children, authorizationToken}: IRequireAuthProps): JSX.Element {
+  if (!authorizationToken) {
     return (
       <Navigate to={Path.SignIn}></Navigate>
     );
