@@ -29,14 +29,16 @@ type ConnectedComponentProps = PropsFromRedux & IPropertyProps;
 
 function Property({offers, currentLocation}: ConnectedComponentProps): JSX.Element {
   const id = Number(useParams().id);
-  const offer = offers.find((el) => el.id === id);
+  const offer = offers.find((el) => el.id === id) as TOffer;
 
   const localOffers = offers.filter((el) => el.city.name === currentLocation.name);
-  const offersNearby = localOffers.slice(0, PLACES_NEARBY_COUNT);
-  const points = offersNearby.map((el) => Object.assign({}, el.city.location, {id: el.id}));
+  const offersNearby = localOffers.filter((localOffer) => localOffer.id !== id).slice(0, PLACES_NEARBY_COUNT);
+  const points = offersNearby
+    .map((el) => Object.assign({}, el.city.location, {id: el.id}))
+    .concat(Object.assign({}, offer.city.location, {id: offer.id}));
 
-  const [activePlaceID, setActivePlaceID] = useState(-1);
-  const currentPoint = points.find((point) => point.id === activePlaceID);
+  const [, setActivePlaceID] = useState(-1);
+  const currentPoint = points.find((point) => point.id === offer.id);
   function activeOfferChangeHandler(offerID: number): void {
     setActivePlaceID(offerID);
   }
