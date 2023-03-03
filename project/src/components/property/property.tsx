@@ -33,7 +33,7 @@ function Property({offers, currentLocation}: ConnectedComponentProps): JSX.Eleme
 
   const localOffers = offers.filter((el) => el.city.name === currentLocation.name);
   const offersNearby = localOffers.slice(0, PLACES_NEARBY_COUNT);
-  const points = offersNearby.map((el) => Object.assign(el.city.location, {id: el.id}));
+  const points = offersNearby.map((el) => Object.assign({}, el.city.location, {id: el.id}));
 
   const [activePlaceID, setActivePlaceID] = useState(-1);
   const currentPoint = points.find((point) => point.id === activePlaceID);
