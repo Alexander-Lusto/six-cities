@@ -1,8 +1,8 @@
 import Main from '../../components/main/main';
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
 
 interface IPageMainProps {
-  offers: Offer[];
+  offers: TOffer[];
 }
 
 function PageMain(props: IPageMainProps): JSX.Element {

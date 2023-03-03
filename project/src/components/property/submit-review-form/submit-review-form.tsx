@@ -1,4 +1,4 @@
-import { Offer } from '../../../types/offer';
+import { TOffer } from '../../../types/offer';
 import { FormEvent, useState } from 'react';
 import React from 'react';
 
@@ -8,8 +8,8 @@ type NewComment = {
 }
 
 interface SubmitReviewFormProps {
-  offer: Offer;
-  offers: Offer[];
+  offer: TOffer;
+  offers: TOffer[];
 }
 
 function SubmitReviewForm({ offer, offers }: SubmitReviewFormProps): JSX.Element {
@@ -42,8 +42,8 @@ function SubmitReviewForm({ offer, offers }: SubmitReviewFormProps): JSX.Element
       <div className="reviews__rating-form form__rating">
         {[5, 4, 3, 2, 1].map((el) => (
           <>
-            <input className="form__rating-input visually-hidden" name="rating" value={el} id={`${el}-stars`} type="radio" />
-            <label htmlFor={`${el}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
+            <input className="form__rating-input visually-hidden" name="rating" value={el} id={`${el}-stars`} type="radio" key={`input-${el}`}/>
+            <label htmlFor={`${el}-stars`} className="reviews__rating-label form__rating-label" title="perfect" key={`label-${el}`}>
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>

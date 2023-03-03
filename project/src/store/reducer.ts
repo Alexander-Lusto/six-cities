@@ -1,7 +1,7 @@
 import { cities } from '../const';
 import { Actions, ActionType } from '../types/action';
 import { State } from '../types/state';
-import { City } from '../types/city';
+import { TCity } from '../types/city';
 
 const DEFAULT_CITY = cities[0];
 
@@ -16,7 +16,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, offers: action.payload};
     }
     case ActionType.changeCity: {
-      const city = cities.find((el) => el.id === action.payload) as City;
+      const city = cities.find((el) => el.id === action.payload) as TCity;
       return {...state, currentCity: city };
     }
     default:

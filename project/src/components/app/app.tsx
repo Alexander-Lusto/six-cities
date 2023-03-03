@@ -14,7 +14,7 @@ import { State } from '../../types/state';
 import { setOffers } from '../../store/action';
 
 interface IAppProps {
-  authorizationToken: boolean;
+  authorizationToken: string;
 }
 
 const mapStateToProps = ({offers}: State) => ({offers});

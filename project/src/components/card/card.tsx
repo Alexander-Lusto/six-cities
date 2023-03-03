@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Path } from '../../const';
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
 
 const capitalizeFirstLetter = (string: string) => string[0].toUpperCase() + string.slice(1);
 
 interface ICardProps {
-  offer: Offer;
+  offer: TOffer;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   className: string;

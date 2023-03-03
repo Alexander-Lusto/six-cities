@@ -1,8 +1,8 @@
 import Card from '../card/card';
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
 
 interface IPlacesListProps {
-  offers: Offer[];
+  offers: TOffer[];
   activeOfferChangeHandler: (id:number) => void;
   className: string;
   childClassName: string;

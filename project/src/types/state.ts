@@ -1,7 +1,7 @@
-import { City } from './city';
-import { Offer } from './offer';
+import { TCity } from './city';
+import { TOffer } from './offer';
 
 export type State = {
-  offers: Offer[];
-  currentCity: City;
+  offers: TOffer[];
+  currentCity: TCity;
 };

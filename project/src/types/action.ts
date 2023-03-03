@@ -1,4 +1,4 @@
-import { Offer } from './offer';
+import { TOffer } from './offer';
 
 export enum ActionType {
   setOffers = 'offers/setOffers',
@@ -7,7 +7,7 @@ export enum ActionType {
 
 export type setOffersAction = {
   type: ActionType.setOffers;
-  payload: Offer[];
+  payload: TOffer[];
 }
 
 export type changeCityAction = {

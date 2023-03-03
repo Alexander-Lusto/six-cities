@@ -1,7 +1,7 @@
 import { ActionType, setOffersAction, changeCityAction } from '../types/action';
-import { Offer } from '../types/offer';
+import { TOffer } from '../types/offer';
 
-export const setOffers = (offers: Offer[]): setOffersAction => ({
+export const setOffers = (offers: TOffer[]): setOffersAction => ({
   type: ActionType.setOffers,
   payload: offers,
 });

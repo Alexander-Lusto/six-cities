@@ -1,9 +1,8 @@
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
 import PlacesList from '../places-list/places-list';
-import { cities } from '../../const';
 import Map from '../map/map';
 import { useState } from 'react';
-import LocationsItem from './locations-item/locations-item';
+import LocationsList from './locations-list/locations-list';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
 import { Actions } from '../../types/action';
@@ -14,7 +13,7 @@ import { SortType } from '../../const';
 const DEFAULT_SORT_TYPE = SortType.POPULAR;
 
 interface IMainProps {
-  offers: Offer[];
+  offers: TOffer[];
 }
 
 const mapStateToProps = ({ currentCity }: State) => ({
@@ -38,7 +37,7 @@ function Main(props: ConnectedComponentProps): JSX.Element {
     setActivePlaceID(id);
   }
 
-  function getSortedOffers(sortType: string, offers: Offer[]): Offer[] {
+  function getSortedOffers(sortType: string, offers: TOffer[]): TOffer[] {
     const sortedOffers = offers.slice();
     switch (sortType) {
       case SortType.POPULAR:
@@ -65,13 +64,7 @@ function Main(props: ConnectedComponentProps): JSX.Element {
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <ul className="locations__list tabs__list">
-            {cities.map((city) => (
-              <LocationsItem key={city.id} locationName={city.name} locationID={city.id}
-                isActive={city.name === currentLocation.name}
-              />
-            ))}
-          </ul>
+          <LocationsList currentLocation={currentLocation} />
         </section>
       </div>
       <div className="cities">
@@ -79,7 +72,7 @@ function Main(props: ConnectedComponentProps): JSX.Element {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{localOffers.length} places to stay in {currentLocation.name}</b>
-            <Sorting currentSortType={currentSortType} sortTypeChangeHandler={changeSortType}></Sorting>
+            <Sorting currentSortType={currentSortType} sortTypeChangeHandler={changeSortType} />
             <PlacesList
               className="cities__places-list places__list tabs__content" childClassName="cities__place-card"
               offers={sortedOffers} activeOfferChangeHandler={activeOfferChangeHandler}

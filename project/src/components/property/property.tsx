@@ -1,4 +1,4 @@
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
 import PropertyGallery from './property-gallery/property-gallery';
 import Reviews from './reviews/reviews';
 import PlacesList from '../places-list/places-list';
@@ -15,7 +15,7 @@ import { State } from '../../types/state';
 const PLACES_NEARBY_COUNT = 3;
 
 interface IPropertyProps {
-  offers: Offer[];
+  offers: TOffer[];
 }
 
 const mapStateToProps = ({currentCity}: State) => ({

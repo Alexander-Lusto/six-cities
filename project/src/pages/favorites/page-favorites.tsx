@@ -1,8 +1,8 @@
 import Favorites from '../../components/favorites/favorites';
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
 
 interface IPageFavoritesProps {
-  offers: Offer[];
+  offers: TOffer[];
 }
 
 function PageFavorites(props: IPageFavoritesProps): JSX.Element {
