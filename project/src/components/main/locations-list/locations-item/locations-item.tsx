@@ -1,8 +1,8 @@
 import { createRef } from 'react';
 import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { Actions } from '../../../types/action';
-import { changeCity } from '../../../store/action';
+import { Actions } from '../../../../types/action';
+import { changeCity } from '../../../../store/action';
 
 interface ILocationsItemProps {
   locationID: number;

@@ -1,4 +1,4 @@
-import LocationsItem from '../locations-item/locations-item';
+import LocationsItem from './locations-item/locations-item';
 import { cities } from '../../../const';
 import { TCity } from '../../../types/city';
 

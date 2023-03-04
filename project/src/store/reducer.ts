@@ -12,10 +12,10 @@ const initialState = {
 
 const reducer = (state: State = initialState, action: Actions): State => {
   switch (action.type) {
-    case ActionType.setOffers: {
+    case ActionType.SetOffers: {
       return {...state, offers: action.payload};
     }
-    case ActionType.changeCity: {
+    case ActionType.ChangeCity: {
       const city = cities.find((el) => el.id === action.payload) as TCity;
       return {...state, currentCity: city };
     }

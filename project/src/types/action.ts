@@ -1,18 +1,10 @@
-import { TOffer } from './offer';
+import {setOffers, changeCity} from '../store/action';
 
 export enum ActionType {
-  setOffers = 'offers/setOffers',
-  changeCity = 'cities/changeCity',
+  SetOffers = 'offers/setOffers',
+  ChangeCity = 'cities/changeCity',
 }
 
-export type setOffersAction = {
-  type: ActionType.setOffers;
-  payload: TOffer[];
-}
-
-export type changeCityAction = {
-  type: ActionType.changeCity;
-  payload: number;
-}
-
-export type Actions = setOffersAction | changeCityAction;
+export type Actions =
+  | ReturnType<typeof setOffers>
+  | ReturnType<typeof changeCity>;
