@@ -1,6 +1,6 @@
 import { cities } from '../const';
-import { Actions, ActionType } from '../types/action';
-import { State } from '../types/state';
+import { TActions, ActionType } from '../types/action';
+import { TState } from '../types/state';
 import { TCity } from '../types/city';
 
 const DEFAULT_CITY = cities[0];
@@ -10,7 +10,7 @@ const initialState = {
   currentCity: DEFAULT_CITY,
 };
 
-const reducer = (state: State = initialState, action: Actions): State => {
+const reducer = (state: TState = initialState, action: TActions): TState => {
   switch (action.type) {
     case ActionType.SetOffers: {
       return {...state, offers: action.payload};

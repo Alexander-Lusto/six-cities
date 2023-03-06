@@ -7,16 +7,16 @@ import { Path } from '../../const';
 import Map from '../map/map';
 import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { Actions } from '../../types/action';
-import { State } from '../../types/state';
+import { TActions } from '../../types/action';
+import { TState } from '../../types/state';
 import { cities } from '../../const';
 
 const PLACES_NEARBY_COUNT = 3;
 
-const mapStateToProps = ({offers}: State) => ({
+const mapStateToProps = ({offers}: TState) => ({
   offers,
 });
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 

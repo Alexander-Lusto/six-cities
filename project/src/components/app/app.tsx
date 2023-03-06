@@ -9,16 +9,16 @@ import RequireAuth from '../requireAuth/requireAuth';
 import { mockOffers } from '../../mock/offers';
 import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { Actions } from '../../types/action';
-import { State } from '../../types/state';
+import { TActions } from '../../types/action';
+import { TState } from '../../types/state';
 import { setOffers } from '../../store/action';
 
 interface IAppProps {
   authorizationToken: string;
 }
 
-const mapStateToProps = ({offers}: State) => ({offers});
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({setOffers}, dispatch);
+const mapStateToProps = ({offers}: TState) => ({offers});
+const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({setOffers}, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;

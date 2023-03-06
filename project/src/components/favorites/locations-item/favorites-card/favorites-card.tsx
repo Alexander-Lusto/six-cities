@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import BookmarkButton from '../../../UI/bookmark-button/bookmark-button';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { Actions } from '../../../../types/action';
-import { State } from '../../../../types/state';
+import { TActions } from '../../../../types/action';
+import { TState } from '../../../../types/state';
 import { changeCity } from '../../../../store/action';
 import { cities } from '../../../../const';
 
@@ -14,10 +14,10 @@ interface IFavoritesCard {
   offer: TOffer;
 }
 
-const mapStateToProps = ({currentCity}: State) => ({
+const mapStateToProps = ({currentCity}: TState) => ({
   currentLocation: currentCity,
 });
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
   onCityChange: changeCity,
 }, dispatch);
 

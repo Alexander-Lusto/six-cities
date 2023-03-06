@@ -1,7 +1,7 @@
 import { TCity } from './city';
 import { TOffer } from './offer';
 
-export type State = {
+export type TState = {
   offers: TOffer[];
   currentCity: TCity;
 };
