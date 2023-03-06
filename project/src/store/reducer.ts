@@ -8,6 +8,7 @@ const DEFAULT_CITY = cities[0];
 
 const initialState = {
   offers: [],
+  comments: [],
   currentCity: DEFAULT_CITY,
   authStatus: AuthorizationStatus.Unknown,
 };
@@ -26,6 +27,9 @@ const reducer = (state: TState = initialState, action: TActions): TState => {
     }
     case ActionType.RequireLogout: {
       return {...state, authStatus: AuthorizationStatus.NoAuth };
+    }
+    case ActionType.SetComments: {
+      return {...state, comments: action.payload};
     }
     default:
       return state;

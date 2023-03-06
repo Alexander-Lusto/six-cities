@@ -1,10 +1,16 @@
 import { ActionType } from '../types/action';
 import { TOffer } from '../types/offer';
+import { TComment } from '../types/comment';
 import { AuthorizationStatus } from '../const';
 
 export const setOffers = (offers: TOffer[]) => ({
   type: ActionType.SetOffers,
   payload: offers,
+} as const);
+
+export const setComments = (comments: TComment[]) => ({
+  type: ActionType.SetComments,
+  payload: comments,
 } as const);
 
 export const changeCity = (cityID: number) => ({

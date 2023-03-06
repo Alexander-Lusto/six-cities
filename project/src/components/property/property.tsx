@@ -13,14 +13,15 @@ import { cities } from '../../const';
 
 const PLACES_NEARBY_COUNT = 3;
 
-const mapStateToProps = ({offers}: TState) => ({
+const mapStateToProps = ({offers, comments}: TState) => ({
   offers,
+  comments,
 });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Property({offers}: PropsFromRedux): JSX.Element {
+function Property({offers, comments}: PropsFromRedux): JSX.Element {
   const id = Number(useParams().id);
   const offer = offers.find((el) => el.id === id);
 
@@ -32,7 +33,6 @@ function Property({offers}: PropsFromRedux): JSX.Element {
   if (!currentLocation) {
     return <Navigate to={Path.NotFound} />;
   }
-  const comments = offers.comments ?? [];
 
   const localOffers = offers.filter((el) => el.city.name === currentLocation.name);
   const offersNearby = localOffers.filter((localOffer) => localOffer.id !== id).slice(0, PLACES_NEARBY_COUNT);

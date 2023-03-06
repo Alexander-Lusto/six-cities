@@ -1,4 +1,4 @@
-import {setOffers, changeCity, requireAuth, requireLogout} from '../store/action';
+import {setOffers, changeCity, requireAuth, requireLogout, setComments} from '../store/action';
 import { ThunkAction } from '@reduxjs/toolkit';
 import { ThunkDispatch } from 'redux-thunk';
 import { AxiosInstance } from 'axios';
@@ -9,9 +9,11 @@ export enum ActionType {
   ChangeCity = 'cities/changeCity',
   RequireAuth = 'authorization/requireAuth',
   RequireLogout = 'authorization/requireLogout',
+  SetComments = 'comments/setComments',
 }
 
 export type TActions =
+  | ReturnType<typeof setComments>
   | ReturnType<typeof setOffers>
   | ReturnType<typeof changeCity>
   | ReturnType<typeof requireAuth>
