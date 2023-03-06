@@ -5,6 +5,6 @@ export enum ActionType {
   ChangeCity = 'cities/changeCity',
 }
 
-export type Actions =
+export type TActions =
   | ReturnType<typeof setOffers>
   | ReturnType<typeof changeCity>;

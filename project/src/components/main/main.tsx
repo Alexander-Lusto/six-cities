@@ -5,8 +5,8 @@ import { useState } from 'react';
 import LocationsList from './locations-list/locations-list';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { Actions } from '../../types/action';
-import { State } from '../../types/state';
+import { TActions } from '../../types/action';
+import { TState } from '../../types/state';
 import Sorting from './sorting/sorting';
 import { SortType } from '../../const';
 
@@ -16,10 +16,10 @@ interface IMainProps {
   offers: TOffer[];
 }
 
-const mapStateToProps = ({ currentCity }: State) => ({
+const mapStateToProps = ({ currentCity }: TState) => ({
   currentLocation: currentCity,
 });
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
