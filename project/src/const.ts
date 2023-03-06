@@ -27,6 +27,8 @@ const Month = {
   December: 'December',
 };
 
+export const months: string[] = Object.values(Month);
+
 export const cities = [{
   id: 0,
   name: 'Paris',
@@ -65,4 +67,8 @@ export const cities = [{
   zoom: 13,
 }];
 
-export const months: string[] = Object.values(Month);
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
