@@ -2,7 +2,7 @@ import ReviewsItem from './review/reviews-item';
 import { TComment } from '../../../types/comment';
 
 interface Props {
-  comments: TComment[];
+  comments: TComment[] | [];
 }
 
 function Reviews({comments} : Props): JSX.Element {

@@ -6,8 +6,8 @@ import PageRoom from '../../pages/room/page-room';
 import PageNotFound from '../../pages/not-found/page-not-found';
 import Layout from '../layout/layout';
 import RequireAuth from '../requireAuth/requireAuth';
-import { mockOffers } from '../../mock/offers';
-import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
+// import { mockOffers } from '../../mock/offers';
+import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
 import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
@@ -17,8 +17,8 @@ interface IAppProps {
   authorizationToken: string;
 }
 
-const mapStateToProps = ({offers}: TState) => ({offers});
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({setOffers}, dispatch);
+const mapStateToProps = ({ offers }: TState) => ({ offers });
+const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({ setOffers }, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -26,7 +26,6 @@ type ConnectedComponentProps = PropsFromRedux & IAppProps;
 
 function App(props: ConnectedComponentProps): JSX.Element {
   const offers = props.offers;
-  props.setOffers(mockOffers);
 
   return (
     <Routes>

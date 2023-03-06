@@ -32,7 +32,7 @@ function Property({offers}: PropsFromRedux): JSX.Element {
   if (!currentLocation) {
     return <Navigate to={Path.NotFound} />;
   }
-  const comments = offer.comments;
+  const comments = offers.comments ?? [];
 
   const localOffers = offers.filter((el) => el.city.name === currentLocation.name);
   const offersNearby = localOffers.filter((localOffer) => localOffer.id !== id).slice(0, PLACES_NEARBY_COUNT);
