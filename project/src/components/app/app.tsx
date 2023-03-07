@@ -22,8 +22,8 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function App(props: PropsFromRedux): JSX.Element {
-  const {authStatus, isDataLoaded} = props;
-  const offers = props.offers;
+  const {authStatus, isDataLoaded, offers} = props;
+
   if (!isCheckedAuth(authStatus) && !isDataLoaded) {
     return (
       <Spinner />

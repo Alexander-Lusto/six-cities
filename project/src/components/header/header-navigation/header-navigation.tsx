@@ -1,5 +1,6 @@
 import { Path } from '../../../const';
 import { Link } from 'react-router-dom';
+import { getAuthInfo } from '../../../services/auth-info';
 
 interface IHeaderProps {
   isAuthorized: boolean;
@@ -7,6 +8,8 @@ interface IHeaderProps {
 
 function HeaderNavigation({ isAuthorized }: IHeaderProps) {
   if (isAuthorized) {
+    const authInfo = getAuthInfo();
+
     return (
       <nav className="header__nav">
         <ul className="header__nav-list">
@@ -14,7 +17,7 @@ function HeaderNavigation({ isAuthorized }: IHeaderProps) {
             <Link className="header__nav-link header__nav-link--profile" to={Path.Favorites}>
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
-              <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+              <span className="header__user-name user__name">{authInfo.email}</span>
             </Link>
           </li>
           <li className="header__nav-item">

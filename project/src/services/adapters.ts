@@ -1,9 +1,11 @@
 import { TComment } from '../types/comment';
 import { TOffer } from '../types/offer';
-import { TServerOffer } from '../types/serverOffer';
+import { TServerOffer } from '../types/server-offer';
 import { TServerComment } from '../types/server-comment';
+import { TServerAuthInfo } from '../types/server-auth-info';
+import { TAuthInfo } from '../types/authInfo';
 
-export function commentsAdapter(serverComments: TServerComment[]):TComment[] {
+export function commentsAdapter(serverComments: TServerComment[]): TComment[] {
   return serverComments.map((serverComment) => ({
     comment: serverComment.comment,
     date: serverComment.date,
@@ -53,4 +55,15 @@ export function offersAdapter(serverOffers: TServerOffer[]): TOffer[] {
     title: serverOffer.title,
     type: serverOffer.type,
   }));
+}
+
+export function authInfoAdapter(serverAuthInfo: TServerAuthInfo): TAuthInfo {
+  return {
+    'avatarUrl': serverAuthInfo.avatar_url,
+    'email': serverAuthInfo.email,
+    'id': serverAuthInfo.id,
+    'isPro': serverAuthInfo.is_pro,
+    'name': serverAuthInfo.name,
+    'token': serverAuthInfo.token,
+  };
 }
