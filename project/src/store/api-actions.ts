@@ -7,6 +7,11 @@ import { APIRoute, AuthorizationStatus } from '../const';
 import { offersAdapter, commentsAdapter } from '../services/adapters';
 import { TServerOffer } from '../types/serverOffer';
 import { TServerComment } from '../types/server-comment';
+import { AxiosError } from 'axios';
+
+enum HttpCode {
+  Unauthorized = 401,
+}
 
 export const fetchOffersAction = (): TThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -28,5 +33,10 @@ export const checkAuthAction = (): TThunkActionResult =>
       .then(() => {
         dispatch(requireAuth(AuthorizationStatus.Auth));
       })
-      .catch();
+      .catch((error: AxiosError) => {
+        const { response } = error;
+        if (response?.status === HttpCode.Unauthorized) {
+          dispatch(requireAuth(AuthorizationStatus.NoAuth));
+        }
+      });
   };
