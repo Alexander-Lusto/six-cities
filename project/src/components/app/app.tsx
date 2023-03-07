@@ -6,34 +6,37 @@ import PageRoom from '../../pages/room/page-room';
 import PageNotFound from '../../pages/not-found/page-not-found';
 import Layout from '../layout/layout';
 import RequireAuth from '../requireAuth/requireAuth';
-// import { mockOffers } from '../../mock/offers';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
 import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
 import { setOffers } from '../../store/action';
+import { isCheckedAuth, isAuthorized } from '../../types/utils';
+import Spinner from '../spinner/spinner';
 
-interface IAppProps {
-  authorizationToken: string;
-}
 
-const mapStateToProps = ({ offers }: TState) => ({ offers });
+const mapStateToProps = ({ offers, isDataLoaded, authStatus }: TState) => ({ offers, isDataLoaded, authStatus });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({ setOffers }, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & IAppProps;
 
-function App(props: ConnectedComponentProps): JSX.Element {
+function App(props: PropsFromRedux): JSX.Element {
+  const {authStatus, isDataLoaded} = props;
   const offers = props.offers;
+  if (!isCheckedAuth(authStatus) && !isDataLoaded) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <Routes>
-      <Route path="/" element={<Layout authorizationToken={props.authorizationToken} />} >
+      <Route path="/" element={<Layout isAuthorized={isAuthorized(authStatus)} />} >
         <Route index element={<PageMain offers={offers} />} />
         <Route path="login" element={<PageLogin />} />
         <Route path="favorites" element={
-          <RequireAuth authorizationToken={props.authorizationToken}>
+          <RequireAuth isAuthorized={isAuthorized(authStatus)}>
             <PageFavorites offers={offers}></PageFavorites>
           </RequireAuth>
         }

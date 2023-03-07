@@ -8,4 +8,5 @@ export type TState = {
   currentCity: TCity;
   authStatus: AuthorizationStatus;
   comments: TComment[];
+  isDataLoaded: boolean;
 };

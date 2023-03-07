@@ -16,7 +16,7 @@ const pageClassMap: PageClassMap = {
 };
 
 interface ILayoutProps {
-  authorizationToken: string;
+  isAuthorized: boolean;
 }
 
 function Layout(props: ILayoutProps ): JSX.Element {
@@ -27,7 +27,7 @@ function Layout(props: ILayoutProps ): JSX.Element {
 
   return (
     <div className={pageClass}>
-      <Header authorizationToken={props.authorizationToken} isLoginPage={isLoginPage}></Header>
+      <Header isAuthorized={props.isAuthorized} isLoginPage={isLoginPage}></Header>
       <Outlet></Outlet>
     </div>
   );

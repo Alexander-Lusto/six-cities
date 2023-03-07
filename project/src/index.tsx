@@ -12,10 +12,7 @@ import { checkAuthAction } from './store/api-actions';
 import { fetchOffersAction } from './store/api-actions';
 
 const api = createAPI();
-
-const AUTHORIZATION_TOKEN = 'tWPTWn2$OdVAogNh2kzr$uBgPP*w3&5W^uZ7VrxcfW!pdMhD7JiMwSs#2WXJi7mTgYDOa&';
 const store = configureStore({reducer, devTools: true, middleware: [thunk.withExtraArgument(api)]});
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
@@ -27,7 +24,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App authorizationToken={AUTHORIZATION_TOKEN} />
+        <App />
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

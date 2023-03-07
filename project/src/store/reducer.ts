@@ -11,12 +11,13 @@ const initialState = {
   comments: [],
   currentCity: DEFAULT_CITY,
   authStatus: AuthorizationStatus.Unknown,
+  isDataLoaded: false,
 };
 
 const reducer = (state: TState = initialState, action: TActions): TState => {
   switch (action.type) {
     case ActionType.SetOffers: {
-      return {...state, offers: action.payload};
+      return {...state, offers: action.payload, isDataLoaded: true};
     }
     case ActionType.ChangeCity: {
       const city = cities.find((el) => el.id === action.payload) as TCity;

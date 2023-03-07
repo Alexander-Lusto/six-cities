@@ -3,11 +3,11 @@ import { Path } from '../../const';
 import HeaderNavigation from './header-navigation/header-navigation';
 
 interface IHeaderProps {
-  authorizationToken: string;
+  isAuthorized: boolean;
   isLoginPage?: boolean;
 }
 
-function Header({ authorizationToken, isLoginPage = false }: IHeaderProps): JSX.Element {
+function Header({ isAuthorized, isLoginPage = false }: IHeaderProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -17,7 +17,7 @@ function Header({ authorizationToken, isLoginPage = false }: IHeaderProps): JSX.
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
-          {isLoginPage ? '' : <HeaderNavigation authorizationToken={authorizationToken}></HeaderNavigation>}
+          {isLoginPage ? '' : <HeaderNavigation isAuthorized={isAuthorized}></HeaderNavigation>}
         </div>
       </div>
     </header>
