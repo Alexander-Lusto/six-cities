@@ -1,12 +1,24 @@
 import { Path } from '../../../const';
 import { Link } from 'react-router-dom';
 import { getAuthInfo } from '../../../services/auth-info';
+import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
+import { connect, ConnectedProps } from 'react-redux';
+import { TActions } from '../../../types/action';
+import { logoutAction } from '../../../store/api-actions';
 
 interface IHeaderProps {
   isAuthorized: boolean;
 }
 
-function HeaderNavigation({ isAuthorized }: IHeaderProps) {
+const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
+  onLogout: logoutAction
+}, dispatch);
+
+const connector = connect(null, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & IHeaderProps;
+
+function HeaderNavigation({ isAuthorized, onLogout }: ConnectedComponentProps) {
   if (isAuthorized) {
     const authInfo = getAuthInfo();
 
@@ -21,9 +33,9 @@ function HeaderNavigation({ isAuthorized }: IHeaderProps) {
             </Link>
           </li>
           <li className="header__nav-item">
-            <Link className="header__nav-link" to={Path.Main}>
+            <a className="header__nav-link" onClick={() => onLogout()}>
               <span className="header__signout">Sign out</span>
-            </Link>
+            </a>
           </li>
         </ul>
       </nav>
@@ -46,4 +58,4 @@ function HeaderNavigation({ isAuthorized }: IHeaderProps) {
 
 }
 
-export default HeaderNavigation;
+export default connector(HeaderNavigation);

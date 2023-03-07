@@ -1,15 +1,15 @@
 import { TThunkActionResult } from '../types/action';
-import { setComments, setOffers } from './action';
+import { requireLogout, setComments, setOffers } from './action';
 import { requireAuth } from './action';
 import { TUser } from '../types/user';
-import { saveToken } from '../services/token';
+import { dropToken, saveToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { offersAdapter, commentsAdapter, authInfoAdapter } from '../services/adapters';
 import { TServerOffer } from '../types/server-offer';
 import { TServerComment } from '../types/server-comment';
 import { AxiosError } from 'axios';
 import { TServerAuthInfo } from '../types/server-auth-info';
-import { saveAuthInfo } from '../services/auth-info';
+import { saveAuthInfo, removeAuthInfo } from '../services/auth-info';
 
 enum HttpCode {
   Unauthorized = 401,
@@ -45,9 +45,17 @@ export const checkAuthAction = (): TThunkActionResult =>
 
 export const loginAction = (userInfo: TUser): TThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const {data: serverAuthInfo} = await api.post<TServerAuthInfo>(APIRoute.Login, userInfo);
+    const { data: serverAuthInfo } = await api.post<TServerAuthInfo>(APIRoute.Login, userInfo);
     const authInfo = authInfoAdapter(serverAuthInfo);
     saveToken(authInfo.token);
     saveAuthInfo(authInfo);
     dispatch(requireAuth(AuthorizationStatus.Auth));
+  };
+
+export const logoutAction = (): TThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    await api.delete(APIRoute.Logout);
+    dropToken();
+    removeAuthInfo();
+    dispatch(requireLogout());
   };
