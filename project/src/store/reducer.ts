@@ -8,33 +8,40 @@ const DEFAULT_CITY = cities[0];
 
 const initialState = {
   offers: [],
-  comments: [],
+  offer: null,
+  offersNearby: null,
+  comments: null,
   currentCity: DEFAULT_CITY,
   authStatus: AuthorizationStatus.Unknown,
-  isDataLoaded: false,
+  isOffersLoaded: false,
 };
 
 const reducer = (state: TState = initialState, action: TActions): TState => {
   switch (action.type) {
     case ActionType.SetOffers: {
-      return {...state, offers: action.payload, isDataLoaded: true};
+      return { ...state, offers: action.payload, isOffersLoaded: true };
+    }
+    case ActionType.SetOfferData: {
+      return {
+        ...state,
+        offer: action.payload.offer,
+        offersNearby: action.payload.offersNearby,
+        comments: action.payload.comments,
+      };
     }
     case ActionType.ChangeCity: {
       const city = cities.find((el) => el.id === action.payload) as TCity;
-      return {...state, currentCity: city };
+      return { ...state, currentCity: city };
     }
     case ActionType.RequireAuth: {
-      return {...state, authStatus: action.payload };
+      return { ...state, authStatus: action.payload };
     }
     case ActionType.RequireLogout: {
-      return {...state, authStatus: AuthorizationStatus.NoAuth };
-    }
-    case ActionType.SetComments: {
-      return {...state, comments: action.payload};
+      return { ...state, authStatus: AuthorizationStatus.NoAuth };
     }
     default:
       return state;
   }
 };
 
-export {reducer};
+export { reducer };

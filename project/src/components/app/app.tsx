@@ -15,16 +15,16 @@ import { isCheckedAuth, isAuthorized } from '../../types/utils';
 import Spinner from '../spinner/spinner';
 
 
-const mapStateToProps = ({ offers, isDataLoaded, authStatus }: TState) => ({ offers, isDataLoaded, authStatus });
+const mapStateToProps = ({ offers, isOffersLoaded, authStatus }: TState) => ({ offers, isOffersLoaded, authStatus });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({ setOffers }, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function App(props: PropsFromRedux): JSX.Element {
-  const {authStatus, isDataLoaded, offers} = props;
+  const {authStatus, isOffersLoaded, offers} = props;
 
-  if (!isCheckedAuth(authStatus) && !isDataLoaded) {
+  if (!isCheckedAuth(authStatus) && !isOffersLoaded) {
     return (
       <Spinner />
     );

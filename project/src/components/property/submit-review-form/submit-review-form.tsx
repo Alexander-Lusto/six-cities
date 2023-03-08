@@ -1,4 +1,3 @@
-import { TOffer } from '../../../types/offer';
 import { FormEvent, useState } from 'react';
 import React from 'react';
 
@@ -7,12 +6,7 @@ type NewComment = {
   rating: number;
 }
 
-interface SubmitReviewFormProps {
-  offer: TOffer;
-  offers: TOffer[];
-}
-
-function SubmitReviewForm({ offer, offers }: SubmitReviewFormProps): JSX.Element {
+function SubmitReviewForm(): JSX.Element {
   const formRef = React.createRef<HTMLFormElement>();
   const emptyNewComments: NewComment[] = [];
   const [newComments, setComments] = useState(emptyNewComments);

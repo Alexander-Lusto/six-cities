@@ -12,7 +12,7 @@ import { checkAuthAction } from './store/api-actions';
 import { fetchOffersAction } from './store/api-actions';
 
 const api = createAPI();
-const store = configureStore({reducer, devTools: true, middleware: [thunk.withExtraArgument(api)]});
+const store = configureStore({ reducer, devTools: true, middleware: [thunk.withExtraArgument(api)] });
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
@@ -21,11 +21,9 @@ const root = ReactDOM.createRoot(
 (store.dispatch as TThunkAppDispatch)(fetchOffersAction());
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
 );

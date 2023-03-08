@@ -5,8 +5,10 @@ import { TComment } from './comment';
 
 export type TState = {
   offers: TOffer[];
+  offer: TOffer | null;
+  offersNearby: TOffer[] | null;
+  comments: TComment[] | null;
   currentCity: TCity;
   authStatus: AuthorizationStatus;
-  comments: TComment[];
-  isDataLoaded: boolean;
+  isOffersLoaded: boolean;
 };
