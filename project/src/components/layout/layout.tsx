@@ -15,11 +15,8 @@ const pageClassMap: PageClassMap = {
   [Path.NotFound]: 'page page--gray page--login',
 };
 
-interface ILayoutProps {
-  isAuthorized: boolean;
-}
 
-function Layout(props: ILayoutProps ): JSX.Element {
+function Layout(): JSX.Element {
   const location = useLocation();
   const path = (location.pathname.startsWith(Path.Room)) ? location.pathname.slice(0, location.pathname.indexOf('/', 1)) : location.pathname;
   const pageClass = pageClassMap[path] ? pageClassMap[path] : pageClassMap[Path.NotFound];
@@ -27,7 +24,7 @@ function Layout(props: ILayoutProps ): JSX.Element {
 
   return (
     <div className={pageClass}>
-      <Header isAuthorized={props.isAuthorized} isLoginPage={isLoginPage}></Header>
+      <Header isLoginPage={isLoginPage}></Header>
       <Outlet></Outlet>
     </div>
   );

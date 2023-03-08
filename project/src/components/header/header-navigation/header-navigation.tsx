@@ -1,25 +1,24 @@
-import { Path } from '../../../const';
+import { AuthorizationStatus, Path } from '../../../const';
 import { Link } from 'react-router-dom';
 import { getAuthInfo } from '../../../services/auth-info';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
 import { TActions } from '../../../types/action';
 import { logoutAction } from '../../../store/api-actions';
+import { TState } from '../../../types/state';
 
-interface IHeaderProps {
-  isAuthorized: boolean;
-}
 
+const mapStateToProps = ({ authStatus }: TState) => ({ authStatus });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
   onLogout: logoutAction
 }, dispatch);
 
-const connector = connect(null, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & IHeaderProps;
+type ConnectedComponentProps = PropsFromRedux;
 
-function HeaderNavigation({ isAuthorized, onLogout }: ConnectedComponentProps) {
-  if (isAuthorized) {
+function HeaderNavigation({ onLogout, authStatus }: ConnectedComponentProps) {
+  if (authStatus === AuthorizationStatus.Auth) {
     const authInfo = getAuthInfo();
 
     return (

@@ -7,11 +7,3 @@ export function isCheckedAuth(authStatus: AuthorizationStatus ) {
   return false;
 }
 
-export function isAuthorized(authStatus: AuthorizationStatus ) {
-  if (authStatus === AuthorizationStatus.Auth) {
-    return true;
-  }
-
-  return false;
-}
-

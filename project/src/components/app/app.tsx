@@ -11,7 +11,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
 import { setOffers } from '../../store/action';
-import { isCheckedAuth, isAuthorized } from '../../types/utils';
+import { isCheckedAuth } from '../../types/utils';
 import Spinner from '../spinner/spinner';
 
 
@@ -32,11 +32,11 @@ function App(props: PropsFromRedux): JSX.Element {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout isAuthorized={isAuthorized(authStatus)} />} >
+      <Route path="/" element={<Layout />} >
         <Route index element={<PageMain offers={offers} />} />
         <Route path="login" element={<PageLogin />} />
         <Route path="favorites" element={
-          <RequireAuth isAuthorized={isAuthorized(authStatus)}>
+          <RequireAuth>
             <PageFavorites offers={offers}></PageFavorites>
           </RequireAuth>
         }

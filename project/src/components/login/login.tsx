@@ -3,11 +3,10 @@ import { connect, ConnectedProps } from 'react-redux';
 import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
 import { Link, Navigate } from 'react-router-dom';
-import { Path } from '../../const';
+import { AuthorizationStatus, Path } from '../../const';
 import { loginAction } from '../../store/api-actions';
 import { FormEvent } from 'react';
 import { useRef } from 'react';
-import { isAuthorized } from '../../types/utils';
 
 const mapStateToProps = ({currentCity, authStatus}: TState) => ({ currentCity, authStatus });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
@@ -32,7 +31,7 @@ function Login({currentCity, onLogin, authStatus}:PropsFromRedux):JSX.Element {
     }
   }
 
-  if(isAuthorized(authStatus)) {
+  if( authStatus === AuthorizationStatus.NoAuth) {
     return (
       <Navigate to={Path.Main}/>
     );
