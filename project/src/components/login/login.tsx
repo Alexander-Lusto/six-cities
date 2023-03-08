@@ -31,7 +31,7 @@ function Login({currentCity, onLogin, authStatus}:PropsFromRedux):JSX.Element {
     }
   }
 
-  if( authStatus === AuthorizationStatus.NoAuth) {
+  if( authStatus === AuthorizationStatus.Auth) {
     return (
       <Navigate to={Path.Main}/>
     );

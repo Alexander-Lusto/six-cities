@@ -1,15 +1,24 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import React from 'react';
+import { TCommentPost } from '../../../types/comment-post';
+import { useRef } from 'react';
+import { TState } from '../../../types/state';
+import { TActions } from '../../../types/action';
+import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
+import { postCommentAction } from '../../../store/api-actions';
+import { connect, ConnectedProps } from 'react-redux';
 
-type NewComment = {
-  comment: string;
-  rating: number;
-}
+const mapeStateToProps = ({offer}: TState) => ({offer});
+const mapDispatchToPropse = (dispatch: Dispatch<TActions>) => bindActionCreators({
+  postComment: postCommentAction,
+}, dispatch);
 
-function SubmitReviewForm(): JSX.Element {
-  const formRef = React.createRef<HTMLFormElement>();
-  const emptyNewComments: NewComment[] = [];
-  const [newComments, setComments] = useState(emptyNewComments);
+const connector = connect(mapeStateToProps, mapDispatchToPropse);
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+function SubmitReviewForm({postComment, offer}: PropsFromRedux): JSX.Element {
+  const formRef = useRef<HTMLFormElement>(null);
+  const id = offer ? offer.id : -1;
 
 
   const formSubmitHanler = (evt: FormEvent): void => {
@@ -20,13 +29,12 @@ function SubmitReviewForm(): JSX.Element {
     }
 
     const formData = new FormData(form);
-    const comment: NewComment = {
+    const comment: TCommentPost = {
       comment: String(formData.get('review')),
       rating: Number(formData.get('rating')),
     };
 
-    newComments.push(comment);
-    setComments(newComments);
+    postComment(id, comment);
     form.reset();
   };
 
@@ -56,4 +64,4 @@ function SubmitReviewForm(): JSX.Element {
   );
 }
 
-export default SubmitReviewForm;
+export default connector(SubmitReviewForm);

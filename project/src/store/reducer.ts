@@ -21,6 +21,9 @@ const reducer = (state: TState = initialState, action: TActions): TState => {
     case ActionType.SetOffers: {
       return { ...state, offers: action.payload, isOffersLoaded: true };
     }
+    case ActionType.SetComments: {
+      return { ...state, comments: action.payload };
+    }
     case ActionType.SetOfferData: {
       return {
         ...state,

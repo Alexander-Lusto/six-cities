@@ -1,5 +1,5 @@
 import { TThunkActionResult } from '../types/action';
-import { requireLogout, setComments, setOffers, setOffer, setOffersNearby, setOfferDataAction} from './action';
+import { requireLogout, setComments, setOffers, setOffer, setOffersNearby, setOfferDataAction } from './action';
 import { requireAuth } from './action';
 import { TUser } from '../types/user';
 import { dropToken, saveToken } from '../services/token';
@@ -10,6 +10,7 @@ import { TServerComment } from '../types/server-comment';
 import { AxiosError } from 'axios';
 import { TServerAuthInfo } from '../types/server-auth-info';
 import { saveAuthInfo, removeAuthInfo } from '../services/auth-info';
+import { TCommentPost } from '../types/comment-post';
 
 enum HttpCode {
   Unauthorized = 401,
@@ -74,7 +75,6 @@ export const fetchCommentsAction = (id: number): TThunkActionResult =>
     dispatch(setComments(comments));
   };
 
-
 export const fetchOfferDataAction = (id: number): TThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const { data: serverOffersNearby } = await api.get<TServerOffer[]>(`${APIRoute.Hotels}/${id}/nearby`);
@@ -90,6 +90,13 @@ export const fetchOfferDataAction = (id: number): TThunkActionResult =>
       comments: comments,
       offersNearby: offersNearby,
     }));
+  };
+
+export const postCommentAction = (id: number, comment: TCommentPost): TThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const { data: serverComments } = await api.post<TServerComment[]>(`${APIRoute.Comments}/${id}`, comment);
+    const comments = commentsAdapter(serverComments);
+    dispatch(setComments(comments));
   };
 
 
