@@ -6,6 +6,13 @@ export enum Path {
   NotFound = '*',
 }
 
+export const SortType = {
+  POPULAR: 'popular',
+  PRICE_LOW: 'price-low',
+  PRICE_HIGH: 'price-high',
+  TOP_RATED: 'top-rated',
+};
+
 const Month = {
   January: 'January',
   February: 'February',

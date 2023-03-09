@@ -11,7 +11,7 @@ interface ICardProps {
   className: string;
 }
 
-function Card({ offer, onMouseEnter, onMouseLeave, className = ''}: ICardProps): JSX.Element {
+function Card({ offer, onMouseEnter, onMouseLeave, className = '' }: ICardProps): JSX.Element {
   const ratingPercent = `${Math.round(offer.rating) * 20}%`;
 
   return (
@@ -22,7 +22,7 @@ function Card({ offer, onMouseEnter, onMouseLeave, className = ''}: ICardProps):
         </div> :
         ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <a>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place preview" />
         </a>
       </div>
@@ -44,12 +44,14 @@ function Card({ offer, onMouseEnter, onMouseLeave, className = ''}: ICardProps):
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: ratingPercent}}></span>
+            <span style={{ width: ratingPercent }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${Path.Room}/${offer.id}`}>{offer.title}</Link>
+          <Link to={`${Path.Room}/${offer.id}`} onClick={() => window.scrollTo({top: 0,behavior: 'smooth'})}>
+            {offer.title}
+          </Link>
         </h2>
         <p className="place-card__type">{capitalizeFirstLetter(offer.type)}</p>
       </div>

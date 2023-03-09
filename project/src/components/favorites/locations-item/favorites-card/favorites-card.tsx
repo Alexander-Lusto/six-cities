@@ -2,12 +2,32 @@ import { TOffer } from '../../../../types/offer';
 import { Path } from '../../../../const';
 import { Link } from 'react-router-dom';
 import BookmarkButton from '../../../UI/bookmark-button/bookmark-button';
+import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
+import { connect, ConnectedProps } from 'react-redux';
+import { TActions } from '../../../../types/action';
+import { TState } from '../../../../types/state';
+import { changeCity } from '../../../../store/action';
+import { cities } from '../../../../const';
+
 
 interface IFavoritesCard {
   offer: TOffer;
 }
 
-function FavoritesCard({offer}: IFavoritesCard): JSX.Element {
+const mapStateToProps = ({currentCity}: TState) => ({
+  currentLocation: currentCity,
+});
+const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
+  onCityChange: changeCity,
+}, dispatch);
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & IFavoritesCard;
+
+function FavoritesCard({offer, currentLocation, onCityChange}: ConnectedComponentProps): JSX.Element {
+  const locationID = cities.find((city) => city.name === offer.city.name)?.id || currentLocation.id ;
+
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
@@ -30,7 +50,7 @@ function FavoritesCard({offer}: IFavoritesCard): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${Path.Room}/${offer.id}`}>{offer.title}</Link>
+          <Link to={`${Path.Room}/${offer.id}`} onClick={() => onCityChange(locationID)}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
@@ -38,4 +58,4 @@ function FavoritesCard({offer}: IFavoritesCard): JSX.Element {
   );
 }
 
-export default FavoritesCard;
+export default connector(FavoritesCard);

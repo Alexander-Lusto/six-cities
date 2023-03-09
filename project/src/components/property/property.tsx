@@ -1,43 +1,45 @@
-import { TOffer } from '../../types/offer';
-import { TCity } from '../../types/city';
 import PropertyGallery from './property-gallery/property-gallery';
 import Reviews from './reviews/reviews';
 import PlacesList from '../places-list/places-list';
 import SubmitReviewForm from './submit-review-form/submit-review-form';
-import { useParams, Navigate } from 'react-router';
+import { Navigate, useParams} from 'react-router';
 import { Path } from '../../const';
 import Map from '../map/map';
-import { useState } from 'react';
-
+import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
+import { connect, ConnectedProps } from 'react-redux';
+import { TActions } from '../../types/action';
+import { TState } from '../../types/state';
+import { cities } from '../../const';
 
 const PLACES_NEARBY_COUNT = 3;
 
-interface IPropertyProps {
-  offers: TOffer[];
-  currentLocation: TCity;
-}
+const mapStateToProps = ({offers}: TState) => ({
+  offers,
+});
+const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Property({offers, currentLocation}: IPropertyProps): JSX.Element {
+function Property({offers}: PropsFromRedux): JSX.Element {
   const id = Number(useParams().id);
   const offer = offers.find((el) => el.id === id);
 
-  const localOffers = offers.filter((el) => el.city.name === currentLocation.name);
-  const offersNearby = localOffers.slice(0, PLACES_NEARBY_COUNT);
-  const points = offersNearby.map((el) => Object.assign(el.city.location, {id: el.id}));
-
-  const [activePlaceID, setActivePlaceID] = useState(-1);
-  const currentPoint = points.find((point) => point.id === activePlaceID);
-  function activeOfferChangeHandler(offerID: number): void {
-    setActivePlaceID(offerID);
-  }
-
   if (!offer) {
-    return (
-      <Navigate to={Path.NotFound}></Navigate>
-    );
+    return <Navigate to={Path.NotFound} />;
   }
+  const currentLocation = cities.find((city) => city.name === offer.city.name);
 
+  if (!currentLocation) {
+    return <Navigate to={Path.NotFound} />;
+  }
   const comments = offer.comments;
+
+  const localOffers = offers.filter((el) => el.city.name === currentLocation.name);
+  const offersNearby = localOffers.filter((localOffer) => localOffer.id !== id).slice(0, PLACES_NEARBY_COUNT);
+  const points = offersNearby
+    .map((el) => Object.assign({}, el.city.location, {id: el.id}))
+    .concat(Object.assign({}, offer.city.location, {id: offer.id}));
+  const currentPoint = points.find((point) => point.id === offer.id);
 
   return (
     <main className="page__main page__main--property">
@@ -133,7 +135,7 @@ function Property({offers, currentLocation}: IPropertyProps): JSX.Element {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <PlacesList className="near-places__list places__list" childClassName="near-places__card"
-            offers={offersNearby} activeOfferChangeHandler={activeOfferChangeHandler}
+            offers={offersNearby} activeOfferChangeHandler={null}
           />
         </section>
       </div>
@@ -141,4 +143,4 @@ function Property({offers, currentLocation}: IPropertyProps): JSX.Element {
   );
 }
 
-export default Property;
+export default connector(Property);
