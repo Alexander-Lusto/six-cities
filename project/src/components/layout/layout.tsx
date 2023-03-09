@@ -1,6 +1,7 @@
 import Header from '../header/header';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Path } from '../../const';
+import Footer from '../footer/footer';
 
 
 type PageClassMap = {
@@ -26,6 +27,9 @@ function Layout(): JSX.Element {
     <div className={pageClass}>
       <Header isLoginPage={isLoginPage}></Header>
       <Outlet></Outlet>
+      {location.pathname.startsWith(Path.Room) ?
+        <Footer /> :
+        ''}
     </div>
   );
 }
