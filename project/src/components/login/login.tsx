@@ -7,8 +7,12 @@ import { AuthorizationStatus, Path } from '../../const';
 import { loginAction } from '../../store/api-actions';
 import { FormEvent } from 'react';
 import { useRef } from 'react';
+import { toast } from 'react-toastify';
+import { successToastConfig } from '../../const';
 
-const mapStateToProps = ({currentCity, authStatus}: TState) => ({ currentCity, authStatus });
+const AUTH_SUCCESS_TEXT = 'Authorization successful!';
+
+const mapStateToProps = ({ currentCity, authStatus }: TState) => ({ currentCity, authStatus });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
   onLogin: loginAction
 }, dispatch);
@@ -17,7 +21,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
-function Login({currentCity, onLogin, authStatus}:PropsFromRedux):JSX.Element {
+function Login({ currentCity, onLogin, authStatus }: PropsFromRedux): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -31,11 +35,13 @@ function Login({currentCity, onLogin, authStatus}:PropsFromRedux):JSX.Element {
     }
   }
 
-  if( authStatus === AuthorizationStatus.Auth) {
+  if (authStatus === AuthorizationStatus.Auth) {
+    toast(AUTH_SUCCESS_TEXT, successToastConfig);
     return (
-      <Navigate to={Path.Main}/>
+      <Navigate to={Path.Main} />
     );
   }
+
 
   return (
     <main className="page__main page__main--login">

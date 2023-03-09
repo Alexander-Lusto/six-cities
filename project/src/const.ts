@@ -80,3 +80,27 @@ export enum APIRoute {
   Logout = '/logout',
   Favorite = '/favorite'
 }
+
+export const errorToastConfig = {
+  position: 'top-center',
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  progress: undefined,
+  draggable: false,
+  theme: 'light',
+  type: 'error',
+} as const;
+
+export const successToastConfig = {
+  position: 'top-center',
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  progress: undefined,
+  draggable: false,
+  theme: 'light',
+  type: 'success',
+} as const;
