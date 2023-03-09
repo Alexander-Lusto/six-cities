@@ -1,5 +1,5 @@
 import { TThunkActionResult } from '../types/action';
-import { requireLogout, setComments, setOffers, setOffer, setOffersNearby, setOfferDataAction } from './action';
+import { requireLogout, setComments, setOffers, setOfferDataAction } from './action';
 import { requireAuth } from './action';
 import { TUser } from '../types/user';
 import { dropToken, saveToken } from '../services/token';
@@ -54,20 +54,6 @@ export const logoutAction = (): TThunkActionResult =>
     dispatch(requireLogout());
   };
 
-export const fetchOfferAction = (id: number): TThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    const { data: serverOffer } = await api.get<TServerOffer>(`${APIRoute.Hotels}/${id}`);
-    const offers = offersAdapter([serverOffer]);
-    dispatch(setOffer(offers[0]));
-  };
-
-export const fetchOffersNearby = (id: number): TThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    const { data: serverOffers } = await api.get<TServerOffer[]>(`${APIRoute.Hotels}/${id}/nearby`);
-    const offers = offersAdapter(serverOffers);
-    dispatch(setOffersNearby(offers));
-  };
-
 export const fetchCommentsAction = (id: number): TThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const { data: serverComments } = await api.get<TServerComment[]>(`${APIRoute.Comments}/${id}`);
@@ -75,28 +61,30 @@ export const fetchCommentsAction = (id: number): TThunkActionResult =>
     dispatch(setComments(comments));
   };
 
-export const fetchOfferDataAction = (id: number): TThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    const { data: serverOffersNearby } = await api.get<TServerOffer[]>(`${APIRoute.Hotels}/${id}/nearby`);
-    const { data: serverOffer } = await api.get<TServerOffer>(`${APIRoute.Hotels}/${id}`);
-    const { data: serverComments } = await api.get<TServerComment[]>(`${APIRoute.Comments}/${id}`);
-
-    const offers = offersAdapter([serverOffer]);
-    const comments = commentsAdapter(serverComments);
-    const offersNearby = offersAdapter(serverOffersNearby);
-
-    dispatch(setOfferDataAction({
-      offer: offers[0],
-      comments: comments,
-      offersNearby: offersNearby,
-    }));
-  };
-
 export const postCommentAction = (id: number, comment: TCommentPost): TThunkActionResult =>
   async (dispatch, _getState, api) => {
     const { data: serverComments } = await api.post<TServerComment[]>(`${APIRoute.Comments}/${id}`, comment);
     const comments = commentsAdapter(serverComments);
     dispatch(setComments(comments));
+  };
+
+export const fetchOfferDataAction = (id: number): TThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const [{ data: serverOffer }, { data: serverComments }, { data: serverOffersNearby }] = await Promise.all([
+      api.get<TServerOffer>(`${APIRoute.Hotels}/${id}`),
+      api.get<TServerComment[]>(`${APIRoute.Comments}/${id}`),
+      api.get<TServerOffer[]>(`${APIRoute.Hotels}/${id}/nearby`),
+    ]);
+
+    const offer = offersAdapter([serverOffer])[0];
+    const comments = commentsAdapter(serverComments);
+    const offersNearby = offersAdapter(serverOffersNearby);
+
+    dispatch(setOfferDataAction({
+      offer: offer,
+      comments: comments,
+      offersNearby: offersNearby,
+    }));
   };
 
 

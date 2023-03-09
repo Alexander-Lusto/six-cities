@@ -9,9 +9,9 @@ export const setOffers = (offers: TOffer[]) => ({
   payload: offers,
 } as const);
 
-export const setOffer = (offer: TOffer) => ({
-  type: ActionType.SetOffer,
-  payload: offer,
+export const setOfferDataAction = (data: TOfferData) => ({
+  type: ActionType.SetOfferData,
+  payload: data,
 } as const);
 
 export const setComments = (comments: TComment[]) => ({
@@ -31,14 +31,4 @@ export const requireAuth = (authStatus: AuthorizationStatus) => ({
 
 export const requireLogout = () => ({
   type: ActionType.RequireLogout,
-} as const);
-
-export const setOffersNearby = (offers: TOffer[]) => ({
-  type: ActionType.SetOffersNearby,
-  payload: offers,
-} as const);
-
-export const setOfferDataAction = (data: TOfferData) => ({
-  type: ActionType.SetOfferData,
-  payload: data,
 } as const);
