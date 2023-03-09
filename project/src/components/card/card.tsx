@@ -22,7 +22,7 @@ function Card({ offer, onMouseEnter, onMouseLeave, className = '' }: ICardProps)
         </div> :
         ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#" onClick={(evt) => evt.preventDefault()}>
+        <a>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place preview" />
         </a>
       </div>
