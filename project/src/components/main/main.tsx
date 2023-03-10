@@ -9,8 +9,6 @@ import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
 import Sorting from './sorting/sorting';
 import { SortType } from '../../const';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const DEFAULT_SORT_TYPE = SortType.POPULAR;
 
@@ -87,7 +85,6 @@ function Main(props: ConnectedComponentProps): JSX.Element {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </main>
   );
 }

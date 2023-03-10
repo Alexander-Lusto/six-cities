@@ -11,8 +11,7 @@ import { AxiosError } from 'axios';
 import { TServerAuthInfo } from '../types/server-auth-info';
 import { saveAuthInfo, removeAuthInfo } from '../services/auth-info';
 import { TCommentPost } from '../types/comment-post';
-import { toast } from 'react-toastify';
-import { errorToastConfig } from '../const';
+
 
 enum HttpCode {
   Unauthorized = 401,
@@ -27,7 +26,7 @@ export const fetchOffersAction = (): TThunkActionResult =>
 
 export const checkAuthAction = (): TThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.get(`${APIRoute.Login}`)
+    await api.get(APIRoute.Login)
       .then(() => {
         dispatch(requireAuth(AuthorizationStatus.Auth));
       })
@@ -35,8 +34,6 @@ export const checkAuthAction = (): TThunkActionResult =>
         const { response } = error;
         if (response?.status === HttpCode.Unauthorized) {
           dispatch(requireAuth(AuthorizationStatus.NoAuth));
-        } else {
-          toast(`${error.message}`, errorToastConfig);
         }
       });
   };
