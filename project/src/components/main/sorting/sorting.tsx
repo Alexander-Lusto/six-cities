@@ -1,6 +1,7 @@
 import { SortType } from '../../../const';
 import { useState } from 'react';
 import { MouseEvent } from 'react';
+import { memo } from 'react';
 
 const SortText = {
   POPULAR: 'Popular',
@@ -56,4 +57,4 @@ function Sorting({ currentSortType, sortTypeChangeHandler }: ISortingProps) {
   );
 }
 
-export default Sorting;
+export default memo(Sorting);

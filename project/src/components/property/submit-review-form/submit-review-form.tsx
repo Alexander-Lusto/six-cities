@@ -7,6 +7,8 @@ import { TActions } from '../../../types/action';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { postCommentAction } from '../../../store/api-actions';
 import { connect, ConnectedProps } from 'react-redux';
+import { memo } from 'react';
+
 
 const mapeStateToProps = ({offer}: TState) => ({offer});
 const mapDispatchToPropse = (dispatch: Dispatch<TActions>) => bindActionCreators({
@@ -64,4 +66,4 @@ function SubmitReviewForm({postComment, offer}: PropsFromRedux): JSX.Element {
   );
 }
 
-export default connector(SubmitReviewForm);
+export default connector(memo(SubmitReviewForm));

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Path } from '../../const';
 import { TOffer } from '../../types/offer';
+import { memo } from 'react';
 
 const capitalizeFirstLetter = (string: string) => string[0].toUpperCase() + string.slice(1);
 
@@ -59,4 +60,4 @@ function Card({ offer, onMouseEnter, onMouseLeave, className = '' }: ICardProps)
   );
 }
 
-export default Card;
+export default memo(Card, (prevProps, nextProps) => prevProps.offer === nextProps.offer);

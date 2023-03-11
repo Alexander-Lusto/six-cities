@@ -1,12 +1,14 @@
 import LocationsItem from './locations-item/locations-item';
 import { cities } from '../../../const';
 import { TCity } from '../../../types/city';
+import { memo } from 'react';
 
 interface ILocationsList {
   currentLocation: TCity;
 }
 
 function LocationsList({currentLocation}: ILocationsList): JSX.Element {
+
   return (
     <ul className="locations__list tabs__list">
       {cities.map((city) => (
@@ -16,4 +18,4 @@ function LocationsList({currentLocation}: ILocationsList): JSX.Element {
   );
 }
 
-export default LocationsList;
+export default memo(LocationsList);
