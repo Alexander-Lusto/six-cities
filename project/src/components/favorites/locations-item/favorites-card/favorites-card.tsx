@@ -8,15 +8,16 @@ import { TActions } from '../../../../types/action';
 import { TState } from '../../../../types/state';
 import { changeCity } from '../../../../store/action';
 import { cities } from '../../../../const';
-
+import { getCurrentCity } from '../../../../store/main-data/selectors';
 
 interface IFavoritesCard {
   offer: TOffer;
 }
 
-const mapStateToProps = ({MAIN}: TState) => ({
-  currentLocation: MAIN.currentCity,
+const mapStateToProps = (state: TState) => ({
+  currentLocation: getCurrentCity(state),
 });
+
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
   onCityChange: changeCity,
 }, dispatch);

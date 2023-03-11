@@ -5,13 +5,14 @@ import { connect, ConnectedProps } from 'react-redux';
 import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
 import { AuthorizationStatus } from '../../const';
+import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
 
 
 interface IRequireAuthProps {
   children: JSX.Element;
 }
 
-const mapStateToProps = ({AUTHORIZATION}: TState) => ({ authStatus: AUTHORIZATION.authStatus });
+const mapStateToProps = (state: TState) => ({ authStatus: getAuthorizationStatus(state) });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

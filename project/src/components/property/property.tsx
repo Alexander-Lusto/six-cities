@@ -14,12 +14,16 @@ import Spinner from '../spinner/spinner';
 import { fetchOfferDataAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { AuthorizationStatus } from '../../const';
+import { getOffer } from '../../store/property-data/selectors';
+import { getComments } from '../../store/property-data/selectors';
+import { getOffersNearby } from '../../store/property-data/selectors';
+import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
 
-const mapStateToProps = ({ PROPERTY, AUTHORIZATION }: TState) => ({
-  offer: PROPERTY.offer,
-  comments: PROPERTY.comments,
-  offersNearby: PROPERTY.offersNearby,
-  authStatus: AUTHORIZATION.authStatus,
+const mapStateToProps = (state: TState) => ({
+  offer: getOffer(state),
+  comments: getComments(state),
+  offersNearby: getOffersNearby(state),
+  authStatus: getAuthorizationStatus(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
   loadOfferData: fetchOfferDataAction,

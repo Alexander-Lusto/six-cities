@@ -13,11 +13,14 @@ import Login from '../login/login';
 import Favorites from '../favorites/favorites';
 import Property from '../property/property';
 import NotFound404 from '../not-found-404/not-found-404';
+import { getOffers } from '../../store/main-data/selectors';
+import { checkIfOffersLoaded } from '../../store/main-data/selectors';
+import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
 
-const mapStateToProps = ({ MAIN, AUTHORIZATION }: TState) => ({
-  offers: MAIN.offers,
-  isOffersLoaded: MAIN.isOffersLoaded,
-  authStatus: AUTHORIZATION.authStatus,
+const mapStateToProps = (state: TState) => ({
+  offers: getOffers(state),
+  isOffersLoaded: checkIfOffersLoaded(state),
+  authStatus: getAuthorizationStatus(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({ setOffers }, dispatch);
 

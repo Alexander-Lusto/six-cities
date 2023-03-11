@@ -6,9 +6,10 @@ import { connect, ConnectedProps } from 'react-redux';
 import { TActions } from '../../../types/action';
 import { logoutAction } from '../../../store/api-actions';
 import { TState } from '../../../types/state';
+import { getAuthorizationStatus } from '../../../store/authorization-process/selectors';
 
 
-const mapStateToProps = ({ AUTHORIZATION }: TState) => ({ authStatus: AUTHORIZATION.authStatus });
+const mapStateToProps = (state: TState) => ({ authStatus: getAuthorizationStatus(state) });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
   onLogout: logoutAction
 }, dispatch);

@@ -8,9 +8,10 @@ import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { postCommentAction } from '../../../store/api-actions';
 import { connect, ConnectedProps } from 'react-redux';
 import { memo } from 'react';
+import { getOffer } from '../../../store/property-data/selectors';
 
 
-const mapeStateToProps = ({PROPERTY}: TState) => ({offer: PROPERTY.offer});
+const mapeStateToProps = (state: TState) => ({offer: getOffer(state)});
 const mapDispatchToPropse = (dispatch: Dispatch<TActions>) => bindActionCreators({
   postComment: postCommentAction,
 }, dispatch);

@@ -9,6 +9,7 @@ import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
 import Sorting from './sorting/sorting';
 import { SortType } from '../../const';
+import { getCurrentCity } from '../../store/main-data/selectors';
 
 const DEFAULT_SORT_TYPE = SortType.POPULAR;
 
@@ -16,7 +17,7 @@ interface IMainProps {
   offers: TOffer[];
 }
 
-const mapStateToProps = ({ MAIN }: TState) => ({currentLocation: MAIN.currentCity});
+const mapStateToProps = (state: TState) => ({currentLocation: getCurrentCity(state)});
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
