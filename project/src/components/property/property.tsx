@@ -5,9 +5,6 @@ import SubmitReviewForm from './submit-review-form/submit-review-form';
 import { Navigate, useParams } from 'react-router';
 import { Path } from '../../const';
 import Map from '../map/map';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
-import { TState } from '../../types/state';
 import { cities } from '../../const';
 import Spinner from '../spinner/spinner';
 import { fetchOfferDataAction } from '../../store/api-actions';
@@ -17,33 +14,25 @@ import { getOffer } from '../../store/property-data/selectors';
 import { getComments } from '../../store/property-data/selectors';
 import { getOffersNearby } from '../../store/property-data/selectors';
 import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { TThunkAppDispatch } from '../../types/action';
 
-const mapStateToProps = (state: TState) => ({
-  offer: getOffer(state),
-  comments: getComments(state),
-  offersNearby: getOffersNearby(state),
-  authStatus: getAuthorizationStatus(state),
-});
-const mapDispatchToProps = (dispatch: Dispatch ) => bindActionCreators({
-  loadOfferData: fetchOfferDataAction,
-}, dispatch);
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function Property(props: PropsFromRedux): JSX.Element {
-  const { offer, comments, offersNearby, loadOfferData, authStatus } = props;
+function Property(): JSX.Element {
+  const dispatch = useDispatch<TThunkAppDispatch>();
+  const offer = useSelector(getOffer);
+  const comments = useSelector(getComments);
+  const offersNearby = useSelector(getOffersNearby);
+  const authStatus = useSelector(getAuthorizationStatus);
   const id = Number(useParams().id);
 
   useEffect(() => {
-    loadOfferData(id);
+    dispatch(fetchOfferDataAction(id));
   }, [id]);
 
   if (offer === null || comments === null || offersNearby === null) {
-    return (
-      <Spinner />
-    );
+    return <Spinner />;
   }
-
 
   const currentLocation = cities.find((city) => city.name === offer.city.name);
 
@@ -161,4 +150,4 @@ function Property(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export default connector(Property);
+export default Property;

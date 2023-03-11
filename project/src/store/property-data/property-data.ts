@@ -1,7 +1,6 @@
 import { TPropertyState } from '../../types/state';
-import { setComments } from '../action';
+import { setComments, setOfferData } from '../action';
 import { createReducer } from '@reduxjs/toolkit';
-import { setOfferData } from '../action';
 
 const initialState: TPropertyState = {
   offer: null,
@@ -18,7 +17,8 @@ const propertyData = createReducer(initialState, (builder) => {
       state.offer = action.payload.offer;
       state.comments = action.payload.comments;
       state.offersNearby = action.payload.offersNearby;
-    });
+    })
+    .addDefaultCase((state) => state);
 });
 
 export { propertyData };

@@ -3,12 +3,10 @@ import PlacesList from '../places-list/places-list';
 import Map from '../map/map';
 import { useState } from 'react';
 import LocationsList from './locations-list/locations-list';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
-import { TState } from '../../types/state';
 import Sorting from './sorting/sorting';
 import { SortType } from '../../const';
 import { getCurrentCity } from '../../store/main-data/selectors';
+import { useSelector } from 'react-redux';
 
 const DEFAULT_SORT_TYPE = SortType.POPULAR;
 
@@ -16,15 +14,8 @@ interface IMainProps {
   offers: TOffer[];
 }
 
-const mapStateToProps = (state: TState) => ({currentLocation: getCurrentCity(state)});
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({}, dispatch);
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & IMainProps;
-
-function Main(props: ConnectedComponentProps): JSX.Element {
-  const currentLocation = props.currentLocation;
+function Main(props: IMainProps): JSX.Element {
+  const currentLocation = useSelector(getCurrentCity);
   const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation.name);
   const points = localOffers.map((offer) => Object.assign({}, offer.location, { id: offer.id }));
 
@@ -87,4 +78,4 @@ function Main(props: ConnectedComponentProps): JSX.Element {
   );
 }
 
-export default connector(Main);
+export default Main;

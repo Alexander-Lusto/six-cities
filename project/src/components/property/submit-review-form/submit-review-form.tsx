@@ -2,26 +2,18 @@ import { FormEvent } from 'react';
 import React from 'react';
 import { TCommentPost } from '../../../types/comment-post';
 import { useRef } from 'react';
-import { TState } from '../../../types/state';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { postCommentAction } from '../../../store/api-actions';
-import { connect, ConnectedProps } from 'react-redux';
 import { memo } from 'react';
 import { getOffer } from '../../../store/property-data/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { TThunkAppDispatch } from '../../../types/action';
 
 
-const mapeStateToProps = (state: TState) => ({offer: getOffer(state)});
-const mapDispatchToPropse = (dispatch: Dispatch) => bindActionCreators({
-  postComment: postCommentAction,
-}, dispatch);
-
-const connector = connect(mapeStateToProps, mapDispatchToPropse);
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-function SubmitReviewForm({postComment, offer}: PropsFromRedux): JSX.Element {
+function SubmitReviewForm(): JSX.Element {
+  const dispatch = useDispatch< TThunkAppDispatch>();
+  const offer = useSelector(getOffer);
   const formRef = useRef<HTMLFormElement>(null);
   const id = offer ? offer.id : -1;
-
 
   const formSubmitHanler = (evt: FormEvent): void => {
     evt.preventDefault();
@@ -36,7 +28,7 @@ function SubmitReviewForm({postComment, offer}: PropsFromRedux): JSX.Element {
       rating: Number(formData.get('rating')),
     };
 
-    postComment(id, comment);
+    dispatch(postCommentAction(id, comment));
     form.reset();
   };
 
@@ -66,4 +58,4 @@ function SubmitReviewForm({postComment, offer}: PropsFromRedux): JSX.Element {
   );
 }
 
-export default connector(memo(SubmitReviewForm));
+export default memo(SubmitReviewForm);

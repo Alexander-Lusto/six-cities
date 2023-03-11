@@ -1,6 +1,5 @@
 import { createRef } from 'react';
-import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { changeCity } from '../../../../store/action';
 
 interface ILocationsItemProps {
@@ -9,16 +8,9 @@ interface ILocationsItemProps {
   isActive: boolean;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-  onCityChange: changeCity,
-}, dispatch);
-
-const connector = connect(null, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & ILocationsItemProps;
-
-function LocationsItem(props: ConnectedComponentProps): JSX.Element {
-  const { locationID, locationName, isActive, onCityChange} = props;
+function LocationsItem(props: ILocationsItemProps): JSX.Element {
+  const dispatch = useDispatch();
+  const { locationID, locationName, isActive } = props;
   const linkRef = createRef<HTMLAnchorElement>();
 
   return (
@@ -29,7 +21,7 @@ function LocationsItem(props: ConnectedComponentProps): JSX.Element {
       onClick={() => {
         const link = linkRef.current;
         if(link && link.dataset.locationId) {
-          onCityChange(Number(link.dataset.locationId));
+          dispatch(changeCity(Number(link.dataset.locationId)));
         }
       }}
       data-location-name={locationName}
@@ -41,4 +33,4 @@ function LocationsItem(props: ConnectedComponentProps): JSX.Element {
   );
 }
 
-export default connector(LocationsItem);
+export default LocationsItem;

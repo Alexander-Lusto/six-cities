@@ -2,30 +2,18 @@ import { TOffer } from '../../../../types/offer';
 import { Path } from '../../../../const';
 import { Link } from 'react-router-dom';
 import BookmarkButton from '../../../UI/bookmark-button/bookmark-button';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
-import { TState } from '../../../../types/state';
 import { changeCity } from '../../../../store/action';
 import { cities } from '../../../../const';
+import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentCity } from '../../../../store/main-data/selectors';
 
 interface IFavoritesCard {
   offer: TOffer;
 }
 
-const mapStateToProps = (state: TState) => ({
-  currentLocation: getCurrentCity(state),
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-  onCityChange: changeCity,
-}, dispatch);
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & IFavoritesCard;
-
-function FavoritesCard({offer, currentLocation, onCityChange}: ConnectedComponentProps): JSX.Element {
+function FavoritesCard({offer}: IFavoritesCard): JSX.Element {
+  const dispatch = useDispatch();
+  const currentLocation = useSelector(getCurrentCity);
   const locationID = cities.find((city) => city.name === offer.city.name)?.id || currentLocation.id ;
 
   return (
@@ -50,12 +38,11 @@ function FavoritesCard({offer, currentLocation, onCityChange}: ConnectedComponen
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${Path.Room}/${offer.id}`} onClick={() => onCityChange(locationID)}>{offer.title}</Link>
+          <Link to={`${Path.Room}/${offer.id}`} onClick={() => dispatch(changeCity(locationID))}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );
 }
-
-export default connector(FavoritesCard);
+export default FavoritesCard;

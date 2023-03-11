@@ -1,23 +1,16 @@
 import { AuthorizationStatus, Path } from '../../../const';
 import { Link } from 'react-router-dom';
 import { getAuthInfo } from '../../../services/auth-info';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
 import { logoutAction } from '../../../store/api-actions';
-import { TState } from '../../../types/state';
 import { getAuthorizationStatus } from '../../../store/authorization-process/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { TThunkAppDispatch } from '../../../types/action';
 
 
-const mapStateToProps = (state: TState) => ({ authStatus: getAuthorizationStatus(state) });
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-  onLogout: logoutAction
-}, dispatch);
+function HeaderNavigation() {
+  const dispatch = useDispatch<TThunkAppDispatch>();
+  const authStatus = useSelector(getAuthorizationStatus);
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux;
-
-function HeaderNavigation({ onLogout, authStatus }: ConnectedComponentProps) {
   if (authStatus === AuthorizationStatus.Auth) {
     const authInfo = getAuthInfo();
 
@@ -32,7 +25,10 @@ function HeaderNavigation({ onLogout, authStatus }: ConnectedComponentProps) {
             </Link>
           </li>
           <li className="header__nav-item">
-            <a className="header__nav-link" onClick={() => onLogout()}>
+            <a className="header__nav-link" onClick={() => {
+              dispatch(logoutAction());
+            }}
+            >
               <span className="header__signout">Sign out</span>
             </a>
           </li>
@@ -57,4 +53,4 @@ function HeaderNavigation({ onLogout, authStatus }: ConnectedComponentProps) {
 
 }
 
-export default connector(HeaderNavigation);
+export default HeaderNavigation;

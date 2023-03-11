@@ -1,10 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../layout/layout';
 import RequireAuth from '../requireAuth/requireAuth';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
-import { TState } from '../../types/state';
-import { setOffers } from '../../store/action';
 import { isCheckedAuth } from '../../types/utils';
 import Spinner from '../spinner/spinner';
 import Main from '../main/main';
@@ -15,24 +11,15 @@ import NotFound404 from '../not-found-404/not-found-404';
 import { getOffers } from '../../store/main-data/selectors';
 import { checkIfOffersLoaded } from '../../store/main-data/selectors';
 import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
+import { useSelector } from 'react-redux';
 
-const mapStateToProps = (state: TState) => ({
-  offers: getOffers(state),
-  isOffersLoaded: checkIfOffersLoaded(state),
-  authStatus: getAuthorizationStatus(state),
-});
-const mapDispatchToProps = (dispatch: Dispatch ) => bindActionCreators({ setOffers }, dispatch);
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function App(props: PropsFromRedux): JSX.Element {
-  const { authStatus, isOffersLoaded, offers } = props;
+function App(): JSX.Element {
+  const offers = useSelector(getOffers);
+  const isOffersLoaded = useSelector(checkIfOffersLoaded);
+  const authStatus = useSelector(getAuthorizationStatus);
 
   if (!isCheckedAuth(authStatus) && !isOffersLoaded) {
-    return (
-      <Spinner />
-    );
+    return <Spinner />;
   }
 
   return (
@@ -53,5 +40,4 @@ function App(props: PropsFromRedux): JSX.Element {
     </Routes>
   );
 }
-
-export default connector(App);
+export default App;
