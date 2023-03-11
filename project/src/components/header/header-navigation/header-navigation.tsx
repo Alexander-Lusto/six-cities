@@ -8,7 +8,7 @@ import { logoutAction } from '../../../store/api-actions';
 import { TState } from '../../../types/state';
 
 
-const mapStateToProps = ({ authStatus }: TState) => ({ authStatus });
+const mapStateToProps = ({ AUTHORIZATION }: TState) => ({ authStatus: AUTHORIZATION.authStatus });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
   onLogout: logoutAction
 }, dispatch);

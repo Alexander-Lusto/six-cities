@@ -15,11 +15,11 @@ import { fetchOfferDataAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { AuthorizationStatus } from '../../const';
 
-const mapStateToProps = ({ offer, comments, offersNearby, authStatus }: TState) => ({
-  offer,
-  comments,
-  offersNearby,
-  authStatus,
+const mapStateToProps = ({ PROPERTY, AUTHORIZATION }: TState) => ({
+  offer: PROPERTY.offer,
+  comments: PROPERTY.comments,
+  offersNearby: PROPERTY.offersNearby,
+  authStatus: AUTHORIZATION.authStatus,
 });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
   loadOfferData: fetchOfferDataAction,

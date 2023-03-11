@@ -10,7 +10,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { memo } from 'react';
 
 
-const mapeStateToProps = ({offer}: TState) => ({offer});
+const mapeStateToProps = ({PROPERTY}: TState) => ({offer: PROPERTY.offer});
 const mapDispatchToPropse = (dispatch: Dispatch<TActions>) => bindActionCreators({
   postComment: postCommentAction,
 }, dispatch);

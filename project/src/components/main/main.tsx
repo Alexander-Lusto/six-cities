@@ -16,7 +16,7 @@ interface IMainProps {
   offers: TOffer[];
 }
 
-const mapStateToProps = ({ currentCity }: TState) => ({currentLocation: currentCity});
+const mapStateToProps = ({ MAIN }: TState) => ({currentLocation: MAIN.currentCity});
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

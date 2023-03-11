@@ -12,7 +12,10 @@ import { successToastConfig } from '../../const';
 
 const AUTH_SUCCESS_TEXT = 'Authorization successful!';
 
-const mapStateToProps = ({ currentCity, authStatus }: TState) => ({ currentCity, authStatus });
+const mapStateToProps = ({ MAIN, AUTHORIZATION }: TState) => ({
+  currentCity: MAIN.currentCity,
+  authStatus: AUTHORIZATION.authStatus,
+});
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
   onLogin: loginAction
 }, dispatch);

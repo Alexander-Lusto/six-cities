@@ -11,7 +11,7 @@ interface IRequireAuthProps {
   children: JSX.Element;
 }
 
-const mapStateToProps = ({authStatus }: TState) => ({ authStatus });
+const mapStateToProps = ({AUTHORIZATION}: TState) => ({ authStatus: AUTHORIZATION.authStatus });
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

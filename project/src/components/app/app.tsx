@@ -14,7 +14,11 @@ import Favorites from '../favorites/favorites';
 import Property from '../property/property';
 import NotFound404 from '../not-found-404/not-found-404';
 
-const mapStateToProps = ({ offers, isOffersLoaded, authStatus }: TState) => ({ offers, isOffersLoaded, authStatus });
+const mapStateToProps = ({ MAIN, AUTHORIZATION }: TState) => ({
+  offers: MAIN.offers,
+  isOffersLoaded: MAIN.isOffersLoaded,
+  authStatus: AUTHORIZATION.authStatus,
+});
 const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({ setOffers }, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
