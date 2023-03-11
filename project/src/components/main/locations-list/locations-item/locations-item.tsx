@@ -1,7 +1,6 @@
 import { createRef } from 'react';
 import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { TActions } from '../../../../types/action';
 import { changeCity } from '../../../../store/action';
 
 interface ILocationsItemProps {
@@ -10,7 +9,7 @@ interface ILocationsItemProps {
   isActive: boolean;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
   onCityChange: changeCity,
 }, dispatch);
 

@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import { getAuthInfo } from '../../../services/auth-info';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { TActions } from '../../../types/action';
 import { logoutAction } from '../../../store/api-actions';
 import { TState } from '../../../types/state';
 import { getAuthorizationStatus } from '../../../store/authorization-process/selectors';
 
 
 const mapStateToProps = (state: TState) => ({ authStatus: getAuthorizationStatus(state) });
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
   onLogout: logoutAction
 }, dispatch);
 

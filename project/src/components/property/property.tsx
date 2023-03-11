@@ -7,7 +7,6 @@ import { Path } from '../../const';
 import Map from '../map/map';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
 import { cities } from '../../const';
 import Spinner from '../spinner/spinner';
@@ -25,7 +24,7 @@ const mapStateToProps = (state: TState) => ({
   offersNearby: getOffersNearby(state),
   authStatus: getAuthorizationStatus(state),
 });
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Dispatch ) => bindActionCreators({
   loadOfferData: fetchOfferDataAction,
 }, dispatch);
 const connector = connect(mapStateToProps, mapDispatchToProps);

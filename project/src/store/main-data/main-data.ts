@@ -1,29 +1,25 @@
-import { cities } from '../../const';
-import { TActions, ActionType } from '../../types/action';
-import { TMainState } from '../../types/state';
+import { cities, DEFAULT_CITY } from '../../const';
 import { TCity } from '../../types/city';
+import { TMainState } from '../../types/state';
+import { createReducer } from '@reduxjs/toolkit';
+import { setOffers, changeCity } from '../action';
 
-
-const DEFAULT_CITY = cities[0];
-
-const initialState = {
+const initialState: TMainState = {
   offers: [],
   currentCity: DEFAULT_CITY,
   isOffersLoaded: false,
 };
 
-const mainData = (state: TMainState = initialState, action: TActions): TMainState => {
-  switch (action.type) {
-    case ActionType.SetOffers: {
-      return { ...state, offers: action.payload, isOffersLoaded: true };
-    }
-    case ActionType.ChangeCity: {
+const mainData = createReducer(initialState, (builder) => {
+  builder
+    .addCase(setOffers, (state, action) => {
+      state.offers = action.payload;
+      state.isOffersLoaded = true;
+    })
+    .addCase(changeCity, (state, action) => {
       const city = cities.find((el) => el.id === action.payload) as TCity;
-      return { ...state, currentCity: city };
-    }
-    default:
-      return state;
-  }
-};
+      state.currentCity = city;
+    });
+});
 
 export { mainData };

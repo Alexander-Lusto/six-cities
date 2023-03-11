@@ -1,6 +1,5 @@
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
 import { Link, Navigate } from 'react-router-dom';
 import { AuthorizationStatus, Path } from '../../const';
@@ -16,7 +15,7 @@ const mapStateToProps = ({ MAIN, AUTHORIZATION }: TState) => ({
   currentCity: MAIN.currentCity,
   authStatus: AUTHORIZATION.authStatus,
 });
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
   onLogin: loginAction
 }, dispatch);
 

@@ -1,5 +1,5 @@
 import { TThunkActionResult } from '../types/action';
-import { requireLogout, setComments, setOffers, setOfferDataAction } from './action';
+import { requireLogout, setComments, setOffers, setOfferData } from './action';
 import { requireAuth } from './action';
 import { TUser } from '../types/user';
 import { dropToken, saveToken } from '../services/token';
@@ -81,7 +81,7 @@ export const fetchOfferDataAction = (id: number): TThunkActionResult =>
     const comments = commentsAdapter(serverComments);
     const offersNearby = offersAdapter(serverOffersNearby);
 
-    dispatch(setOfferDataAction({
+    dispatch(setOfferData({
       offer: offer,
       comments: comments,
       offersNearby: offersNearby,

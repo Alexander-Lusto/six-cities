@@ -1,28 +1,24 @@
-import { TActions, ActionType } from '../../types/action';
 import { TPropertyState } from '../../types/state';
+import { setComments } from '../action';
+import { createReducer } from '@reduxjs/toolkit';
+import { setOfferData } from '../action';
 
-const initialState = {
+const initialState: TPropertyState = {
   offer: null,
   offersNearby: null,
   comments: null,
 };
 
-const propertyData = (state: TPropertyState = initialState, action: TActions): TPropertyState => {
-  switch (action.type) {
-    case ActionType.SetComments: {
-      return { ...state, comments: action.payload };
-    }
-    case ActionType.SetOfferData: {
-      return {
-        ...state,
-        offer: action.payload.offer,
-        offersNearby: action.payload.offersNearby,
-        comments: action.payload.comments,
-      };
-    }
-    default:
-      return state;
-  }
-};
+const propertyData = createReducer(initialState, (builder) => {
+  builder
+    .addCase(setComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(setOfferData, (state, action) => {
+      state.offer = action.payload.offer;
+      state.comments = action.payload.comments;
+      state.offersNearby = action.payload.offersNearby;
+    });
+});
 
 export { propertyData };

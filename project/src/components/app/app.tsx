@@ -3,7 +3,6 @@ import Layout from '../layout/layout';
 import RequireAuth from '../requireAuth/requireAuth';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
 import { setOffers } from '../../store/action';
 import { isCheckedAuth } from '../../types/utils';
@@ -22,7 +21,7 @@ const mapStateToProps = (state: TState) => ({
   isOffersLoaded: checkIfOffersLoaded(state),
   authStatus: getAuthorizationStatus(state),
 });
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({ setOffers }, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch ) => bindActionCreators({ setOffers }, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;

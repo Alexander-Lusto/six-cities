@@ -3,7 +3,6 @@ import React from 'react';
 import { TCommentPost } from '../../../types/comment-post';
 import { useRef } from 'react';
 import { TState } from '../../../types/state';
-import { TActions } from '../../../types/action';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { postCommentAction } from '../../../store/api-actions';
 import { connect, ConnectedProps } from 'react-redux';
@@ -12,7 +11,7 @@ import { getOffer } from '../../../store/property-data/selectors';
 
 
 const mapeStateToProps = (state: TState) => ({offer: getOffer(state)});
-const mapDispatchToPropse = (dispatch: Dispatch<TActions>) => bindActionCreators({
+const mapDispatchToPropse = (dispatch: Dispatch) => bindActionCreators({
   postComment: postCommentAction,
 }, dispatch);
 

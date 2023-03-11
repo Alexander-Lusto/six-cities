@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import BookmarkButton from '../../../UI/bookmark-button/bookmark-button';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { TActions } from '../../../../types/action';
 import { TState } from '../../../../types/state';
 import { changeCity } from '../../../../store/action';
 import { cities } from '../../../../const';
@@ -18,7 +17,7 @@ const mapStateToProps = (state: TState) => ({
   currentLocation: getCurrentCity(state),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
   onCityChange: changeCity,
 }, dispatch);
 

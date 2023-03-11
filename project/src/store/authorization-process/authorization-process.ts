@@ -1,23 +1,21 @@
-import { TActions, ActionType } from '../../types/action';
-import { TAuthorizationState } from '../../types/state';
 import { AuthorizationStatus } from '../../const';
+import { createReducer } from '@reduxjs/toolkit';
+import { requireAuth,requireLogout } from '../action';
+import { TAuthorizationState } from '../../types/state';
 
-const initialState = {
+const initialState: TAuthorizationState = {
   authStatus: AuthorizationStatus.Unknown,
 };
 
-const authorizationProcess = (state: TAuthorizationState = initialState, action: TActions): TAuthorizationState => {
-  switch (action.type) {
-    case ActionType.RequireAuth: {
-      return { ...state, authStatus: action.payload };
-    }
-    case ActionType.RequireLogout: {
-      return { ...state, authStatus: AuthorizationStatus.NoAuth };
-    }
-    default:
-      return state;
-  }
-};
+const authorizationProcess = createReducer(initialState, (builder) => {
+  builder
+    .addCase(requireAuth, (state, action) => {
+      state.authStatus = action.payload;
+    })
+    .addCase(requireLogout, (state) => {
+      state.authStatus = AuthorizationStatus.NoAuth;
+    });
+});
 
 export { authorizationProcess };
 

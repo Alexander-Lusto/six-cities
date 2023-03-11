@@ -67,6 +67,8 @@ export const cities = [{
   zoom: 13,
 }];
 
+export const DEFAULT_CITY = cities[0];
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
