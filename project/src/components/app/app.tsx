@@ -24,7 +24,7 @@ function App(): JSX.Element {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />} >
+      <Route path="/" element={<Layout offers={offers}/>} >
         <Route index element={<Main offers={offers} />} />
         <Route path="login" element={<Login />} />
         <Route path="favorites" element=

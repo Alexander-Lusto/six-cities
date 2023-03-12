@@ -1,6 +1,7 @@
 import { TOffer } from '../../types/offer';
 import LocationsItem from './locations-item/locations-item';
 import { cities } from '../../const';
+import EmptyFavorites from './empty-favorites/empty-favorites';
 
 interface IFavoritesProps {
   offers: TOffer[];
@@ -9,6 +10,10 @@ interface IFavoritesProps {
 function Favorites({ offers }: IFavoritesProps): JSX.Element {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const locations = cities.filter((city) => favoriteOffers.find((offer) => offer.city.name === city.name));
+
+  if(favoriteOffers.length === 0) {
+    return <EmptyFavorites />;
+  }
 
   return (
     <main className="page__main page__main--favorites">
