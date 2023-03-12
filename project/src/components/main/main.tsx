@@ -7,6 +7,7 @@ import Sorting from './sorting/sorting';
 import { SortType } from '../../const';
 import { getCurrentCity } from '../../store/main-data/selectors';
 import { useSelector } from 'react-redux';
+import MainEmpty from '../main-empty/main-empty';
 
 const DEFAULT_SORT_TYPE = SortType.POPULAR;
 
@@ -47,6 +48,12 @@ function Main(props: IMainProps): JSX.Element {
 
   const [currentSortType, changeSortType] = useState(DEFAULT_SORT_TYPE);
   const sortedOffers = getSortedOffers(currentSortType, localOffers);
+
+  if (localOffers.length === 0) {
+    return (
+      <MainEmpty />
+    );
+  }
 
   return (
     <main className="page__main page__main--index">
