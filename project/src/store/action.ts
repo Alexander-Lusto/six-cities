@@ -11,3 +11,4 @@ export const setComments = createAction<TComment[]>(ActionType.SetComments);
 export const changeCity = createAction<number>(ActionType.ChangeCity);
 export const requireAuth = createAction<AuthorizationStatus>(ActionType.RequireAuth);
 export const requireLogout = createAction(ActionType.RequireLogout);
+export const updateOffer = createAction<TOffer>(ActionType.UpdateOffer);

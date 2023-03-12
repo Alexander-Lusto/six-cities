@@ -1,4 +1,4 @@
-import { setOffers, changeCity, requireAuth, requireLogout, setComments, setOfferData } from '../store/action';
+import { setOffers, changeCity, requireAuth, requireLogout, setComments, setOfferData, updateOffer } from '../store/action';
 import { ThunkAction } from '@reduxjs/toolkit';
 import { ThunkDispatch } from 'redux-thunk';
 import { AxiosInstance } from 'axios';
@@ -12,6 +12,7 @@ export enum ActionType {
   ChangeCity = 'city/changeCity',
   RequireAuth = 'authorization/requireAuth',
   RequireLogout = 'authorization/requireLogout',
+  UpdateOffer = 'offer/updateOffer',
 }
 
 export type TAuthActions =
@@ -20,7 +21,8 @@ export type TAuthActions =
 
 export type TMainActions =
   | ReturnType<typeof setOffers>
-  | ReturnType<typeof changeCity>;
+  | ReturnType<typeof changeCity>
+  | ReturnType<typeof updateOffer>;
 
 export type TPropertyActions =
   | ReturnType<typeof setOfferData>

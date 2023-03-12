@@ -17,8 +17,7 @@ const propertyData = createReducer(initialState, (builder) => {
       state.offer = action.payload.offer;
       state.comments = action.payload.comments;
       state.offersNearby = action.payload.offersNearby;
-    })
-    .addDefaultCase((state) => state);
+    });
 });
 
 export { propertyData };
