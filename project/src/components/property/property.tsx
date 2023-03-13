@@ -55,9 +55,11 @@ function Property(): JSX.Element {
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            <div className="property__mark">
-              <span>{offer.isPremium}</span>
-            </div>
+            {offer.isPremium ?
+              <div className="property__mark">
+                <span>Premium</span>
+              </div>
+              : ''}
             <div className="property__name-wrapper">
               <h1 className="property__name">
                 {offer.title}
