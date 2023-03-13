@@ -7,11 +7,29 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
+enum ParentComponentName {
+  Property = 'property',
+  Card = 'place-card',
+}
+
+const ImageSize = {
+  Property: {
+    width: 31,
+    height: 33,
+  },
+  Card: {
+    width: 18,
+    height: 19,
+  },
+};
+
 interface IBookmarkButtonProps {
   id: number;
   isFavorite: boolean;
+  isPropertyPage: boolean;
 }
-function BookmarkButton({id, isFavorite}: IBookmarkButtonProps): JSX.Element {
+
+function BookmarkButton({id, isFavorite, isPropertyPage}: IBookmarkButtonProps): JSX.Element {
   const dispatch = useDispatch<TThunkAppDispatch>();
   const authStatus = useSelector(getAuthorizationStatus);
   const navigate = useNavigate();
@@ -22,18 +40,22 @@ function BookmarkButton({id, isFavorite}: IBookmarkButtonProps): JSX.Element {
       toast(NOAUTH_WARNING_TEXT, warningToastConfig);
       navigate(Path.SignIn);
     } else {
-      setIsActive(!isActive);
       const newActiveStatus = isActive ? 0 : 1;
       dispatch(updateFavoriteStatusAction(id, newActiveStatus));
+      setIsActive(!isActive);
     }
   }
 
+  const parentComponentName = isPropertyPage ? ParentComponentName.Property : ParentComponentName.Card;
+  const width = String(isPropertyPage ? ImageSize.Property.width : ImageSize.Card.width);
+  const height = String(isPropertyPage ? ImageSize.Property.height : ImageSize.Card.height);
+
   return (
     <button className={isActive ?
-      'place-card__bookmark-button place-card__bookmark-button--active button' :
-      'place-card__bookmark-button button'} type="button" onClick={favoriteButtonClickHandler}
+      `${parentComponentName}__bookmark-button ${parentComponentName}__bookmark-button--active button` :
+      `${parentComponentName}__bookmark-button button`} type="button" onClick={favoriteButtonClickHandler}
     >
-      <svg className="place-card__bookmark-icon" width="18" height="19">
+      <svg className={`${parentComponentName}__bookmark-icon`} width={width} height={height}>
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
       {isActive ?

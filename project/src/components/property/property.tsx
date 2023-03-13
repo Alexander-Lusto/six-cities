@@ -17,6 +17,7 @@ import { getAuthorizationStatus } from '../../store/authorization-process/select
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { TThunkAppDispatch } from '../../types/action';
+import BookmarkButton from '../UI/bookmark-button/bookmark-button';
 
 function Property(): JSX.Element {
   const dispatch = useDispatch<TThunkAppDispatch>();
@@ -61,15 +62,7 @@ function Property(): JSX.Element {
               <h1 className="property__name">
                 {offer.title}
               </h1>
-              <button className={offer.isFavorite ?
-                'property__bookmark-button button property__bookmark-button--active' :
-                'property__bookmark-button button'} type="button"
-              >
-                <svg className="property__bookmark-icon" width="31" height="33">
-                  <use xlinkHref="#icon-bookmark"></use>
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <BookmarkButton id={offer.id} isFavorite={offer.isFavorite} isPropertyPage/>
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
