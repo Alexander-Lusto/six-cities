@@ -1,4 +1,3 @@
-import { TComment } from './comment';
 export type TOffer = {
   bedrooms: number;
     city: {
@@ -32,5 +31,4 @@ export type TOffer = {
     rating: number;
     title: string;
     type: string;
-    comments: TComment[];
 }

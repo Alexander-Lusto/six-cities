@@ -2,43 +2,56 @@ import PropertyGallery from './property-gallery/property-gallery';
 import Reviews from './reviews/reviews';
 import PlacesList from '../places-list/places-list';
 import SubmitReviewForm from './submit-review-form/submit-review-form';
-import { Navigate, useParams} from 'react-router';
+import { Navigate, useParams } from 'react-router';
 import { Path } from '../../const';
 import Map from '../map/map';
-import { bindActionCreators, Dispatch} from'@reduxjs/toolkit';
+import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
 import { TActions } from '../../types/action';
 import { TState } from '../../types/state';
 import { cities } from '../../const';
+import Spinner from '../spinner/spinner';
+import { fetchOfferDataAction } from '../../store/api-actions';
+import { useEffect } from 'react';
+import { AuthorizationStatus } from '../../const';
 
-const PLACES_NEARBY_COUNT = 3;
-
-const mapStateToProps = ({offers}: TState) => ({
-  offers,
+const mapStateToProps = ({ offer, comments, offersNearby, authStatus }: TState) => ({
+  offer,
+  comments,
+  offersNearby,
+  authStatus,
 });
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
+  loadOfferData: fetchOfferDataAction,
+}, dispatch);
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Property({offers}: PropsFromRedux): JSX.Element {
+function Property(props: PropsFromRedux): JSX.Element {
+  const { offer, comments, offersNearby, loadOfferData, authStatus } = props;
   const id = Number(useParams().id);
-  const offer = offers.find((el) => el.id === id);
 
-  if (!offer) {
-    return <Navigate to={Path.NotFound} />;
+  useEffect(() => {
+    loadOfferData(id);
+  }, [id]);
+
+  if (offer === null || comments === null || offersNearby === null) {
+    return (
+      <Spinner />
+    );
   }
+
+
   const currentLocation = cities.find((city) => city.name === offer.city.name);
 
   if (!currentLocation) {
     return <Navigate to={Path.NotFound} />;
   }
-  const comments = offer.comments;
 
-  const localOffers = offers.filter((el) => el.city.name === currentLocation.name);
-  const offersNearby = localOffers.filter((localOffer) => localOffer.id !== id).slice(0, PLACES_NEARBY_COUNT);
   const points = offersNearby
-    .map((el) => Object.assign({}, el.city.location, {id: el.id}))
-    .concat(Object.assign({}, offer.city.location, {id: offer.id}));
+    .map((el) => Object.assign({}, el.location, { id: el.id }))
+    .concat(Object.assign({}, offer.location, { id: offer.id }));
+
   const currentPoint = points.find((point) => point.id === offer.id);
 
   return (
@@ -123,7 +136,9 @@ function Property({offers}: PropsFromRedux): JSX.Element {
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
               <Reviews comments={comments}></Reviews>
-              <SubmitReviewForm offer={offer} offers={offers}></SubmitReviewForm>
+              {(authStatus === AuthorizationStatus.Auth) ?
+                <SubmitReviewForm /> :
+                ''}
             </section>
           </div>
         </div>

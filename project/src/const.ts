@@ -27,6 +27,8 @@ const Month = {
   December: 'December',
 };
 
+export const months: string[] = Object.values(Month);
+
 export const cities = [{
   id: 0,
   name: 'Paris',
@@ -65,4 +67,40 @@ export const cities = [{
   zoom: 13,
 }];
 
-export const months: string[] = Object.values(Month);
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  Hotels = '/hotels',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+  Favorite = '/favorite'
+}
+
+export const errorToastConfig = {
+  position: 'top-center',
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  progress: undefined,
+  draggable: false,
+  theme: 'light',
+  type: 'error',
+} as const;
+
+export const successToastConfig = {
+  position: 'top-center',
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  progress: undefined,
+  draggable: false,
+  theme: 'light',
+  type: 'success',
+} as const;

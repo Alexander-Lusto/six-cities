@@ -28,7 +28,7 @@ type ConnectedComponentProps = PropsFromRedux & IMainProps;
 function Main(props: ConnectedComponentProps): JSX.Element {
   const currentLocation = props.currentLocation;
   const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation.name);
-  const points = localOffers.map((offer) => Object.assign({}, offer.city.location, { id: offer.id }));
+  const points = localOffers.map((offer) => Object.assign({}, offer.location, { id: offer.id }));
 
   const [activePlaceID, setActivePlaceID] = useState(-1);
   const currentPoint = points.find((point) => point.id === activePlaceID);

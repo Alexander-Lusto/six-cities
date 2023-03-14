@@ -1,7 +1,9 @@
 import Header from '../header/header';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Path } from '../../const';
-
+import Footer from '../footer/footer';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type PageClassMap = {
   [propertyName: string]: string;
@@ -15,11 +17,7 @@ const pageClassMap: PageClassMap = {
   [Path.NotFound]: 'page page--gray page--login',
 };
 
-interface ILayoutProps {
-  authorizationToken: string;
-}
-
-function Layout(props: ILayoutProps ): JSX.Element {
+function Layout(): JSX.Element {
   const location = useLocation();
   const path = (location.pathname.startsWith(Path.Room)) ? location.pathname.slice(0, location.pathname.indexOf('/', 1)) : location.pathname;
   const pageClass = pageClassMap[path] ? pageClassMap[path] : pageClassMap[Path.NotFound];
@@ -27,8 +25,12 @@ function Layout(props: ILayoutProps ): JSX.Element {
 
   return (
     <div className={pageClass}>
-      <Header authorizationToken={props.authorizationToken} isLoginPage={isLoginPage}></Header>
+      <Header isLoginPage={isLoginPage}></Header>
       <Outlet></Outlet>
+      {location.pathname.startsWith(Path.Room) ?
+        <Footer /> :
+        ''}
+      <ToastContainer />
     </div>
   );
 }

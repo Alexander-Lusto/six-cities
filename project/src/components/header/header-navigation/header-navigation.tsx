@@ -1,12 +1,26 @@
-import { Path } from '../../../const';
+import { AuthorizationStatus, Path } from '../../../const';
 import { Link } from 'react-router-dom';
+import { getAuthInfo } from '../../../services/auth-info';
+import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
+import { connect, ConnectedProps } from 'react-redux';
+import { TActions } from '../../../types/action';
+import { logoutAction } from '../../../store/api-actions';
+import { TState } from '../../../types/state';
 
-interface IHeaderProps {
-  authorizationToken: string;
-}
 
-function HeaderNavigation({ authorizationToken }: IHeaderProps) {
-  if (authorizationToken) {
+const mapStateToProps = ({ authStatus }: TState) => ({ authStatus });
+const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
+  onLogout: logoutAction
+}, dispatch);
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux;
+
+function HeaderNavigation({ onLogout, authStatus }: ConnectedComponentProps) {
+  if (authStatus === AuthorizationStatus.Auth) {
+    const authInfo = getAuthInfo();
+
     return (
       <nav className="header__nav">
         <ul className="header__nav-list">
@@ -14,13 +28,13 @@ function HeaderNavigation({ authorizationToken }: IHeaderProps) {
             <Link className="header__nav-link header__nav-link--profile" to={Path.Favorites}>
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
-              <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+              <span className="header__user-name user__name">{authInfo.email}</span>
             </Link>
           </li>
           <li className="header__nav-item">
-            <Link className="header__nav-link" to={Path.Main}>
+            <a className="header__nav-link" onClick={() => onLogout()}>
               <span className="header__signout">Sign out</span>
-            </Link>
+            </a>
           </li>
         </ul>
       </nav>
@@ -43,4 +57,4 @@ function HeaderNavigation({ authorizationToken }: IHeaderProps) {
 
 }
 
-export default HeaderNavigation;
+export default connector(HeaderNavigation);
