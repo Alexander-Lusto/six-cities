@@ -62,11 +62,16 @@ export const fetchCommentsAction = (id: number): TThunkActionResult =>
     dispatch(setComments(comments));
   };
 
-export const postCommentAction = (id: number, comment: TCommentPost): TThunkActionResult =>
+export const postCommentAction = (id: number, comment: TCommentPost, onSuccess: () => void, onError: () => void): TThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const { data: serverComments } = await api.post<TServerComment[]>(`${APIRoute.Comments}/${id}`, comment);
-    const comments = commentsAdapter(serverComments);
-    dispatch(setComments(comments));
+    try {
+      const { data: serverComments } = await api.post<TServerComment[]>(`${APIRoute.Comments}/${id}`, comment);
+      const comments = commentsAdapter(serverComments);
+      dispatch(setComments(comments));
+      onSuccess();
+    } catch {
+      onError();
+    }
   };
 
 export const fetchOfferDataAction = (id: number): TThunkActionResult =>
@@ -90,7 +95,7 @@ export const fetchOfferDataAction = (id: number): TThunkActionResult =>
 
 export const updateFavoriteStatusAction = (id: number, status: 0 | 1): TThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const { data: serverOffer} = await api.post<TServerOffer>(`${APIRoute.Favorite}/${id}/${status}`);
+    const { data: serverOffer } = await api.post<TServerOffer>(`${APIRoute.Favorite}/${id}/${status}`);
     const offer = offerAdapter(serverOffer);
     dispatch(updateOffer(offer));
     dispatch(setOffer(offer));

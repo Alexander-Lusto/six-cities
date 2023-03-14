@@ -20,24 +20,6 @@ function SubmitReviewForm(): JSX.Element {
   const id = offer ? offer.id : NO_SUCH_INDEX;
   const [isDisabled, setIsDisable] = useState(true);
 
-  function formSubmitHanler(evt: FormEvent) {
-    evt.preventDefault();
-    const form = formRef.current;
-
-    if (!form) {
-      return;
-    }
-
-    const formData = new FormData(form);
-    const review: TCommentPost = {
-      comment: String(formData.get('review')),
-      rating: Number(formData.get('rating')),
-    };
-
-    dispatch(postCommentAction(id, review));
-    form.reset();
-  }
-
   function formChangeHanler() {
     const form = formRef.current;
 
@@ -59,6 +41,46 @@ function SubmitReviewForm(): JSX.Element {
       setIsDisable(true);
     }
   }
+
+  function onSuccess() {
+    const form = formRef.current;
+
+    if (!form) {
+      return;
+    }
+
+    setIsDisable(false);
+    form.reset();
+  }
+
+  function onError() {
+    const form = formRef.current;
+
+    if (!form) {
+      return;
+    }
+
+    setIsDisable(false);
+  }
+
+  function formSubmitHanler(evt: FormEvent) {
+    evt.preventDefault();
+    const form = formRef.current;
+
+    if (!form) {
+      return;
+    }
+
+    const formData = new FormData(form);
+    const review: TCommentPost = {
+      comment: String(formData.get('review')),
+      rating: Number(formData.get('rating')),
+    };
+    setIsDisable(true);
+    dispatch(postCommentAction(id, review, onSuccess, onError));
+
+  }
+
 
   return (
     <form ref={formRef} className="reviews__form form" action="#" method="post" onSubmit={formSubmitHanler}>
