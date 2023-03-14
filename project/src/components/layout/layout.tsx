@@ -43,8 +43,8 @@ function Layout({offers}: ILayoutProps): JSX.Element {
 
   return (
     <div className={className}>
-      <Header isLoginPage={isLoginPage}></Header>
-      <Outlet></Outlet>
+      <Header isLoginPage={isLoginPage} />
+      <Outlet />
       {(location.pathname.startsWith(Path.Room)) || (location.pathname === Path.Favorites) ?
         <Footer /> :
         ''}

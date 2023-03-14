@@ -51,7 +51,7 @@ function Property(): JSX.Element {
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
-          <PropertyGallery offer={offer}></PropertyGallery>
+          <PropertyGallery offer={offer} />
         </div>
         <div className="property__container container">
           <div className="property__wrapper">

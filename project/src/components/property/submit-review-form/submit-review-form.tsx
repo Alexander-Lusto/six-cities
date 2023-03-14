@@ -10,13 +10,14 @@ import { TThunkAppDispatch } from '../../../types/action';
 
 const MIN_COMMENT_LENGTH = 50;
 const MAX_COMMENT_LENGTH = 200;
+const NO_SUCH_INDEX = -1;
 
 function SubmitReviewForm(): JSX.Element {
   const dispatch = useDispatch< TThunkAppDispatch>();
   const offer = useSelector(getOffer);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const id = offer ? offer.id : -1;
+  const id = offer ? offer.id : NO_SUCH_INDEX;
   const [isDisabled, setIsDisable] = useState(true);
 
   function formSubmitHanler(evt: FormEvent) {

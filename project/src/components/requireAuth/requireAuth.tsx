@@ -13,7 +13,7 @@ function RequireAuth({ children }: IRequireAuthProps): JSX.Element {
 
   if (authStatus !== AuthorizationStatus.Auth) {
     return (
-      <Navigate to={Path.SignIn}></Navigate>
+      <Navigate to={Path.SignIn} />
     );
   }
 
