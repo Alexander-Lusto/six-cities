@@ -29,8 +29,8 @@ function SubmitReviewForm(): JSX.Element {
 
     const formData = new FormData(form);
     const review: TCommentPost = {
-      comment: String(formData.get('review')),
-      rating: Number(formData.get('rating')),
+      comment: formData.get('review') as string,
+      rating: Number(formData.get('rating') as null | string),
     };
 
     const isValid = (review.comment.length) < MAX_COMMENT_LENGTH && (review.comment.length) > MIN_COMMENT_LENGTH && (review.rating > 0);
@@ -73,9 +73,10 @@ function SubmitReviewForm(): JSX.Element {
 
     const formData = new FormData(form);
     const review: TCommentPost = {
-      comment: String(formData.get('review')),
-      rating: Number(formData.get('rating')),
+      comment: formData.get('review') as string,
+      rating: Number(formData.get('rating') as null | string),
     };
+
     setIsDisable(true);
     dispatch(postCommentAction(id, review, onSuccess, onError));
 
