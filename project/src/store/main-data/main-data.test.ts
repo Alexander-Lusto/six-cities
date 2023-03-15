@@ -27,4 +27,8 @@ describe('reducer mainData', () => {
 
     expect(mainData(state, updateOffer(newOffer))).toEqual({offers: updatedOffers, isOffersLoaded: true, currentCity: DEFAULT_CITY});
   });
+
+  test('without additional parameters should return initial state', () => {
+    expect(mainData(undefined, {type: 'UNKNOWN_ACTION'})).toEqual({offers: [], isOffersLoaded: false, currentCity: DEFAULT_CITY});
+  });
 });

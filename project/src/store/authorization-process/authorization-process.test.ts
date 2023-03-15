@@ -19,4 +19,8 @@ describe('Reducer: authorization-process', () => {
     const state: TAuthorizationState = {authStatus: AuthorizationStatus.Auth};
     expect(authorizationProcess(state, requireLogout())).toEqual({authStatus: AuthorizationStatus.NoAuth});
   });
+
+  test('without additional parameters should return initial state', () => {
+    expect(authorizationProcess(undefined, {type: 'UNKNOWN_ACTION'})).toEqual({authStatus: AuthorizationStatus.Unknown});
+  });
 });

@@ -24,4 +24,8 @@ describe('Reducer propertyData', () => {
 
     expect(propertyData(state, setOfferData(mockOfferData))).toEqual({offer: mockOffers[0], offersNearby: mockOffersNearby,comments: mockComments[0]});
   });
+
+  test('without additional parameters should return initial state', () => {
+    expect(propertyData(undefined, {type: 'UNKNOWN_ACTION'})).toEqual({ offer: null, offersNearby: null, comments: null });
+  });
 });
