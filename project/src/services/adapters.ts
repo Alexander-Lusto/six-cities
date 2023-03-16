@@ -3,7 +3,7 @@ import { TOffer } from '../types/offer';
 import { TServerOffer } from '../types/server-offer';
 import { TServerComment } from '../types/server-comment';
 import { TServerAuthInfo } from '../types/server-auth-info';
-import { TAuthInfo } from '../types/authInfo';
+import { TAuthInfo } from '../types/auth-info';
 
 export function commentsAdapter(serverComments: TServerComment[]): TComment[] {
   return serverComments.map((serverComment) => ({

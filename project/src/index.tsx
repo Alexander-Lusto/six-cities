@@ -12,6 +12,7 @@ import { fetchOffersAction } from './store/api-actions';
 
 const api = createAPI();
 const store = configureStore({ reducer: rootReducer, middleware: [thunk.withExtraArgument(api)] });
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 (store.dispatch as TThunkAppDispatch)(checkAuthAction());

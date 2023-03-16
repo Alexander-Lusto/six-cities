@@ -6,7 +6,7 @@ export type TServerComment= {
   'user': {
     'avatar_url': string;
     'id': number;
-    'is_pro': false;
+    'is_pro': boolean;
     'name': string;
   };
 };

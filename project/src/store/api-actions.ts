@@ -11,11 +11,7 @@ import { AxiosError } from 'axios';
 import { TServerAuthInfo } from '../types/server-auth-info';
 import { saveAuthInfo, removeAuthInfo } from '../services/auth-info';
 import { TCommentPost } from '../types/comment-post';
-
-
-enum HttpCode {
-  Unauthorized = 401,
-}
+import { HttpCode } from '../const';
 
 export const fetchOffersAction = (): TThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {

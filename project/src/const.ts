@@ -119,4 +119,10 @@ export const warningToastConfig = {
   type: 'warning',
 } as const;
 
+export enum HttpCode {
+  Unauthorized = 401,
+  Success = 200,
+  ServerError = 500,
+}
+
 export const NOAUTH_WARNING_TEXT = 'You are not authorized!';
