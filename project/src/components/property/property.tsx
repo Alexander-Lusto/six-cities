@@ -5,7 +5,7 @@ import SubmitReviewForm from './submit-review-form/submit-review-form';
 import { Navigate, useParams } from 'react-router';
 import { Path } from '../../const';
 import Map from '../map/map';
-import { cities } from '../../const';
+import { cities, CardClassName } from '../../const';
 import Spinner from '../spinner/spinner';
 import { fetchOfferDataAction } from '../../store/api-actions';
 import { useEffect } from 'react';
@@ -136,7 +136,7 @@ function Property(): JSX.Element {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <PlacesList className="near-places__list places__list" childClassName="near-places__card"
+          <PlacesList className="near-places__list places__list" childClassName={CardClassName.Property}
             offers={offersNearby} activeOfferChangeHandler={null}
           />
         </section>

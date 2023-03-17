@@ -126,3 +126,8 @@ export enum HttpCode {
 }
 
 export const NOAUTH_WARNING_TEXT = 'You are not authorized!';
+
+export enum CardClassName {
+  Main = 'cities__place-card',
+  Property = 'near-places__card'
+}

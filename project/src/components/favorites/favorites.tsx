@@ -1,7 +1,7 @@
 import { TOffer } from '../../types/offer';
 import LocationsItem from './locations-item/locations-item';
 import { cities } from '../../const';
-import EmptyFavorites from './empty-favorites/empty-favorites';
+import EmptyFavorites from '../empty-favorites/empty-favorites';
 
 interface IFavoritesProps {
   offers: TOffer[];

@@ -4,7 +4,7 @@ import Map from '../map/map';
 import { useState } from 'react';
 import LocationsList from './locations-list/locations-list';
 import Sorting from './sorting/sorting';
-import { SortType } from '../../const';
+import { SortType, CardClassName } from '../../const';
 import { getCurrentCity } from '../../store/main-data/selectors';
 import { useSelector } from 'react-redux';
 import MainEmpty from '../main-empty/main-empty';
@@ -70,7 +70,7 @@ function Main(props: IMainProps): JSX.Element {
             <b className="places__found">{localOffers.length} places to stay in {currentLocation.name}</b>
             <Sorting currentSortType={currentSortType} sortTypeChangeHandler={changeSortType} />
             <PlacesList
-              className="cities__places-list places__list tabs__content" childClassName="cities__place-card"
+              className="cities__places-list places__list tabs__content" childClassName={CardClassName.Main}
               offers={sortedOffers} activeOfferChangeHandler={activeOfferChangeHandler}
             />
           </section>

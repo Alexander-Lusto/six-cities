@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { TThunkAppDispatch } from '../../types/action';
 
 const AUTH_SUCCESS_TEXT = 'Authorization successful!';
+const TEST_ID = 'sign-in';
 
 function Login(): JSX.Element {
   const dispatch = useDispatch<TThunkAppDispatch>();
@@ -51,7 +52,7 @@ function Login(): JSX.Element {
               <label className="visually-hidden">Password</label>
               <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required />
             </div>
-            <button className="login__submit form__submit button" type="submit">Sign in</button>
+            <button className="login__submit form__submit button" type="submit" data-testid={TEST_ID}>Sign in</button>
           </form>
         </section>
         <section className="locations locations--login locations--current">
