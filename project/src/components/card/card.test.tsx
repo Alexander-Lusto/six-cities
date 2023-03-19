@@ -1,22 +1,14 @@
 import Card from './card';
-import { render, screen } from '@testing-library/react';
-import { mockOffers } from '../../mock/offers';
 import { CardClassName } from '../../const';
-import { createAPI } from '../../services/api';
-import thunk, { ThunkDispatch } from 'redux-thunk';
-import { TState } from '../../types/state';
-import { Action } from 'redux';
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { Routes, Route } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { mockOffers } from '../../mock/offers';
+import { Routes, Route } from 'react-router-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { Path } from '../../const';
 import { initialState } from '../../mock/state';
 import { Provider } from 'react-redux';
-
-const api = createAPI();
-const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore < TState, Action, ThunkDispatch<TState, typeof api, Action >> (middlewares);
+import mockStore from '../../mock/store';
 
 describe('Component Card', () => {
 
@@ -32,7 +24,7 @@ describe('Component Card', () => {
               <Card offer={mockOffers[0]} className={CardClassName.Main} onMouseEnter={onMousEnter} onMouseLeave={onMousLeave} />
             }
             />
-            <Route path={Path.SignIn} element={<h1>This is Login Page</h1>} />
+            <Route path={Path.SignIn} element={<h1>Login Page</h1>} />
           </Routes>
         </MemoryRouter>
       </Provider>
@@ -58,7 +50,7 @@ describe('Component Card', () => {
               <Card offer={mockOffers[0]} className={CardClassName.Main} onMouseEnter={onMousEnter} onMouseLeave={onMousLeave} />
             }
             />
-            <Route path={Path.SignIn} element={<h1>This is Login Page</h1>} />
+            <Route path={Path.SignIn} element={<h1>Login Page</h1>} />
           </Routes>
         </MemoryRouter>
       </Provider>
@@ -67,7 +59,7 @@ describe('Component Card', () => {
     expect(screen.getByAltText(/Place preview/i)).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button'));
     expect(screen.queryByAltText(/Place preview/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/This is Login Page/i)).toBeInTheDocument();
+    expect(screen.getByText(/Login Page/i)).toBeInTheDocument();
   });
 
   test('Should navigate to Property Page if card title is clicked', async () => {
@@ -83,7 +75,7 @@ describe('Component Card', () => {
               <Card offer={offer} className={CardClassName.Main} onMouseEnter={onMousEnter} onMouseLeave={onMousLeave} />
             }
             />
-            <Route path={`${Path.Room}/${offer.id}`} element={<h1>This is Property Page</h1>} />
+            <Route path={`${Path.Room}/${offer.id}`} element={<h1>Property Page</h1>} />
           </Routes>
         </MemoryRouter>
       </Provider>
@@ -92,6 +84,6 @@ describe('Component Card', () => {
     expect(screen.getByAltText(/Place preview/i)).toBeInTheDocument();
     await userEvent.click(screen.getByRole('link'));
     expect(screen.queryByAltText(/Place preview/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/This is Property Page/i)).toBeInTheDocument();
+    expect(screen.getByText(/Property Page/i)).toBeInTheDocument();
   });
 });

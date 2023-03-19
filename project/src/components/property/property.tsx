@@ -48,7 +48,7 @@ function Property(): JSX.Element {
   const currentPoint = points.find((point) => point.id === offer.id);
 
   return (
-    <main className="page__main page__main--property">
+    <main className="page__main page__main--property" data-testid={'property'}>
       <section className="property">
         <div className="property__gallery-container container">
           <PropertyGallery offer={offer} />

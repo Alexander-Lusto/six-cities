@@ -9,8 +9,15 @@ export enum Path {
 export const SortType = {
   POPULAR: 'popular',
   PRICE_LOW: 'price-low',
-  PRICE_HIGH: 'price-high',
+  PRICE_HIGH:'price-high',
   TOP_RATED: 'top-rated',
+};
+
+export const SortText = {
+  POPULAR: 'Popular',
+  PRICE_LOW: 'Price: low to high',
+  PRICE_HIGH: 'Price: high to low',
+  TOP_RATED: 'Top rated first',
 };
 
 const Month = {

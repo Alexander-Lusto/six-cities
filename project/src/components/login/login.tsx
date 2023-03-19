@@ -39,7 +39,7 @@ function Login(): JSX.Element {
   }
 
   return (
-    <main className="page__main page__main--login">
+    <main className="page__main page__main--login" data-testid={'login'}>
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>

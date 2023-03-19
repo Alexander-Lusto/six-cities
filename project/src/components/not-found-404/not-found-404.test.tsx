@@ -25,15 +25,15 @@ describe('Component: NotFound404', () => {
     render(
       <MemoryRouter initialEntries={['/fake']}>
         <Routes>
-          <Route path={Path.Main} element={<h1>This is the main page</h1>} />
+          <Route path={Path.Main} element={<h1>Main Page</h1>} />
           <Route path="*" element={<NotFound404 />} />
         </Routes>
       </MemoryRouter>
     );
 
-    expect(screen.queryByText(/This is the main page/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Main Page/i)).not.toBeInTheDocument();
     expect(screen.getByText(/404/i)).toBeInTheDocument();
     await user.click(screen.getByRole('link'));
-    expect(screen.getByText(/This is the main page/i)).toBeInTheDocument();
+    expect(screen.getByText(/Main Page/i)).toBeInTheDocument();
   });
 });

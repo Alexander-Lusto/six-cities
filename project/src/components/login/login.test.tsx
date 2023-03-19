@@ -1,22 +1,13 @@
 import Login from './login';
 import { render, screen } from '@testing-library/react';
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { Path } from '../../const';
 import { AuthorizationStatus } from '../../const';
-import { createAPI } from '../../services/api';
-import thunk, {ThunkDispatch} from 'redux-thunk';
-import { TState } from '../../types/state';
-import {Action} from 'redux';
+import mockStore from '../../mock/store';
 import { initialState } from '../../mock/state';
-
-
-const api = createAPI();
-const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore<TState, Action, ThunkDispatch<TState, typeof api, Action>>(middlewares);
 
 describe('Component: MainEmpty', () => {
 
@@ -51,13 +42,13 @@ describe('Component: MainEmpty', () => {
       <Provider store={mockStore(authState)} >
         <MemoryRouter initialEntries={[Path.SignIn]}>
           <Routes>
-            <Route path={Path.Main} element={<h1>This is the main page</h1>} />
+            <Route path={Path.Main} element={<h1>Main Page</h1>} />
             <Route path={Path.SignIn} element={<Login />} />
           </Routes>
         </MemoryRouter>
       </Provider>
     );
 
-    expect(screen.getByText(/This is the main page/i)).toBeInTheDocument();
+    expect(screen.getByText(/Main Page/i)).toBeInTheDocument();
   });
 });

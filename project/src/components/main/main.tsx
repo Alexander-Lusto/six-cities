@@ -56,7 +56,7 @@ function Main(props: IMainProps): JSX.Element {
   }
 
   return (
-    <main className="page__main page__main--index">
+    <main className="page__main page__main--index" data-testid={'main'}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">

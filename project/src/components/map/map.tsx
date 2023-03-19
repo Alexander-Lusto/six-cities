@@ -4,6 +4,8 @@ import L from 'leaflet';
 import { TCity } from '../../types/city';
 import { TPoint } from '../../types/point';
 
+const MAP_TEST_ID = 'map';
+const POINT_TEST_ID = 'point';
 export const URL_MARKER_DEFAULT = './img/pin.svg';
 export const URL_MARKER_CURRENT = './img/pin-active.svg';
 
@@ -38,14 +40,18 @@ interface IMapInterface {
 function Map({points, city, selectedPoint}: IMapInterface):JSX.Element {
 
   return (
-    <MapContainer className="cities__map" style={{ height: '100%' }} center={[city.lat, city.lng]} zoom={city.zoom} scrollWheelZoom>
+    <MapContainer className="cities__map" style={{ height: '100%' }} center={[city.lat, city.lng]} zoom={city.zoom} scrollWheelZoom
+      data-testid={MAP_TEST_ID}
+    >
       <ChangeView center={[city.lat, city.lng]} zoom={city.zoom} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {points.map((point: TPoint): JSX.Element => (
-        <Marker position={[point.latitude, point.longitude]} icon={selectedPoint === point ? currentIcon : defaultIcon} key={point.id} />
+        <Marker position={[point.latitude, point.longitude]} icon={selectedPoint === point ? currentIcon : defaultIcon} key={point.id}
+          data-testid={POINT_TEST_ID}
+        />
       ))}
     </MapContainer>
   );
