@@ -7,7 +7,7 @@ const initialState: TAuthorizationState = {
   authStatus: AuthorizationStatus.Unknown,
 };
 
-const authorizationProcess = createReducer(initialState, (builder) => {
+const authorizationReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(requireAuth, (state, action) => {
       state.authStatus = action.payload;
@@ -17,5 +17,5 @@ const authorizationProcess = createReducer(initialState, (builder) => {
     });
 });
 
-export { authorizationProcess };
+export { authorizationReducer };
 

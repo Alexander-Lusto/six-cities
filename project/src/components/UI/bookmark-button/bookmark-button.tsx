@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthorizationStatus, Path, warningToastConfig, NOAUTH_WARNING_TEXT } from '../../../const';
 import { updateFavoriteStatusAction } from '../../../store/api-actions';
-import { getAuthorizationStatus } from '../../../store/authorization-process/selectors';
+import { getAuthorizationStatus } from '../../../store/authorization/selectors';
 import { TThunkAppDispatch } from '../../../types/action';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';

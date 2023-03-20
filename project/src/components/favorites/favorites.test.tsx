@@ -16,7 +16,7 @@ describe('Component: Favorites', () => {
       <Provider store={mockStore(initialState)} >
         <MemoryRouter initialEntries={[Path.Favorites]}>
           <Routes>
-            <Route path={Path.Favorites} element={<Favorites offers={favoriteOffers} />}/>
+            <Route path={Path.Favorites} element={<Favorites />}/>
           </Routes>
         </MemoryRouter>
       </Provider>

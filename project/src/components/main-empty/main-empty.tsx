@@ -1,6 +1,6 @@
 import LocationsList from '../main/locations-list/locations-list';
 import { useSelector } from 'react-redux';
-import { getCurrentCity } from '../../store/main-data/selectors';
+import { getCurrentCity } from '../../store/main/selectors';
 
 function MainEmpty(): JSX.Element {
   const currentLocation = useSelector(getCurrentCity);

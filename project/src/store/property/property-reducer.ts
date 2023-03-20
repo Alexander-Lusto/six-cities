@@ -8,7 +8,7 @@ const initialState: TPropertyState = {
   comments: null,
 };
 
-const propertyData = createReducer(initialState, (builder) => {
+const propertyReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setComments, (state, action) => {
       state.comments = action.payload;
@@ -23,4 +23,4 @@ const propertyData = createReducer(initialState, (builder) => {
     });
 });
 
-export { propertyData };
+export { propertyReducer };

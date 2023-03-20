@@ -1,5 +1,5 @@
 import { TThunkActionResult } from '../types/action';
-import { requireLogout, setComments, setOffers, setOfferData, updateOffer, setOffer } from './action';
+import { requireLogout, setComments, setOffers, setOfferData, updateOffer, setFavoriteOffers } from './action';
 import { requireAuth } from './action';
 import { TUser } from '../types/user';
 import { dropToken, saveToken } from '../services/token';
@@ -94,7 +94,11 @@ export const updateFavoriteStatusAction = (id: number, status: 0 | 1): TThunkAct
     const { data: serverOffer } = await api.post<TServerOffer>(`${APIRoute.Favorite}/${id}/${status}`);
     const offer = offerAdapter(serverOffer);
     dispatch(updateOffer(offer));
-    dispatch(setOffer(offer));
   };
 
-
+export const fetchFavoriteOffersAction = (): TThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const { data: serverOffers } = await api.get<TServerOffer[]>(APIRoute.Favorite);
+    const offers = serverOffers.map((serverOffer) => offerAdapter(serverOffer));
+    dispatch(setFavoriteOffers(offers));
+  };

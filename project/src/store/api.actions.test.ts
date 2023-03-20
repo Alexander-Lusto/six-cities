@@ -5,11 +5,11 @@ import { TState } from '../types/state';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Action} from 'redux';
 import { APIRoute } from '../const';
-import { requireAuth, requireLogout, setComments, setOffer, setOfferData, setOffers, updateOffer } from './action';
+import { requireAuth, requireLogout, setComments, setFavoriteOffers, setOffer, setOfferData, setOffers, updateOffer } from './action';
 import { AuthorizationStatus } from '../const';
 import { TUser } from '../types/user';
 import { TAuthInfo } from '../types/auth-info';
-import { checkAuthAction, loginAction, logoutAction, fetchOffersAction, fetchOfferDataAction, fetchCommentsAction, postCommentAction, updateFavoriteStatusAction } from './api-actions';
+import { checkAuthAction, loginAction, logoutAction, fetchOffersAction, fetchOfferDataAction, fetchCommentsAction, postCommentAction, updateFavoriteStatusAction, fetchFavoriteOffersAction } from './api-actions';
 import { AUTH_INFO_KEY_NAME } from '../services/auth-info';
 import { AUTH_TOKEN_KEY_NAME } from '../services/token';
 import { offerAdapter, commentsAdapter, authInfoAdapter } from '../services/adapters';
@@ -18,6 +18,7 @@ import { mockServerAuthInfo } from '../mock/serverAuthInfo';
 import { mockServerComments } from '../mock/serverComments';
 import { mockComments } from '../mock/commetns';
 import { HttpCode } from '../const';
+import { mockFavoriteServerOffers } from '../mock/serverFavoriteOffers';
 
 
 describe('Async actions', () => {
@@ -143,5 +144,15 @@ describe('Async actions', () => {
     await store.dispatch(updateFavoriteStatusAction(id, status));
     const offer = offerAdapter(mockServerOffers[id]);
     expect(store.getActions()).toEqual([updateOffer(offer), setOffer(offer)]);
+  });
+
+  test('should dispatch setFavoriteOffers when GET /favorite', async () => {
+    mockAPI.onGet(APIRoute.Favorite).reply(HttpCode.Success, mockFavoriteServerOffers);
+    const store = mockStore();
+    expect(store.getActions()).toEqual([]);
+
+    await store.dispatch(fetchFavoriteOffersAction());
+    const favoriteOffers = mockFavoriteServerOffers.map((el) => offerAdapter(el));
+    expect(store.getActions()).toEqual([setFavoriteOffers(favoriteOffers)]);
   });
 });

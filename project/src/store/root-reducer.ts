@@ -1,18 +1,21 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { mainData } from './main-data/main-data';
-import { authorizationProcess } from './authorization-process/authorization-process';
-import { propertyData } from './property-data/property-data';
+import { mainReducer } from './main/main-reducer';
+import { authorizationReducer } from './authorization/authorization-reducer';
+import { propertyReducer } from './property/property-reducer';
+import { favoritesReducer } from './favorites/favorites-reducer';
 
 export enum NameSpace {
   authorization = 'AUTHORIZATION',
   main = 'MAIN',
   property = 'PROPERTY',
+  favorites = 'FAVORITES',
 }
 
 export const rootReducer = combineReducers({
-  [NameSpace.authorization]: authorizationProcess,
-  [NameSpace.main]: mainData,
-  [NameSpace.property]: propertyData,
+  [NameSpace.authorization]: authorizationReducer,
+  [NameSpace.main]: mainReducer,
+  [NameSpace.property]: propertyReducer,
+  [NameSpace.favorites]: favoritesReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

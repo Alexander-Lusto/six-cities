@@ -5,7 +5,7 @@ import { useState } from 'react';
 import LocationsList from './locations-list/locations-list';
 import Sorting from './sorting/sorting';
 import { SortType, CardClassName } from '../../const';
-import { getCurrentCity } from '../../store/main-data/selectors';
+import { getCurrentCity } from '../../store/main/selectors';
 import { useSelector } from 'react-redux';
 import MainEmpty from '../main-empty/main-empty';
 

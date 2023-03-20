@@ -4,7 +4,7 @@ import { TCommentPost } from '../../../types/comment-post';
 import { useRef } from 'react';
 import { postCommentAction } from '../../../store/api-actions';
 import { memo } from 'react';
-import { getOffer } from '../../../store/property-data/selectors';
+import { getOffer } from '../../../store/property/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { TThunkAppDispatch } from '../../../types/action';
 

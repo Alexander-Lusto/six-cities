@@ -6,7 +6,7 @@ import { useRef } from 'react';
 import { toast } from 'react-toastify';
 import { successToastConfig } from '../../const';
 import { useSelector } from 'react-redux';
-import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
+import { getAuthorizationStatus } from '../../store/authorization/selectors';
 import { useDispatch } from 'react-redux';
 import { TThunkAppDispatch } from '../../types/action';
 import { changeCity } from '../../store/action';

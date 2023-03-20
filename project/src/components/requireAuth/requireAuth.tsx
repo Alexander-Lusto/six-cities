@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { Path } from '../../const';
 import { AuthorizationStatus } from '../../const';
-import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
+import { getAuthorizationStatus } from '../../store/authorization/selectors';
 import { useSelector } from 'react-redux';
 
 interface IRequireAuthProps {

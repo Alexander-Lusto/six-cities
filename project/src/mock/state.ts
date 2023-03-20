@@ -4,6 +4,8 @@ import { AuthorizationStatus } from '../const';
 import { mockOffers } from './offers';
 import { mockComments } from './commetns';
 
+const mockFavoriteOffers = mockOffers.filter((el) => el.isFavorite);
+
 export const initialState: TState = {
   AUTHORIZATION: {
     authStatus: AuthorizationStatus.Unknown,
@@ -18,6 +20,9 @@ export const initialState: TState = {
     offersNearby: null,
     comments: null,
   },
+  FAVORITES: {
+    favoriteOffers: mockFavoriteOffers,
+  }
 };
 
 export const authorizedState: TState = {
@@ -34,6 +39,9 @@ export const authorizedState: TState = {
     offersNearby: mockOffers.slice(0,3),
     comments: mockComments[3],
   },
+  FAVORITES: {
+    favoriteOffers: mockFavoriteOffers,
+  }
 };
 
 export const unAuthorizedState: TState = {
@@ -50,4 +58,7 @@ export const unAuthorizedState: TState = {
     offersNearby: null,
     comments: null,
   },
+  FAVORITES: {
+    favoriteOffers: mockFavoriteOffers,
+  }
 };

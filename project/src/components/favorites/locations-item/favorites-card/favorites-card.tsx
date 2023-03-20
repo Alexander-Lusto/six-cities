@@ -5,7 +5,7 @@ import BookmarkButton from '../../../UI/bookmark-button/bookmark-button';
 import { changeCity } from '../../../../store/action';
 import { cities } from '../../../../const';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCurrentCity } from '../../../../store/main-data/selectors';
+import { getCurrentCity } from '../../../../store/main/selectors';
 
 interface IFavoritesCard {
   offer: TOffer;

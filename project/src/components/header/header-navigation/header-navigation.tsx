@@ -2,7 +2,7 @@ import { AuthorizationStatus, Path } from '../../../const';
 import { Link } from 'react-router-dom';
 import { getAuthInfo } from '../../../services/auth-info';
 import { logoutAction } from '../../../store/api-actions';
-import { getAuthorizationStatus } from '../../../store/authorization-process/selectors';
+import { getAuthorizationStatus } from '../../../store/authorization/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { TThunkAppDispatch } from '../../../types/action';
 
