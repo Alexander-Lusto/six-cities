@@ -11,15 +11,22 @@ import { getCurrentCity } from '../../store/main-data/selectors';
 import { useDispatch } from 'react-redux';
 import { TThunkAppDispatch } from '../../types/action';
 
+const ON_INVALID_MESSAGE = 'The password must contain at least one letter and a number!';
 const AUTH_SUCCESS_TEXT = 'Authorization successful!';
 const TEST_ID = 'sign-in';
 
 function Login(): JSX.Element {
   const dispatch = useDispatch<TThunkAppDispatch>();
+
   const authStatus = useSelector(getAuthorizationStatus);
   const currentCity = useSelector(getCurrentCity);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  function invalidPasswordInputHandler(evt: FormEvent<HTMLInputElement> ) {
+    const input = evt.currentTarget;
+    input.setCustomValidity(ON_INVALID_MESSAGE);
+  }
 
   function formSubmitHandler(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -50,7 +57,9 @@ function Login(): JSX.Element {
             </div>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">Password</label>
-              <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required />
+              <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required
+                pattern='^(?=.*[A-Za-z])(?=.*\d).+$' onInvalid={invalidPasswordInputHandler}
+              />
             </div>
             <button className="login__submit form__submit button" type="submit" data-testid={TEST_ID}>Sign in</button>
           </form>
