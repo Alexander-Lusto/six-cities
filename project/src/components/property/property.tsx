@@ -19,6 +19,8 @@ import { useDispatch } from 'react-redux';
 import { TThunkAppDispatch } from '../../types/action';
 import BookmarkButton from '../UI/bookmark-button/bookmark-button';
 
+const MAX_COMMENTS_AMOUNT = 10;
+
 function Property(): JSX.Element {
   const dispatch = useDispatch<TThunkAppDispatch>();
   const offer = useSelector(getOffer);
@@ -36,6 +38,10 @@ function Property(): JSX.Element {
   }
 
   const currentLocation = cities.find((city) => city.name === offer.city.name);
+  const sortedComments = comments
+    .slice()
+    .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
+    .slice(0, MAX_COMMENTS_AMOUNT);
 
   if (!currentLocation) {
     return <Navigate to={Path.NotFound} />;
@@ -64,7 +70,7 @@ function Property(): JSX.Element {
               <h1 className="property__name">
                 {offer.title}
               </h1>
-              <BookmarkButton id={offer.id} isFavorite={offer.isFavorite} isPropertyPage/>
+              <BookmarkButton id={offer.id} isFavorite={offer.isFavorite} isPropertyPage />
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
@@ -122,7 +128,7 @@ function Property(): JSX.Element {
             </div>
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-              <Reviews comments={comments}></Reviews>
+              <Reviews comments={sortedComments}></Reviews>
               {(authStatus === AuthorizationStatus.Auth) ?
                 <SubmitReviewForm /> :
                 ''}
