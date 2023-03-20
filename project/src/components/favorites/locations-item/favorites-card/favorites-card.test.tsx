@@ -25,7 +25,7 @@ describe('Component: FavoritesCard', () => {
       </Provider>
     );
 
-    expect(screen.getByAltText(/Place preview/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/Place image/i)).toBeInTheDocument();
     expect(screen.getByRole('link')).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
   });

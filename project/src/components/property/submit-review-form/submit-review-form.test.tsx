@@ -21,7 +21,7 @@ describe('Component: SubmitReviewForm', () => {
     );
 
 
-    expect(screen.getByText(/Submit/i)).toBeInTheDocument();
+    expect(screen.getByText('Submit')).toBeInTheDocument();
     expect(screen.getByText(/Your review/i)).toBeInTheDocument();
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });

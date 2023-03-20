@@ -31,9 +31,9 @@ describe('Component: NotFound404', () => {
       </MemoryRouter>
     );
 
-    expect(screen.queryByText(/Main Page/i)).not.toBeInTheDocument();
+    expect(screen.queryByText('Main Page')).not.toBeInTheDocument();
     expect(screen.getByText(/404/i)).toBeInTheDocument();
     await user.click(screen.getByRole('link'));
-    expect(screen.getByText(/Main Page/i)).toBeInTheDocument();
+    expect(screen.getByText('Main Page')).toBeInTheDocument();
   });
 });
