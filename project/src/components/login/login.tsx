@@ -7,19 +7,25 @@ import { toast } from 'react-toastify';
 import { successToastConfig } from '../../const';
 import { useSelector } from 'react-redux';
 import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
-import { getCurrentCity } from '../../store/main-data/selectors';
 import { useDispatch } from 'react-redux';
 import { TThunkAppDispatch } from '../../types/action';
+import { changeCity } from '../../store/action';
+import { cities } from '../../const';
 
 const ON_INVALID_MESSAGE = 'The password must contain at least one letter and a number!';
 const AUTH_SUCCESS_TEXT = 'Authorization successful!';
 const TEST_ID = 'sign-in';
 
+function getRandomNumber(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function Login(): JSX.Element {
   const dispatch = useDispatch<TThunkAppDispatch>();
+  const randomCityID = getRandomNumber(0, cities.length - 1);
 
   const authStatus = useSelector(getAuthorizationStatus);
-  const currentCity = useSelector(getCurrentCity);
+  const currentCity = cities.find((city) => city.id === randomCityID) || cities[0];
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -66,7 +72,7 @@ function Login(): JSX.Element {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link className="locations__item-link" to={Path.Main}>
+            <Link className="locations__item-link" to={Path.Main} onClick={() => dispatch(changeCity(randomCityID))}>
               <span>{currentCity.name}</span>
             </Link>
           </div>
