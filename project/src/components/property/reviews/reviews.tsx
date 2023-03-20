@@ -8,7 +8,7 @@ interface Props {
 function Reviews({comments} : Props): JSX.Element {
   return (
     <ul className="reviews__list">
-      {comments.map((comment) => <ReviewsItem comment={comment} key={comment.id}></ReviewsItem>)}
+      {comments.map((comment) => <ReviewsItem comment={comment} key={comment.id} />)}
     </ul>
   );
 }

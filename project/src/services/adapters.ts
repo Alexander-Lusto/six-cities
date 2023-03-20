@@ -20,8 +20,8 @@ export function commentsAdapter(serverComments: TServerComment[]): TComment[] {
   }));
 }
 
-export function offersAdapter(serverOffers: TServerOffer[]): TOffer[] {
-  return serverOffers.map((serverOffer) => ({
+export function offerAdapter(serverOffer: TServerOffer): TOffer {
+  return {
     bedrooms: serverOffer.bedrooms,
     city: {
       location: {
@@ -54,7 +54,7 @@ export function offersAdapter(serverOffers: TServerOffer[]): TOffer[] {
     rating: serverOffer.rating,
     title: serverOffer.title,
     type: serverOffer.type,
-  }));
+  };
 }
 
 export function authInfoAdapter(serverAuthInfo: TServerAuthInfo): TAuthInfo {

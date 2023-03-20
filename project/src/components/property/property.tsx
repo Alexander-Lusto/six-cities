@@ -5,42 +5,35 @@ import SubmitReviewForm from './submit-review-form/submit-review-form';
 import { Navigate, useParams } from 'react-router';
 import { Path } from '../../const';
 import Map from '../map/map';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
-import { TActions } from '../../types/action';
-import { TState } from '../../types/state';
 import { cities } from '../../const';
 import Spinner from '../spinner/spinner';
 import { fetchOfferDataAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { AuthorizationStatus } from '../../const';
+import { getOffer } from '../../store/property-data/selectors';
+import { getComments } from '../../store/property-data/selectors';
+import { getOffersNearby } from '../../store/property-data/selectors';
+import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { TThunkAppDispatch } from '../../types/action';
+import BookmarkButton from '../UI/bookmark-button/bookmark-button';
 
-const mapStateToProps = ({ offer, comments, offersNearby, authStatus }: TState) => ({
-  offer,
-  comments,
-  offersNearby,
-  authStatus,
-});
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
-  loadOfferData: fetchOfferDataAction,
-}, dispatch);
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function Property(props: PropsFromRedux): JSX.Element {
-  const { offer, comments, offersNearby, loadOfferData, authStatus } = props;
+function Property(): JSX.Element {
+  const dispatch = useDispatch<TThunkAppDispatch>();
+  const offer = useSelector(getOffer);
+  const comments = useSelector(getComments);
+  const offersNearby = useSelector(getOffersNearby);
+  const authStatus = useSelector(getAuthorizationStatus);
   const id = Number(useParams().id);
 
   useEffect(() => {
-    loadOfferData(id);
+    dispatch(fetchOfferDataAction(id));
   }, [id]);
 
   if (offer === null || comments === null || offersNearby === null) {
-    return (
-      <Spinner />
-    );
+    return <Spinner />;
   }
-
 
   const currentLocation = cities.find((city) => city.name === offer.city.name);
 
@@ -58,26 +51,20 @@ function Property(props: PropsFromRedux): JSX.Element {
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
-          <PropertyGallery offer={offer}></PropertyGallery>
+          <PropertyGallery offer={offer} />
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            <div className="property__mark">
-              <span>{offer.isPremium}</span>
-            </div>
+            {offer.isPremium ?
+              <div className="property__mark">
+                <span>Premium</span>
+              </div>
+              : ''}
             <div className="property__name-wrapper">
               <h1 className="property__name">
                 {offer.title}
               </h1>
-              <button className={offer.isFavorite ?
-                'property__bookmark-button button property__bookmark-button--active' :
-                'property__bookmark-button button'} type="button"
-              >
-                <svg className="property__bookmark-icon" width="31" height="33">
-                  <use xlinkHref="#icon-bookmark"></use>
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <BookmarkButton id={offer.id} isFavorite={offer.isFavorite} isPropertyPage/>
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
@@ -158,4 +145,4 @@ function Property(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export default connector(Property);
+export default Property;

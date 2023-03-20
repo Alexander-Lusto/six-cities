@@ -1,7 +1,3 @@
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
-import { TActions } from '../../types/action';
-import { TState } from '../../types/state';
 import { Link, Navigate } from 'react-router-dom';
 import { AuthorizationStatus, Path } from '../../const';
 import { loginAction } from '../../store/api-actions';
@@ -9,29 +5,28 @@ import { FormEvent } from 'react';
 import { useRef } from 'react';
 import { toast } from 'react-toastify';
 import { successToastConfig } from '../../const';
+import { useSelector } from 'react-redux';
+import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
+import { getCurrentCity } from '../../store/main-data/selectors';
+import { useDispatch } from 'react-redux';
+import { TThunkAppDispatch } from '../../types/action';
 
 const AUTH_SUCCESS_TEXT = 'Authorization successful!';
 
-const mapStateToProps = ({ currentCity, authStatus }: TState) => ({ currentCity, authStatus });
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({
-  onLogin: loginAction
-}, dispatch);
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-
-function Login({ currentCity, onLogin, authStatus }: PropsFromRedux): JSX.Element {
+function Login(): JSX.Element {
+  const dispatch = useDispatch<TThunkAppDispatch>();
+  const authStatus = useSelector(getAuthorizationStatus);
+  const currentCity = useSelector(getCurrentCity);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   function formSubmitHandler(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     if (loginRef.current && passwordRef.current) {
-      onLogin({
+      dispatch(loginAction({
         email: loginRef.current.value,
         password: passwordRef.current.value,
-      });
+      }));
     }
   }
 
@@ -41,7 +36,6 @@ function Login({ currentCity, onLogin, authStatus }: PropsFromRedux): JSX.Elemen
       <Navigate to={Path.Main} />
     );
   }
-
 
   return (
     <main className="page__main page__main--login">
@@ -72,4 +66,4 @@ function Login({ currentCity, onLogin, authStatus }: PropsFromRedux): JSX.Elemen
   );
 }
 
-export default connector(Login);
+export default Login;

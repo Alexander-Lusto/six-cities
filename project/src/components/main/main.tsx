@@ -3,12 +3,11 @@ import PlacesList from '../places-list/places-list';
 import Map from '../map/map';
 import { useState } from 'react';
 import LocationsList from './locations-list/locations-list';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
-import { TActions } from '../../types/action';
-import { TState } from '../../types/state';
 import Sorting from './sorting/sorting';
 import { SortType } from '../../const';
+import { getCurrentCity } from '../../store/main-data/selectors';
+import { useSelector } from 'react-redux';
+import MainEmpty from '../main-empty/main-empty';
 
 const DEFAULT_SORT_TYPE = SortType.POPULAR;
 
@@ -16,17 +15,8 @@ interface IMainProps {
   offers: TOffer[];
 }
 
-const mapStateToProps = ({ currentCity }: TState) => ({
-  currentLocation: currentCity,
-});
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & IMainProps;
-
-function Main(props: ConnectedComponentProps): JSX.Element {
-  const currentLocation = props.currentLocation;
+function Main(props: IMainProps): JSX.Element {
+  const currentLocation = useSelector(getCurrentCity);
   const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation.name);
   const points = localOffers.map((offer) => Object.assign({}, offer.location, { id: offer.id }));
 
@@ -59,6 +49,12 @@ function Main(props: ConnectedComponentProps): JSX.Element {
   const [currentSortType, changeSortType] = useState(DEFAULT_SORT_TYPE);
   const sortedOffers = getSortedOffers(currentSortType, localOffers);
 
+  if (localOffers.length === 0) {
+    return (
+      <MainEmpty />
+    );
+  }
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -89,4 +85,4 @@ function Main(props: ConnectedComponentProps): JSX.Element {
   );
 }
 
-export default connector(Main);
+export default Main;

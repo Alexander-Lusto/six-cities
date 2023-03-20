@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Path } from '../../const';
 import HeaderNavigation from './header-navigation/header-navigation';
+import { memo } from 'react';
 
 interface IHeaderProps {
   isLoginPage?: boolean;
 }
 
 function Header({ isLoginPage = false }: IHeaderProps): JSX.Element {
+
   return (
     <header className="header">
       <div className="container">
@@ -16,11 +18,11 @@ function Header({ isLoginPage = false }: IHeaderProps): JSX.Element {
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
-          {isLoginPage ? '' : <HeaderNavigation/>}
+          {isLoginPage ? '' : <HeaderNavigation />}
         </div>
       </div>
     </header>
   );
 }
 
-export default Header;
+export default memo(Header, (prevProps, nextProps) => prevProps.isLoginPage === nextProps.isLoginPage);

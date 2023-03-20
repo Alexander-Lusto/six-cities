@@ -1,31 +1,23 @@
 import { Navigate } from 'react-router-dom';
 import { Path } from '../../const';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
-import { TActions } from '../../types/action';
-import { TState } from '../../types/state';
 import { AuthorizationStatus } from '../../const';
-
+import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
+import { useSelector } from 'react-redux';
 
 interface IRequireAuthProps {
   children: JSX.Element;
 }
 
-const mapStateToProps = ({authStatus }: TState) => ({ authStatus });
-const mapDispatchToProps = (dispatch: Dispatch<TActions>) => bindActionCreators({}, dispatch);
+function RequireAuth({ children }: IRequireAuthProps): JSX.Element {
+  const authStatus = useSelector(getAuthorizationStatus);
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & IRequireAuthProps;
-
-function RequireAuth({ children, authStatus }: ConnectedComponentProps): JSX.Element {
   if (authStatus !== AuthorizationStatus.Auth) {
     return (
-      <Navigate to={Path.SignIn}></Navigate>
+      <Navigate to={Path.SignIn} />
     );
   }
 
   return children;
 }
 
-export default connector(RequireAuth);
+export default RequireAuth;

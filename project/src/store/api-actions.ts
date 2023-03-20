@@ -1,10 +1,10 @@
 import { TThunkActionResult } from '../types/action';
-import { requireLogout, setComments, setOffers, setOfferDataAction } from './action';
+import { requireLogout, setComments, setOffers, setOfferData, updateOffer, setOffer } from './action';
 import { requireAuth } from './action';
 import { TUser } from '../types/user';
 import { dropToken, saveToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
-import { offersAdapter, commentsAdapter, authInfoAdapter } from '../services/adapters';
+import { offerAdapter, commentsAdapter, authInfoAdapter } from '../services/adapters';
 import { TServerOffer } from '../types/server-offer';
 import { TServerComment } from '../types/server-comment';
 import { AxiosError } from 'axios';
@@ -20,7 +20,7 @@ enum HttpCode {
 export const fetchOffersAction = (): TThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const { data: serverOffers } = await api.get<TServerOffer[]>(APIRoute.Hotels);
-    const offers = offersAdapter(serverOffers);
+    const offers = serverOffers.map((serverOffer) => offerAdapter(serverOffer));
     dispatch(setOffers(offers));
   };
 
@@ -62,11 +62,16 @@ export const fetchCommentsAction = (id: number): TThunkActionResult =>
     dispatch(setComments(comments));
   };
 
-export const postCommentAction = (id: number, comment: TCommentPost): TThunkActionResult =>
+export const postCommentAction = (id: number, comment: TCommentPost, onSuccess: () => void, onError: () => void): TThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const { data: serverComments } = await api.post<TServerComment[]>(`${APIRoute.Comments}/${id}`, comment);
-    const comments = commentsAdapter(serverComments);
-    dispatch(setComments(comments));
+    try {
+      const { data: serverComments } = await api.post<TServerComment[]>(`${APIRoute.Comments}/${id}`, comment);
+      const comments = commentsAdapter(serverComments);
+      dispatch(setComments(comments));
+      onSuccess();
+    } catch {
+      onError();
+    }
   };
 
 export const fetchOfferDataAction = (id: number): TThunkActionResult =>
@@ -77,15 +82,23 @@ export const fetchOfferDataAction = (id: number): TThunkActionResult =>
       api.get<TServerOffer[]>(`${APIRoute.Hotels}/${id}/nearby`),
     ]);
 
-    const offer = offersAdapter([serverOffer])[0];
+    const offer = offerAdapter(serverOffer);
     const comments = commentsAdapter(serverComments);
-    const offersNearby = offersAdapter(serverOffersNearby);
+    const offersNearby = serverOffersNearby.map((serverOfferNearby) => offerAdapter(serverOfferNearby));
 
-    dispatch(setOfferDataAction({
+    dispatch(setOfferData({
       offer: offer,
       comments: comments,
       offersNearby: offersNearby,
     }));
+  };
+
+export const updateFavoriteStatusAction = (id: number, status: 0 | 1): TThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const { data: serverOffer } = await api.post<TServerOffer>(`${APIRoute.Favorite}/${id}/${status}`);
+    const offer = offerAdapter(serverOffer);
+    dispatch(updateOffer(offer));
+    dispatch(setOffer(offer));
   };
 
 

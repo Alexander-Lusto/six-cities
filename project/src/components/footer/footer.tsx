@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Path } from '../../const';
+import { memo } from 'react';
 
 function Footer(): JSX.Element {
 
@@ -12,4 +13,4 @@ function Footer(): JSX.Element {
   );
 }
 
-export default Footer;
+export default memo(Footer);

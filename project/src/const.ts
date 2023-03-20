@@ -67,6 +67,8 @@ export const cities = [{
   zoom: 13,
 }];
 
+export const DEFAULT_CITY = cities[0];
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -104,3 +106,17 @@ export const successToastConfig = {
   theme: 'light',
   type: 'success',
 } as const;
+
+export const warningToastConfig = {
+  position: 'top-center',
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  progress: undefined,
+  draggable: false,
+  theme: 'light',
+  type: 'warning',
+} as const;
+
+export const NOAUTH_WARNING_TEXT = 'You are not authorized!';
