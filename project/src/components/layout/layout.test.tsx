@@ -6,7 +6,6 @@ import { Path } from '../../const';
 import mockStore from '../../mock/store';
 import { Provider } from 'react-redux';
 import { initialState } from '../../mock/state';
-import { mockOffers } from '../../mock/offers';
 
 describe('Component: Layout', () => {
 
@@ -15,7 +14,7 @@ describe('Component: Layout', () => {
       <Provider store={mockStore(initialState)}>
         <MemoryRouter initialEntries={[Path.Main]}>
           <Routes>
-            <Route path="/" element={<Layout offers={mockOffers} />} >
+            <Route path="/" element={<Layout />} >
               <Route index element={<h1>Main Page</h1>} />
               <Route path="login" element={<h1>Login Page</h1>} />
               <Route path="favorites" element={<h1>Favorites Page</h1>}/>
@@ -36,7 +35,7 @@ describe('Component: Layout', () => {
       <Provider store={mockStore(initialState)}>
         <MemoryRouter initialEntries={[Path.SignIn]}>
           <Routes>
-            <Route path="/" element={<Layout offers={mockOffers} />} >
+            <Route path="/" element={<Layout />} >
               <Route index element={<h1>Main Page</h1>} />
               <Route path="login" element={<h1>Login Page</h1>} />
               <Route path="favorites" element={<h1>Favorites Page</h1>}/>
@@ -57,7 +56,7 @@ describe('Component: Layout', () => {
       <Provider store={mockStore(initialState)}>
         <MemoryRouter initialEntries={[Path.Favorites]}>
           <Routes>
-            <Route path="/" element={<Layout offers={mockOffers} />} >
+            <Route path="/" element={<Layout />} >
               <Route index element={<h1>Main Page</h1>} />
               <Route path="login" element={<h1>Login Page</h1>} />
               <Route path="favorites" element={<h1>Favorites Page</h1>}/>
@@ -78,7 +77,7 @@ describe('Component: Layout', () => {
       <Provider store={mockStore(initialState)}>
         <MemoryRouter initialEntries={[`${Path.Room}/${1}`]}>
           <Routes>
-            <Route path="/" element={<Layout offers={mockOffers} />} >
+            <Route path="/" element={<Layout />} >
               <Route index element={<h1>Main Page</h1>} />
               <Route path="login" element={<h1>Login Page</h1>} />
               <Route path="favorites" element={<h1>Favorites Page</h1>}/>
@@ -99,7 +98,7 @@ describe('Component: Layout', () => {
       <Provider store={mockStore(initialState)}>
         <MemoryRouter initialEntries={['/404-page-not-found']}>
           <Routes>
-            <Route path="/" element={<Layout offers={mockOffers} />} >
+            <Route path="/" element={<Layout />} >
               <Route index element={<h1>Main Page</h1>} />
               <Route path="login" element={<h1>Login Page</h1>} />
               <Route path="favorites" element={<h1>Favorites Page</h1>}/>

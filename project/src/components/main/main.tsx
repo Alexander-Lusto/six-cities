@@ -5,19 +5,16 @@ import { useState } from 'react';
 import LocationsList from './locations-list/locations-list';
 import Sorting from './sorting/sorting';
 import { SortType, CardClassName } from '../../const';
-import { getCurrentCity } from '../../store/main/selectors';
+import { getCurrentCity, getOffers } from '../../store/main/selectors';
 import { useSelector } from 'react-redux';
 import MainEmpty from '../main-empty/main-empty';
 
 const DEFAULT_SORT_TYPE = SortType.POPULAR;
 
-interface IMainProps {
-  offers: TOffer[];
-}
-
-function Main(props: IMainProps): JSX.Element {
+function Main(): JSX.Element {
+  const allOffers = useSelector(getOffers);
   const currentLocation = useSelector(getCurrentCity);
-  const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation.name);
+  const localOffers = allOffers.filter((offer) => offer.city.name === currentLocation.name);
   const points = localOffers.map((offer) => Object.assign({}, offer.location, { id: offer.id }));
 
   const [activePlaceID, setActivePlaceID] = useState(-1);

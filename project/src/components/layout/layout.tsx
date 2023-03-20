@@ -2,13 +2,10 @@ import Header from '../header/header';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Path } from '../../const';
 import Footer from '../footer/footer';
-import { TOffer } from '../../types/offer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-type PageClassMap = {
-  [propertyName: string]: string;
-}
+import { useSelector } from 'react-redux';
+import { getOffers } from '../../store/main/selectors';
 
 enum PageClass {
   Main = 'page page--gray page--main',
@@ -19,7 +16,11 @@ enum PageClass {
   FavoritesEmpty = 'page page--favorites-empty',
 }
 
-const pathToPageClassMap: PageClassMap = {
+type TPathToPageClassMap = {
+  [propertyName: string]: string;
+}
+
+const pathToPageClassMap: TPathToPageClassMap = {
   [Path.Main]: PageClass.Main,
   [Path.SignIn]: PageClass.SignIn,
   [Path.Favorites]: PageClass.Favorites,
@@ -27,12 +28,9 @@ const pathToPageClassMap: PageClassMap = {
   [Path.NotFound]: PageClass.NotFound,
 };
 
-interface ILayoutProps {
-  offers: TOffer[];
-}
-
-function Layout({offers}: ILayoutProps): JSX.Element {
+function Layout(): JSX.Element {
   const location = useLocation();
+  const offers = useSelector(getOffers);
   const path = (location.pathname.startsWith(Path.Room)) ? location.pathname.slice(0, location.pathname.indexOf('/', 1)) : location.pathname;
 
   const isLoginPage = (path === Path.SignIn);

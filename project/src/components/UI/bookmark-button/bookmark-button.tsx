@@ -47,8 +47,8 @@ function BookmarkButton({id, isFavorite, isPropertyPage}: IBookmarkButtonProps):
   }
 
   const parentComponentName = isPropertyPage ? ParentComponentName.Property : ParentComponentName.Card;
-  const width = String(isPropertyPage ? ImageSize.Property.width : ImageSize.Card.width);
-  const height = String(isPropertyPage ? ImageSize.Property.height : ImageSize.Card.height);
+  const width = isPropertyPage ? ImageSize.Property.width : ImageSize.Card.width;
+  const height = isPropertyPage ? ImageSize.Property.height : ImageSize.Card.height;
 
   return (
     <button className={isActive ?

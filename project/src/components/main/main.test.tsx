@@ -25,13 +25,12 @@ describe('Component: Main', () => {
       <Provider store={mockStore(authorizedState)} >
         <MemoryRouter initialEntries={[Path.Main]}>
           <Routes>
-            <Route path={Path.Main} element={<Main offers={mockOffers} />}/>
+            <Route path={Path.Main} element={<Main />}/>
           </Routes>
         </MemoryRouter>
       </Provider>
     );
 
-    //expect(screen.getByTestId('map')).toBeInTheDocument();
     expect(screen.queryAllByAltText(/Place preview/i)).toHaveLength(cardsNumber);
     expect(screen.getByText(currentLocation.name)).toBeInTheDocument();
     expect(screen.getByText(/places to stay in/i)).toBeInTheDocument();
@@ -43,7 +42,7 @@ describe('Component: Main', () => {
       <Provider store={mockStore(authorizedState)} >
         <MemoryRouter initialEntries={[Path.Main]}>
           <Routes>
-            <Route path={Path.Main} element={<Main offers={[]} />}/>
+            <Route path={Path.Main} element={<Main />}/>
           </Routes>
         </MemoryRouter>
       </Provider>

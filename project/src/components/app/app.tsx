@@ -8,13 +8,11 @@ import Login from '../login/login';
 import Favorites from '../favorites/favorites';
 import Property from '../property/property';
 import NotFound404 from '../not-found-404/not-found-404';
-import { getOffers } from '../../store/main/selectors';
 import { checkIfOffersLoaded } from '../../store/main/selectors';
 import { getAuthorizationStatus } from '../../store/authorization/selectors';
 import { useSelector } from 'react-redux';
 
 function App(): JSX.Element {
-  const offers = useSelector(getOffers);
   const isOffersLoaded = useSelector(checkIfOffersLoaded);
   const authStatus = useSelector(getAuthorizationStatus);
 
@@ -24,8 +22,8 @@ function App(): JSX.Element {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout offers={offers}/>} >
-        <Route index element={<Main offers={offers} />} />
+      <Route path="/" element={<Layout />} >
+        <Route index element={<Main />} />
         <Route path="login" element={<Login />} />
         <Route path="favorites" element=
           {
