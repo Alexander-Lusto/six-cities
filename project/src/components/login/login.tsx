@@ -41,11 +41,11 @@ function Login(): JSX.Element {
         email: loginRef.current.value,
         password: passwordRef.current.value,
       }));
+      toast(AUTH_SUCCESS_TEXT, successToastConfig);
     }
   }
 
   if (authStatus === AuthorizationStatus.Auth) {
-    toast(AUTH_SUCCESS_TEXT, successToastConfig);
     return (
       <Navigate to={Path.Main} />
     );
