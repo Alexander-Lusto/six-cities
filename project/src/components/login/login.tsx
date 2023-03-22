@@ -29,9 +29,13 @@ function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  function invalidPasswordInputHandler(evt: FormEvent<HTMLInputElement> ) {
+  function passwordInputChangeHandler(evt: FormEvent<HTMLInputElement> ) {
     const input = evt.currentTarget;
-    input.setCustomValidity(ON_INVALID_MESSAGE);
+    input.setCustomValidity('');
+
+    if (!input.validity.valid) {
+      input.setCustomValidity(ON_INVALID_MESSAGE);
+    }
   }
 
   function formSubmitHandler(evt: FormEvent<HTMLFormElement>) {
@@ -63,8 +67,8 @@ function Login(): JSX.Element {
             </div>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">Password</label>
-              <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required
-                pattern='^(?=.*[A-Za-z])(?=.*\d).+$' onInvalid={invalidPasswordInputHandler}
+              <input ref={passwordRef} className="login__input form__input" name="password" placeholder="Password" required
+                pattern='^(?=.*[A-Za-z])(?=.*\d).+$' onChange={passwordInputChangeHandler}
               />
             </div>
             <button className="login__submit form__submit button" type="submit" data-testid={TEST_ID}>Sign in</button>
