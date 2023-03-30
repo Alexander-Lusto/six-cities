@@ -3,14 +3,6 @@
 * Студент: [`Александр`](https://github.com/M1sterRob0t).
 * Наставник: [`Оля 😺`](https://github.com/IOlga1).
 
-Команды:
-* cd project - перейтив  корень проекта
-* npm i - установить зависимости
-* npm run build - собрать проект
-* npm run start - запустить проект
-* npm run test - запустить тесты
-* npm run lint - проверить на наличие ошибок
-
 Запуск:
 * cd project 
 * npm i 
@@ -251,7 +243,8 @@ Room), `house` (House), `hotel` (Hotel).
 
 ## Структуры данных
 ### Hotel
-{
+
+`{
  "bedrooms": 3,
  "city": {
    "location": {
@@ -284,10 +277,10 @@ Room), `house` (House), `hotel` (Hotel).
  "rating": 4.8,
  "title": "Beautiful & luxurious studio at great location",
  "type": "apartment"
-}
+}`
 
 ### CommentGet
-{
+`{
  "comment": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
  "date": "2019-05-08T14:13:56.569Z",
  "id": 1,
@@ -298,29 +291,29 @@ Room), `house` (House), `hotel` (Hotel).
    "is_pro": false,
    "name": "Max"
  }
-}
+}`
 
 ### CommentPost
-{
+`{
  "comment": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
  "rating": 4
-}
+}`
 
 ### User
-{
+`{
  "email": "Oliver.conner@gmail.com",
  "password": "12345678"
-}
+}`
 
 ### AuthInfo
-{
+`{
  "avatar_url": "img/1.png",
  "email": "Oliver.conner@gmail.com",
  "id": 1,
  "is_pro": false,
  "name": "Oliver.conner",
  "token": "T2xpdmVyLmNvbm5lckBnbWFpbC5jb20="
-}
+}`
 
 ## Маршруты
 ### GET /hotels
