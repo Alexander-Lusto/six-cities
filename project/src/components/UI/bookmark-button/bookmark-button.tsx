@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthorizationStatus, Path, warningToastConfig, NOAUTH_WARNING_TEXT } from '../../../const';
 import { updateFavoriteStatusAction } from '../../../store/api-actions';
-import { getAuthorizationStatus } from '../../../store/authorization-process/selectors';
+import { getAuthorizationStatus } from '../../../store/authorization/selectors';
 import { TThunkAppDispatch } from '../../../types/action';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -47,8 +47,8 @@ function BookmarkButton({id, isFavorite, isPropertyPage}: IBookmarkButtonProps):
   }
 
   const parentComponentName = isPropertyPage ? ParentComponentName.Property : ParentComponentName.Card;
-  const width = String(isPropertyPage ? ImageSize.Property.width : ImageSize.Card.width);
-  const height = String(isPropertyPage ? ImageSize.Property.height : ImageSize.Card.height);
+  const width = isPropertyPage ? ImageSize.Property.width : ImageSize.Card.width;
+  const height = isPropertyPage ? ImageSize.Property.height : ImageSize.Card.height;
 
   return (
     <button className={isActive ?

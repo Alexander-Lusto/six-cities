@@ -4,20 +4,17 @@ import Map from '../map/map';
 import { useState } from 'react';
 import LocationsList from './locations-list/locations-list';
 import Sorting from './sorting/sorting';
-import { SortType } from '../../const';
-import { getCurrentCity } from '../../store/main-data/selectors';
+import { SortType, CardClassName } from '../../const';
+import { getCurrentCity, getOffers } from '../../store/main/selectors';
 import { useSelector } from 'react-redux';
 import MainEmpty from '../main-empty/main-empty';
 
 const DEFAULT_SORT_TYPE = SortType.POPULAR;
 
-interface IMainProps {
-  offers: TOffer[];
-}
-
-function Main(props: IMainProps): JSX.Element {
+function Main(): JSX.Element {
+  const allOffers = useSelector(getOffers);
   const currentLocation = useSelector(getCurrentCity);
-  const localOffers = props.offers.filter((offer) => offer.city.name === currentLocation.name);
+  const localOffers = allOffers.filter((offer) => offer.city.name === currentLocation.name);
   const points = localOffers.map((offer) => Object.assign({}, offer.location, { id: offer.id }));
 
   const [activePlaceID, setActivePlaceID] = useState(-1);
@@ -56,7 +53,7 @@ function Main(props: IMainProps): JSX.Element {
   }
 
   return (
-    <main className="page__main page__main--index">
+    <main className="page__main page__main--index" data-testid={'main'}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -70,7 +67,7 @@ function Main(props: IMainProps): JSX.Element {
             <b className="places__found">{localOffers.length} places to stay in {currentLocation.name}</b>
             <Sorting currentSortType={currentSortType} sortTypeChangeHandler={changeSortType} />
             <PlacesList
-              className="cities__places-list places__list tabs__content" childClassName="cities__place-card"
+              className="cities__places-list places__list tabs__content" childClassName={CardClassName.Main}
               offers={sortedOffers} activeOfferChangeHandler={activeOfferChangeHandler}
             />
           </section>

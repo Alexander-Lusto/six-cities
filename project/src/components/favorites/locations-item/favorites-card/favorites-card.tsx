@@ -5,7 +5,7 @@ import BookmarkButton from '../../../UI/bookmark-button/bookmark-button';
 import { changeCity } from '../../../../store/action';
 import { cities } from '../../../../const';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCurrentCity } from '../../../../store/main-data/selectors';
+import { getCurrentCity } from '../../../../store/main/selectors';
 
 interface IFavoritesCard {
   offer: TOffer;
@@ -19,7 +19,7 @@ function FavoritesCard({offer}: IFavoritesCard): JSX.Element {
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="">
+        <a>
           <img className="place-card__image" src={offer.previewImage} width="150" height="110" alt="Place image" />
         </a>
       </div>

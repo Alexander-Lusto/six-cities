@@ -13,3 +13,4 @@ export const requireAuth = createAction<AuthorizationStatus>(ActionType.RequireA
 export const requireLogout = createAction(ActionType.RequireLogout);
 export const updateOffer = createAction<TOffer>(ActionType.UpdateOffer);
 export const setOffer = createAction<TOffer>(ActionType.SetOffer);
+export const setFavoriteOffers = createAction<TOffer[]>(ActionType.SetFavoriteOffers);

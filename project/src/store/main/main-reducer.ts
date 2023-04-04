@@ -10,7 +10,7 @@ const initialState: TMainState = {
   isOffersLoaded: false,
 };
 
-const mainData = createReducer(initialState, (builder) => {
+const mainReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
@@ -28,4 +28,4 @@ const mainData = createReducer(initialState, (builder) => {
     });
 });
 
-export { mainData };
+export { mainReducer };

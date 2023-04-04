@@ -20,5 +20,4 @@ function LocationsItem(props: { location: string; offers: TOffer[] }): JSX.Eleme
   );
 }
 
-
 export default LocationsItem;

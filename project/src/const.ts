@@ -9,8 +9,15 @@ export enum Path {
 export const SortType = {
   POPULAR: 'popular',
   PRICE_LOW: 'price-low',
-  PRICE_HIGH: 'price-high',
+  PRICE_HIGH:'price-high',
   TOP_RATED: 'top-rated',
+};
+
+export const SortText = {
+  POPULAR: 'Popular',
+  PRICE_LOW: 'Price: low to high',
+  PRICE_HIGH: 'Price: high to low',
+  TOP_RATED: 'Top rated first',
 };
 
 const Month = {
@@ -119,4 +126,15 @@ export const warningToastConfig = {
   type: 'warning',
 } as const;
 
+export enum HttpCode {
+  Unauthorized = 401,
+  Success = 200,
+  ServerError = 500,
+}
+
 export const NOAUTH_WARNING_TEXT = 'You are not authorized!';
+
+export enum CardClassName {
+  Main = 'cities__place-card',
+  Property = 'near-places__card'
+}

@@ -5,19 +5,21 @@ import SubmitReviewForm from './submit-review-form/submit-review-form';
 import { Navigate, useParams } from 'react-router';
 import { Path } from '../../const';
 import Map from '../map/map';
-import { cities } from '../../const';
+import { cities, CardClassName } from '../../const';
 import Spinner from '../spinner/spinner';
 import { fetchOfferDataAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { AuthorizationStatus } from '../../const';
-import { getOffer } from '../../store/property-data/selectors';
-import { getComments } from '../../store/property-data/selectors';
-import { getOffersNearby } from '../../store/property-data/selectors';
-import { getAuthorizationStatus } from '../../store/authorization-process/selectors';
+import { getOffer } from '../../store/property/selectors';
+import { getComments } from '../../store/property/selectors';
+import { getOffersNearby } from '../../store/property/selectors';
+import { getAuthorizationStatus } from '../../store/authorization/selectors';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { TThunkAppDispatch } from '../../types/action';
 import BookmarkButton from '../UI/bookmark-button/bookmark-button';
+
+const MAX_COMMENTS_AMOUNT = 10;
 
 function Property(): JSX.Element {
   const dispatch = useDispatch<TThunkAppDispatch>();
@@ -36,6 +38,10 @@ function Property(): JSX.Element {
   }
 
   const currentLocation = cities.find((city) => city.name === offer.city.name);
+  const sortedComments = comments
+    .slice()
+    .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
+    .slice(0, MAX_COMMENTS_AMOUNT);
 
   if (!currentLocation) {
     return <Navigate to={Path.NotFound} />;
@@ -48,7 +54,7 @@ function Property(): JSX.Element {
   const currentPoint = points.find((point) => point.id === offer.id);
 
   return (
-    <main className="page__main page__main--property">
+    <main className="page__main page__main--property" data-testid={'property'}>
       <section className="property">
         <div className="property__gallery-container container">
           <PropertyGallery offer={offer} />
@@ -64,7 +70,7 @@ function Property(): JSX.Element {
               <h1 className="property__name">
                 {offer.title}
               </h1>
-              <BookmarkButton id={offer.id} isFavorite={offer.isFavorite} isPropertyPage/>
+              <BookmarkButton id={offer.id} isFavorite={offer.isFavorite} isPropertyPage />
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
@@ -122,7 +128,7 @@ function Property(): JSX.Element {
             </div>
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-              <Reviews comments={comments}></Reviews>
+              <Reviews comments={sortedComments}></Reviews>
               {(authStatus === AuthorizationStatus.Auth) ?
                 <SubmitReviewForm /> :
                 ''}
@@ -136,7 +142,7 @@ function Property(): JSX.Element {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <PlacesList className="near-places__list places__list" childClassName="near-places__card"
+          <PlacesList className="near-places__list places__list" childClassName={CardClassName.Property}
             offers={offersNearby} activeOfferChangeHandler={null}
           />
         </section>

@@ -1,6 +1,6 @@
-import { TAuthInfo } from '../types/authInfo';
+import { TAuthInfo } from '../types/auth-info';
 
-const AUTH_INFO_KEY_NAME = 'six-cities-auth-info';
+export const AUTH_INFO_KEY_NAME = 'six-cities-auth-info';
 
 export const getAuthInfo = (): TAuthInfo => {
   const authInfo = localStorage.getItem(AUTH_INFO_KEY_NAME) as string;

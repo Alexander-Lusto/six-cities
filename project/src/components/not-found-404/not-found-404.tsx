@@ -3,7 +3,7 @@ import { Path } from '../../const';
 
 function NotFound404(): JSX.Element {
   return (
-    <main className="page__main page__main--login">
+    <main className="page__main page__main--login" data-testid={'404'}>
       <div className="page__login-container container">
         <section className="login">
           <h1> 404<br/>Page Not Found</h1>

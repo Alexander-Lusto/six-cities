@@ -20,4 +20,8 @@ export type TMainState = {
   isOffersLoaded: boolean;
 };
 
+export type TFavoritesState = {
+  favoriteOffers: TOffer[] | [] | null;
+}
+
 export type TState = RootState; // TPropertyState & TAuthorizationState & TMainState;
